@@ -1,35 +1,40 @@
-import require$$0$1 from 'os';
-import require$$0$2 from 'crypto';
-import require$$1 from 'fs';
-import require$$1$5 from 'path';
-import require$$2 from 'http';
-import require$$3 from 'https';
-import require$$0$5 from 'net';
-import require$$1$1 from 'tls';
-import require$$4 from 'events';
-import require$$0$4 from 'assert';
-import require$$0$3 from 'util';
-import require$$0$6 from 'stream';
-import require$$7 from 'buffer';
-import require$$8 from 'querystring';
-import require$$14 from 'stream/web';
-import require$$0$8 from 'node:stream';
-import require$$1$2 from 'node:util';
-import require$$0$7 from 'node:events';
-import require$$0$9 from 'worker_threads';
-import require$$2$1 from 'perf_hooks';
-import require$$5 from 'util/types';
-import require$$4$1 from 'async_hooks';
-import require$$1$3 from 'console';
-import require$$1$4 from 'url';
-import require$$3$1 from 'zlib';
-import require$$6 from 'string_decoder';
-import require$$0$a from 'diagnostics_channel';
-import require$$2$2 from 'child_process';
-import require$$6$1 from 'timers';
-import crypto2 from 'node:crypto';
-import fs from 'node:fs';
-import path from 'node:path';
+'use strict';
+
+var require$$0$1 = require('os');
+var require$$0$2 = require('crypto');
+var require$$1 = require('fs');
+var require$$1$5 = require('path');
+var require$$2 = require('http');
+var require$$3 = require('https');
+var require$$0$5 = require('net');
+var require$$1$1 = require('tls');
+var require$$4 = require('events');
+var require$$0$4 = require('assert');
+var require$$0$3 = require('util');
+var require$$0$6 = require('stream');
+var require$$7 = require('buffer');
+var require$$8 = require('querystring');
+var require$$14 = require('stream/web');
+var require$$0$8 = require('node:stream');
+var require$$1$2 = require('node:util');
+var require$$0$7 = require('node:events');
+var require$$0$9 = require('worker_threads');
+var require$$2$1 = require('perf_hooks');
+var require$$5 = require('util/types');
+var require$$4$1 = require('async_hooks');
+var require$$1$3 = require('console');
+var require$$1$4 = require('url');
+var require$$3$1 = require('zlib');
+var require$$6 = require('string_decoder');
+var require$$0$a = require('diagnostics_channel');
+var require$$2$2 = require('child_process');
+var require$$6$1 = require('timers');
+var process$1 = require('node:process');
+var os = require('node:os');
+var tty = require('node:tty');
+var crypto2 = require('node:crypto');
+var fs = require('node:fs');
+var path = require('node:path');
 
 var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
 
@@ -29220,33 +29225,189 @@ function assembleStyles() {
 
 const ansiStyles = assembleStyles();
 
-/* eslint-env browser */
+// From: https://github.com/sindresorhus/has-flag/blob/main/index.js
+/// function hasFlag(flag, argv = globalThis.Deno?.args ?? process.argv) {
+function hasFlag(flag, argv = globalThis.Deno ? globalThis.Deno.args : process$1.argv) {
+	const prefix = flag.startsWith('-') ? '' : (flag.length === 1 ? '-' : '--');
+	const position = argv.indexOf(prefix + flag);
+	const terminatorPosition = argv.indexOf('--');
+	return position !== -1 && (terminatorPosition === -1 || position < terminatorPosition);
+}
 
-const level = (() => {
-	if (!('navigator' in globalThis)) {
+const {env: env$1} = process$1;
+
+let flagForceColor;
+if (
+	hasFlag('no-color')
+	|| hasFlag('no-colors')
+	|| hasFlag('color=false')
+	|| hasFlag('color=never')
+) {
+	flagForceColor = 0;
+} else if (
+	hasFlag('color')
+	|| hasFlag('colors')
+	|| hasFlag('color=true')
+	|| hasFlag('color=always')
+) {
+	flagForceColor = 1;
+}
+
+function envForceColor() {
+	if ('FORCE_COLOR' in env$1) {
+		if (env$1.FORCE_COLOR === 'true') {
+			return 1;
+		}
+
+		if (env$1.FORCE_COLOR === 'false') {
+			return 0;
+		}
+
+		return env$1.FORCE_COLOR.length === 0 ? 1 : Math.min(Number.parseInt(env$1.FORCE_COLOR, 10), 3);
+	}
+}
+
+function translateLevel(level) {
+	if (level === 0) {
+		return false;
+	}
+
+	return {
+		level,
+		hasBasic: true,
+		has256: level >= 2,
+		has16m: level >= 3,
+	};
+}
+
+function _supportsColor(haveStream, {streamIsTTY, sniffFlags = true} = {}) {
+	const noFlagForceColor = envForceColor();
+	if (noFlagForceColor !== undefined) {
+		flagForceColor = noFlagForceColor;
+	}
+
+	const forceColor = sniffFlags ? flagForceColor : noFlagForceColor;
+
+	if (forceColor === 0) {
 		return 0;
 	}
 
-	if (globalThis.navigator.userAgentData) {
-		const brand = navigator.userAgentData.brands.find(({brand}) => brand === 'Chromium');
-		if (brand && brand.version > 93) {
+	if (sniffFlags) {
+		if (hasFlag('color=16m')
+			|| hasFlag('color=full')
+			|| hasFlag('color=truecolor')) {
 			return 3;
+		}
+
+		if (hasFlag('color=256')) {
+			return 2;
 		}
 	}
 
-	if (/\b(Chrome|Chromium)\//.test(globalThis.navigator.userAgent)) {
+	// Check for Azure DevOps pipelines.
+	// Has to be above the `!streamIsTTY` check.
+	if ('TF_BUILD' in env$1 && 'AGENT_NAME' in env$1) {
 		return 1;
 	}
 
-	return 0;
-})();
+	if (haveStream && !streamIsTTY && forceColor === undefined) {
+		return 0;
+	}
 
-const colorSupport = level !== 0 && {
-	level};
+	const min = forceColor || 0;
+
+	if (env$1.TERM === 'dumb') {
+		return min;
+	}
+
+	if (process$1.platform === 'win32') {
+		// Windows 10 build 10586 is the first Windows release that supports 256 colors.
+		// Windows 10 build 14931 is the first release that supports 16m/TrueColor.
+		const osRelease = os.release().split('.');
+		if (
+			Number(osRelease[0]) >= 10
+			&& Number(osRelease[2]) >= 10_586
+		) {
+			return Number(osRelease[2]) >= 14_931 ? 3 : 2;
+		}
+
+		return 1;
+	}
+
+	if ('CI' in env$1) {
+		if (['GITHUB_ACTIONS', 'GITEA_ACTIONS', 'CIRCLECI'].some(key => key in env$1)) {
+			return 3;
+		}
+
+		if (['TRAVIS', 'APPVEYOR', 'GITLAB_CI', 'BUILDKITE', 'DRONE'].some(sign => sign in env$1) || env$1.CI_NAME === 'codeship') {
+			return 1;
+		}
+
+		return min;
+	}
+
+	if ('TEAMCITY_VERSION' in env$1) {
+		return /^(9\.(0*[1-9]\d*)\.|\d{2,}\.)/.test(env$1.TEAMCITY_VERSION) ? 1 : 0;
+	}
+
+	if (env$1.COLORTERM === 'truecolor') {
+		return 3;
+	}
+
+	if (env$1.TERM === 'xterm-kitty') {
+		return 3;
+	}
+
+	if (env$1.TERM === 'xterm-ghostty') {
+		return 3;
+	}
+
+	if (env$1.TERM === 'wezterm') {
+		return 3;
+	}
+
+	if ('TERM_PROGRAM' in env$1) {
+		const version = Number.parseInt((env$1.TERM_PROGRAM_VERSION || '').split('.')[0], 10);
+
+		switch (env$1.TERM_PROGRAM) {
+			case 'iTerm.app': {
+				return version >= 3 ? 3 : 2;
+			}
+
+			case 'Apple_Terminal': {
+				return 2;
+			}
+			// No default
+		}
+	}
+
+	if (/-256(color)?$/i.test(env$1.TERM)) {
+		return 2;
+	}
+
+	if (/^screen|^xterm|^vt100|^vt220|^rxvt|color|ansi|cygwin|linux/i.test(env$1.TERM)) {
+		return 1;
+	}
+
+	if ('COLORTERM' in env$1) {
+		return 1;
+	}
+
+	return min;
+}
+
+function createSupportsColor(stream, options = {}) {
+	const level = _supportsColor(stream, {
+		streamIsTTY: stream && stream.isTTY,
+		...options,
+	});
+
+	return translateLevel(level);
+}
 
 const supportsColor = {
-	stdout: colorSupport,
-	stderr: colorSupport,
+	stdout: createSupportsColor({isTTY: tty.isatty(1)}),
+	stderr: createSupportsColor({isTTY: tty.isatty(2)}),
 };
 
 // TODO: When targeting Node.js 16, use `String.prototype.replaceAll`.
