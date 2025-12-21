@@ -1,22 +1,22 @@
-import require$$0 from 'os';
-import require$$0$1 from 'crypto';
+import require$$0$1 from 'os';
+import require$$0$2 from 'crypto';
 import require$$1 from 'fs';
 import require$$1$5 from 'path';
 import require$$2 from 'http';
 import require$$3 from 'https';
-import require$$0$4 from 'net';
+import require$$0$5 from 'net';
 import require$$1$1 from 'tls';
 import require$$4 from 'events';
-import require$$0$3 from 'assert';
-import require$$0$2 from 'util';
-import require$$0$5 from 'stream';
+import require$$0$4 from 'assert';
+import require$$0$3 from 'util';
+import require$$0$6 from 'stream';
 import require$$7 from 'buffer';
 import require$$8 from 'querystring';
 import require$$14 from 'stream/web';
-import require$$0$7 from 'node:stream';
+import require$$0$8 from 'node:stream';
 import require$$1$2 from 'node:util';
-import require$$0$6 from 'node:events';
-import require$$0$8 from 'worker_threads';
+import require$$0$7 from 'node:events';
+import require$$0$9 from 'worker_threads';
 import require$$2$1 from 'perf_hooks';
 import require$$5 from 'util/types';
 import require$$4$1 from 'async_hooks';
@@ -24,11 +24,47 @@ import require$$1$3 from 'console';
 import require$$1$4 from 'url';
 import require$$3$1 from 'zlib';
 import require$$6 from 'string_decoder';
-import require$$0$9 from 'diagnostics_channel';
+import require$$0$a from 'diagnostics_channel';
 import require$$2$2 from 'child_process';
 import require$$6$1 from 'timers';
+import crypto2 from 'node:crypto';
+import fs from 'node:fs';
+import path from 'node:path';
 
 var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
+
+function getDefaultExportFromCjs (x) {
+	return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, 'default') ? x['default'] : x;
+}
+
+function getAugmentedNamespace(n) {
+  if (Object.prototype.hasOwnProperty.call(n, '__esModule')) return n;
+  var f = n.default;
+	if (typeof f == "function") {
+		var a = function a () {
+			var isInstance = false;
+      try {
+        isInstance = this instanceof a;
+      } catch {}
+			if (isInstance) {
+        return Reflect.construct(f, arguments, this.constructor);
+			}
+			return f.apply(this, arguments);
+		};
+		a.prototype = f.prototype;
+  } else a = {};
+  Object.defineProperty(a, '__esModule', {value: true});
+	Object.keys(n).forEach(function (k) {
+		var d = Object.getOwnPropertyDescriptor(n, k);
+		Object.defineProperty(a, k, d.get ? d : {
+			enumerable: true,
+			get: function () {
+				return n[k];
+			}
+		});
+	});
+	return a;
+}
 
 var core = {};
 
@@ -113,7 +149,7 @@ function requireCommand () {
 	};
 	Object.defineProperty(command, "__esModule", { value: true });
 	command.issue = command.issueCommand = void 0;
-	const os = __importStar(require$$0);
+	const os = __importStar(require$$0$1);
 	const utils_1 = requireUtils$1();
 	/**
 	 * Commands
@@ -221,9 +257,9 @@ function requireFileCommand () {
 	fileCommand.prepareKeyValueMessage = fileCommand.issueFileCommand = void 0;
 	// We use any as a valid input type
 	/* eslint-disable @typescript-eslint/no-explicit-any */
-	const crypto = __importStar(require$$0$1);
+	const crypto = __importStar(require$$0$2);
 	const fs = __importStar(require$$1);
-	const os = __importStar(require$$0);
+	const os = __importStar(require$$0$1);
 	const utils_1 = requireUtils$1();
 	function issueFileCommand(command, message) {
 	    const filePath = process.env[`GITHUB_${command}`];
@@ -376,7 +412,7 @@ function requireTunnel$1 () {
 	var http = require$$2;
 	var https = require$$3;
 	var events = require$$4;
-	var util = require$$0$2;
+	var util = require$$0$3;
 
 
 	tunnel$1.httpOverHttp = httpOverHttp;
@@ -1083,21 +1119,21 @@ function requireConstants$4 () {
 	return constants$4;
 }
 
-var util$6;
-var hasRequiredUtil$6;
+var util$7;
+var hasRequiredUtil$7;
 
-function requireUtil$6 () {
-	if (hasRequiredUtil$6) return util$6;
-	hasRequiredUtil$6 = 1;
+function requireUtil$7 () {
+	if (hasRequiredUtil$7) return util$7;
+	hasRequiredUtil$7 = 1;
 
-	const assert = require$$0$3;
+	const assert = require$$0$4;
 	const { kDestroyed, kBodyUsed } = requireSymbols$4();
 	const { IncomingMessage } = require$$2;
-	const stream = require$$0$5;
-	const net = require$$0$4;
+	const stream = require$$0$6;
+	const net = require$$0$5;
 	const { InvalidArgumentError } = requireErrors();
 	const { Blob } = require$$7;
-	const nodeUtil = require$$0$2;
+	const nodeUtil = require$$0$3;
 	const { stringify } = require$$8;
 	const { headerNameLowerCasedRecord } = requireConstants$4();
 
@@ -1573,7 +1609,7 @@ function requireUtil$6 () {
 	const kEnumerableProperty = Object.create(null);
 	kEnumerableProperty.enumerable = true;
 
-	util$6 = {
+	util$7 = {
 	  kEnumerableProperty,
 	  nop,
 	  isDisturbed,
@@ -1610,7 +1646,7 @@ function requireUtil$6 () {
 	  nodeHasAutoSelectFamily: nodeMajor > 18 || (nodeMajor === 18 && nodeMinor >= 13),
 	  safeHTTPMethods: ['GET', 'HEAD', 'OPTIONS', 'TRACE']
 	};
-	return util$6;
+	return util$7;
 }
 
 var timers;
@@ -1718,7 +1754,7 @@ function requireTimers () {
 	return timers;
 }
 
-var main = {exports: {}};
+var main$3 = {exports: {}};
 
 var sbmh;
 var hasRequiredSbmh;
@@ -1753,7 +1789,7 @@ function requireSbmh () {
 	 * Based heavily on the Streaming Boyer-Moore-Horspool C++ implementation
 	 * by Hongli Lai at: https://github.com/FooBarWidget/boyer-moore-horspool
 	 */
-	const EventEmitter = require$$0$6.EventEmitter;
+	const EventEmitter = require$$0$7.EventEmitter;
 	const inherits = require$$1$2.inherits;
 
 	function SBMH (needle) {
@@ -1964,7 +2000,7 @@ function requirePartStream () {
 	hasRequiredPartStream = 1;
 
 	const inherits = require$$1$2.inherits;
-	const ReadableStream = require$$0$7.Readable;
+	const ReadableStream = require$$0$8.Readable;
 
 	function PartStream (opts) {
 	  ReadableStream.call(this, opts);
@@ -2008,7 +2044,7 @@ function requireHeaderParser () {
 	if (hasRequiredHeaderParser) return HeaderParser_1;
 	hasRequiredHeaderParser = 1;
 
-	const EventEmitter = require$$0$6.EventEmitter;
+	const EventEmitter = require$$0$7.EventEmitter;
 	const inherits = require$$1$2.inherits;
 	const getLimit = requireGetLimit();
 
@@ -2116,7 +2152,7 @@ function requireDicer () {
 	if (hasRequiredDicer) return Dicer_1;
 	hasRequiredDicer = 1;
 
-	const WritableStream = require$$0$7.Writable;
+	const WritableStream = require$$0$8.Writable;
 	const inherits = require$$1$2.inherits;
 
 	const StreamSearch = requireSbmh();
@@ -2693,7 +2729,7 @@ function requireMultipart () {
 	//  * support limits.fieldNameSize
 	//     -- this will require modifications to utils.parseParams
 
-	const { Readable } = require$$0$7;
+	const { Readable } = require$$0$8;
 	const { inherits } = require$$1$2;
 
 	const Dicer = requireDicer();
@@ -3253,13 +3289,13 @@ function requireUrlencoded () {
 	return urlencoded;
 }
 
-var hasRequiredMain;
+var hasRequiredMain$2;
 
-function requireMain () {
-	if (hasRequiredMain) return main.exports;
-	hasRequiredMain = 1;
+function requireMain$2 () {
+	if (hasRequiredMain$2) return main$3.exports;
+	hasRequiredMain$2 = 1;
 
-	const WritableStream = require$$0$7.Writable;
+	const WritableStream = require$$0$8.Writable;
 	const { inherits } = require$$1$2;
 	const Dicer = requireDicer();
 
@@ -3337,12 +3373,12 @@ function requireMain () {
 	  this._parser.write(chunk, cb);
 	};
 
-	main.exports = Busboy;
-	main.exports.default = Busboy;
-	main.exports.Busboy = Busboy;
+	main$3.exports = Busboy;
+	main$3.exports.default = Busboy;
+	main$3.exports.Busboy = Busboy;
 
-	main.exports.Dicer = Dicer;
-	return main.exports;
+	main$3.exports.Dicer = Dicer;
+	return main$3.exports;
 }
 
 var constants$3;
@@ -3352,7 +3388,7 @@ function requireConstants$3 () {
 	if (hasRequiredConstants$3) return constants$3;
 	hasRequiredConstants$3 = 1;
 
-	const { MessageChannel, receiveMessageOnPort } = require$$0$8;
+	const { MessageChannel, receiveMessageOnPort } = require$$0$9;
 
 	const corsSafeListedMethods = ['GET', 'HEAD', 'POST'];
 	const corsSafeListedMethodsSet = new Set(corsSafeListedMethods);
@@ -3552,18 +3588,18 @@ function requireGlobal$1 () {
 	return global$2;
 }
 
-var util$5;
-var hasRequiredUtil$5;
+var util$6;
+var hasRequiredUtil$6;
 
-function requireUtil$5 () {
-	if (hasRequiredUtil$5) return util$5;
-	hasRequiredUtil$5 = 1;
+function requireUtil$6 () {
+	if (hasRequiredUtil$6) return util$6;
+	hasRequiredUtil$6 = 1;
 
 	const { redirectStatusSet, referrerPolicySet: referrerPolicyTokens, badPortsSet } = requireConstants$3();
 	const { getGlobalOrigin } = requireGlobal$1();
 	const { performance } = require$$2$1;
-	const { isBlobLike, toUSVString, ReadableStreamFrom } = requireUtil$6();
-	const assert = require$$0$3;
+	const { isBlobLike, toUSVString, ReadableStreamFrom } = requireUtil$7();
+	const assert = require$$0$4;
 	const { isUint8Array } = require$$5;
 
 	let supportedHashes = [];
@@ -4653,7 +4689,7 @@ function requireUtil$5 () {
 	 */
 	const hasOwn = Object.hasOwn || ((dict, key) => Object.prototype.hasOwnProperty.call(dict, key));
 
-	util$5 = {
+	util$6 = {
 	  isAborted,
 	  isCancelled,
 	  createDeferredPromise,
@@ -4700,7 +4736,7 @@ function requireUtil$5 () {
 	  normalizeMethodRecord,
 	  parseMetadata
 	};
-	return util$5;
+	return util$6;
 }
 
 var symbols$3;
@@ -4728,8 +4764,8 @@ function requireWebidl () {
 	if (hasRequiredWebidl) return webidl_1;
 	hasRequiredWebidl = 1;
 
-	const { types } = require$$0$2;
-	const { hasOwn, toUSVString } = requireUtil$5();
+	const { types } = require$$0$3;
+	const { hasOwn, toUSVString } = requireUtil$6();
 
 	/** @type {import('../../types/webidl').Webidl} */
 	const webidl = {};
@@ -5381,9 +5417,9 @@ var hasRequiredDataURL;
 function requireDataURL () {
 	if (hasRequiredDataURL) return dataURL;
 	hasRequiredDataURL = 1;
-	const assert = require$$0$3;
+	const assert = require$$0$4;
 	const { atob } = require$$7;
-	const { isomorphicDecode } = requireUtil$5();
+	const { isomorphicDecode } = requireUtil$6();
 
 	const encoder = new TextEncoder();
 
@@ -6019,12 +6055,12 @@ function requireFile () {
 	hasRequiredFile = 1;
 
 	const { Blob, File: NativeFile } = require$$7;
-	const { types } = require$$0$2;
+	const { types } = require$$0$3;
 	const { kState } = requireSymbols$3();
-	const { isBlobLike } = requireUtil$5();
+	const { isBlobLike } = requireUtil$6();
 	const { webidl } = requireWebidl();
 	const { parseMIMEType, serializeAMimeType } = requireDataURL();
-	const { kEnumerableProperty } = requireUtil$6();
+	const { kEnumerableProperty } = requireUtil$7();
 	const encoder = new TextEncoder();
 
 	class File extends Blob {
@@ -6370,7 +6406,7 @@ function requireFormdata () {
 	if (hasRequiredFormdata) return formdata;
 	hasRequiredFormdata = 1;
 
-	const { isBlobLike, toUSVString, makeIterator } = requireUtil$5();
+	const { isBlobLike, toUSVString, makeIterator } = requireUtil$6();
 	const { kState } = requireSymbols$3();
 	const { File: UndiciFile, FileLike, isFileLike } = requireFile();
 	const { webidl } = requireWebidl();
@@ -6643,8 +6679,8 @@ function requireBody () {
 	if (hasRequiredBody) return body;
 	hasRequiredBody = 1;
 
-	const Busboy = requireMain();
-	const util = requireUtil$6();
+	const Busboy = requireMain$2();
+	const util = requireUtil$7();
 	const {
 	  ReadableStreamFrom,
 	  isBlobLike,
@@ -6652,15 +6688,15 @@ function requireBody () {
 	  readableStreamClose,
 	  createDeferredPromise,
 	  fullyReadBody
-	} = requireUtil$5();
+	} = requireUtil$6();
 	const { FormData } = requireFormdata();
 	const { kState } = requireSymbols$3();
 	const { webidl } = requireWebidl();
 	const { DOMException, structuredClone } = requireConstants$3();
 	const { Blob, File: NativeFile } = require$$7;
 	const { kBodyUsed } = requireSymbols$4();
-	const assert = require$$0$3;
-	const { isErrored } = requireUtil$6();
+	const assert = require$$0$4;
+	const { isErrored } = requireUtil$7();
 	const { isUint8Array, isArrayBuffer } = require$$5;
 	const { File: UndiciFile } = requireFile();
 	const { parseMIMEType, serializeAMimeType } = requireDataURL();
@@ -7268,9 +7304,9 @@ function requireRequest$1 () {
 	  InvalidArgumentError,
 	  NotSupportedError
 	} = requireErrors();
-	const assert = require$$0$3;
+	const assert = require$$0$4;
 	const { kHTTP2BuildRequest, kHTTP2CopyHeaders, kHTTP1BuildRequest } = requireSymbols$4();
-	const util = requireUtil$6();
+	const util = requireUtil$7();
 
 	// tokenRegExp and headerCharRegex have been lifted from
 	// https://github.com/nodejs/node/blob/main/lib/_http_common.js
@@ -7998,9 +8034,9 @@ function requireConnect () {
 	if (hasRequiredConnect) return connect;
 	hasRequiredConnect = 1;
 
-	const net = require$$0$4;
-	const assert = require$$0$3;
-	const util = requireUtil$6();
+	const net = require$$0$5;
+	const assert = require$$0$4;
+	const util = requireUtil$7();
 	const { InvalidArgumentError, ConnectTimeoutError } = requireErrors();
 
 	let tls; // include tls conditionally since it is not always available
@@ -8502,9 +8538,9 @@ function requireRedirectHandler () {
 	if (hasRequiredRedirectHandler) return RedirectHandler_1;
 	hasRequiredRedirectHandler = 1;
 
-	const util = requireUtil$6();
+	const util = requireUtil$7();
 	const { kBodyUsed } = requireSymbols$4();
-	const assert = require$$0$3;
+	const assert = require$$0$4;
 	const { InvalidArgumentError } = requireErrors();
 	const EE = require$$4;
 
@@ -8764,11 +8800,11 @@ function requireClient () {
 
 	/* global WebAssembly */
 
-	const assert = require$$0$3;
-	const net = require$$0$4;
+	const assert = require$$0$4;
+	const net = require$$0$5;
 	const http = require$$2;
-	const { pipeline } = require$$0$5;
-	const util = requireUtil$6();
+	const { pipeline } = require$$0$6;
+	const util = requireUtil$7();
 	const timers = requireTimers();
 	const Request = requireRequest$1();
 	const DispatcherBase = requireDispatcherBase();
@@ -11430,7 +11466,7 @@ function requirePool () {
 	const {
 	  InvalidArgumentError
 	} = requireErrors();
-	const util = requireUtil$6();
+	const util = requireUtil$7();
 	const { kUrl, kInterceptors } = requireSymbols$4();
 	const buildConnector = requireConnect();
 
@@ -11549,7 +11585,7 @@ function requireBalancedPool () {
 	} = requirePoolBase();
 	const Pool = requirePool();
 	const { kUrl, kInterceptors } = requireSymbols$4();
-	const { parseOrigin } = requireUtil$6();
+	const { parseOrigin } = requireUtil$7();
 	const kFactory = Symbol('factory');
 
 	const kOptions = Symbol('options');
@@ -11794,7 +11830,7 @@ function requireAgent () {
 	const DispatcherBase = requireDispatcherBase();
 	const Pool = requirePool();
 	const Client = requireClient();
-	const util = requireUtil$6();
+	const util = requireUtil$7();
 	const createRedirectInterceptor = requireRedirectInterceptor();
 	const { WeakRef, FinalizationRegistry } = requireDispatcherWeakref()();
 
@@ -11949,11 +11985,11 @@ function requireReadable () {
 	if (hasRequiredReadable) return readable;
 	hasRequiredReadable = 1;
 
-	const assert = require$$0$3;
-	const { Readable } = require$$0$5;
+	const assert = require$$0$4;
+	const { Readable } = require$$0$6;
 	const { RequestAbortedError, NotSupportedError, InvalidArgumentError } = requireErrors();
-	const util = requireUtil$6();
-	const { ReadableStreamFrom, toUSVString } = requireUtil$6();
+	const util = requireUtil$7();
+	const { ReadableStreamFrom, toUSVString } = requireUtil$7();
 
 	let Blob;
 
@@ -12270,17 +12306,17 @@ function requireReadable () {
 	return readable;
 }
 
-var util$4;
-var hasRequiredUtil$4;
+var util$5;
+var hasRequiredUtil$5;
 
-function requireUtil$4 () {
-	if (hasRequiredUtil$4) return util$4;
-	hasRequiredUtil$4 = 1;
-	const assert = require$$0$3;
+function requireUtil$5 () {
+	if (hasRequiredUtil$5) return util$5;
+	hasRequiredUtil$5 = 1;
+	const assert = require$$0$4;
 	const {
 	  ResponseStatusCodeError
 	} = requireErrors();
-	const { toUSVString } = requireUtil$6();
+	const { toUSVString } = requireUtil$7();
 
 	async function getResolveErrorBodyCallback ({ callback, body, contentType, statusCode, statusMessage, headers }) {
 	  assert(body);
@@ -12321,8 +12357,8 @@ function requireUtil$4 () {
 	  process.nextTick(callback, new ResponseStatusCodeError(`Response status code ${statusCode}${statusMessage ? `: ${statusMessage}` : ''}`, statusCode, headers));
 	}
 
-	util$4 = { getResolveErrorBodyCallback };
-	return util$4;
+	util$5 = { getResolveErrorBodyCallback };
+	return util$5;
 }
 
 var abortSignal;
@@ -12331,7 +12367,7 @@ var hasRequiredAbortSignal;
 function requireAbortSignal () {
 	if (hasRequiredAbortSignal) return abortSignal;
 	hasRequiredAbortSignal = 1;
-	const { addAbortListener } = requireUtil$6();
+	const { addAbortListener } = requireUtil$7();
 	const { RequestAbortedError } = requireErrors();
 
 	const kListener = Symbol('kListener');
@@ -12399,8 +12435,8 @@ function requireApiRequest () {
 	  InvalidArgumentError,
 	  RequestAbortedError
 	} = requireErrors();
-	const util = requireUtil$6();
-	const { getResolveErrorBodyCallback } = requireUtil$4();
+	const util = requireUtil$7();
+	const { getResolveErrorBodyCallback } = requireUtil$5();
 	const { AsyncResource } = require$$4$1;
 	const { addSignal, removeSignal } = requireAbortSignal();
 
@@ -12582,14 +12618,14 @@ function requireApiStream () {
 	if (hasRequiredApiStream) return apiStream;
 	hasRequiredApiStream = 1;
 
-	const { finished, PassThrough } = require$$0$5;
+	const { finished, PassThrough } = require$$0$6;
 	const {
 	  InvalidArgumentError,
 	  InvalidReturnValueError,
 	  RequestAbortedError
 	} = requireErrors();
-	const util = requireUtil$6();
-	const { getResolveErrorBodyCallback } = requireUtil$4();
+	const util = requireUtil$7();
+	const { getResolveErrorBodyCallback } = requireUtil$5();
 	const { AsyncResource } = require$$4$1;
 	const { addSignal, removeSignal } = requireAbortSignal();
 
@@ -12814,16 +12850,16 @@ function requireApiPipeline () {
 	  Readable,
 	  Duplex,
 	  PassThrough
-	} = require$$0$5;
+	} = require$$0$6;
 	const {
 	  InvalidArgumentError,
 	  InvalidReturnValueError,
 	  RequestAbortedError
 	} = requireErrors();
-	const util = requireUtil$6();
+	const util = requireUtil$7();
 	const { AsyncResource } = require$$4$1;
 	const { addSignal, removeSignal } = requireAbortSignal();
-	const assert = require$$0$3;
+	const assert = require$$0$4;
 
 	const kResume = Symbol('resume');
 
@@ -13069,9 +13105,9 @@ function requireApiUpgrade () {
 
 	const { InvalidArgumentError, RequestAbortedError, SocketError } = requireErrors();
 	const { AsyncResource } = require$$4$1;
-	const util = requireUtil$6();
+	const util = requireUtil$7();
 	const { addSignal, removeSignal } = requireAbortSignal();
-	const assert = require$$0$3;
+	const assert = require$$0$4;
 
 	class UpgradeHandler extends AsyncResource {
 	  constructor (opts, callback) {
@@ -13182,7 +13218,7 @@ function requireApiConnect () {
 
 	const { AsyncResource } = require$$4$1;
 	const { InvalidArgumentError, RequestAbortedError, SocketError } = requireErrors();
-	const util = requireUtil$6();
+	const util = requireUtil$7();
 	const { addSignal, removeSignal } = requireAbortSignal();
 
 	class ConnectHandler extends AsyncResource {
@@ -13370,13 +13406,13 @@ function requireMockUtils () {
 	  kOrigin,
 	  kGetNetConnect
 	} = requireMockSymbols();
-	const { buildURL, nop } = requireUtil$6();
+	const { buildURL, nop } = requireUtil$7();
 	const { STATUS_CODES } = require$$2;
 	const {
 	  types: {
 	    isPromise
 	  }
-	} = require$$0$2;
+	} = require$$0$3;
 
 	function matchValue (match, value) {
 	  if (typeof match === 'string') {
@@ -13732,7 +13768,7 @@ function requireMockInterceptor () {
 	  kMockDispatch
 	} = requireMockSymbols();
 	const { InvalidArgumentError } = requireErrors();
-	const { buildURL } = requireUtil$6();
+	const { buildURL } = requireUtil$7();
 
 	/**
 	 * Defines the scope API for an interceptor reply
@@ -13936,7 +13972,7 @@ function requireMockClient () {
 	if (hasRequiredMockClient) return mockClient;
 	hasRequiredMockClient = 1;
 
-	const { promisify } = require$$0$2;
+	const { promisify } = require$$0$3;
 	const Client = requireClient();
 	const { buildMockDispatch } = requireMockUtils();
 	const {
@@ -14003,7 +14039,7 @@ function requireMockPool () {
 	if (hasRequiredMockPool) return mockPool;
 	hasRequiredMockPool = 1;
 
-	const { promisify } = require$$0$2;
+	const { promisify } = require$$0$3;
 	const Pool = requirePool();
 	const { buildMockDispatch } = requireMockUtils();
 	const {
@@ -14107,7 +14143,7 @@ function requirePendingInterceptorsFormatter () {
 	if (hasRequiredPendingInterceptorsFormatter) return pendingInterceptorsFormatter;
 	hasRequiredPendingInterceptorsFormatter = 1;
 
-	const { Transform } = require$$0$5;
+	const { Transform } = require$$0$6;
 	const { Console } = require$$1$3;
 
 	/**
@@ -14530,11 +14566,11 @@ var hasRequiredRetryHandler;
 function requireRetryHandler () {
 	if (hasRequiredRetryHandler) return RetryHandler_1;
 	hasRequiredRetryHandler = 1;
-	const assert = require$$0$3;
+	const assert = require$$0$4;
 
 	const { kRetryHandlerDefaultRetry } = requireSymbols$4();
 	const { RequestRetryError } = requireErrors();
-	const { isDisturbed, parseHeaders, parseRangeHeader } = requireUtil$6();
+	const { isDisturbed, parseHeaders, parseRangeHeader } = requireUtil$7();
 
 	function calculateRetryAfterHeader (retryAfter) {
 	  const current = Date.now();
@@ -14961,15 +14997,15 @@ function requireHeaders () {
 
 	const { kHeadersList, kConstruct } = requireSymbols$4();
 	const { kGuard } = requireSymbols$3();
-	const { kEnumerableProperty } = requireUtil$6();
+	const { kEnumerableProperty } = requireUtil$7();
 	const {
 	  makeIterator,
 	  isValidHeaderName,
 	  isValidHeaderValue
-	} = requireUtil$5();
-	const util = require$$0$2;
+	} = requireUtil$6();
+	const util = require$$0$3;
 	const { webidl } = requireWebidl();
-	const assert = require$$0$3;
+	const assert = require$$0$4;
 
 	const kHeadersMap = Symbol('headers map');
 	const kHeadersSortedMap = Symbol('headers map sorted');
@@ -15553,7 +15589,7 @@ function requireResponse () {
 
 	const { Headers, HeadersList, fill } = requireHeaders();
 	const { extractBody, cloneBody, mixinBody } = requireBody();
-	const util = requireUtil$6();
+	const util = requireUtil$7();
 	const { kEnumerableProperty } = util;
 	const {
 	  isValidReasonPhrase,
@@ -15563,7 +15599,7 @@ function requireResponse () {
 	  serializeJavascriptValueToJSONString,
 	  isErrorLike,
 	  isomorphicEncode
-	} = requireUtil$5();
+	} = requireUtil$6();
 	const {
 	  redirectStatusSet,
 	  nullBodyStatus,
@@ -15575,8 +15611,8 @@ function requireResponse () {
 	const { getGlobalOrigin } = requireGlobal$1();
 	const { URLSerializer } = requireDataURL();
 	const { kHeadersList, kConstruct } = requireSymbols$4();
-	const assert = require$$0$3;
-	const { types } = require$$0$2;
+	const assert = require$$0$4;
+	const { types } = require$$0$3;
 
 	const ReadableStream = globalThis.ReadableStream || require$$14.ReadableStream;
 	const textEncoder = new TextEncoder('utf-8');
@@ -16135,14 +16171,14 @@ function requireRequest () {
 	const { extractBody, mixinBody, cloneBody } = requireBody();
 	const { Headers, fill: fillHeaders, HeadersList } = requireHeaders();
 	const { FinalizationRegistry } = requireDispatcherWeakref()();
-	const util = requireUtil$6();
+	const util = requireUtil$7();
 	const {
 	  isValidHTTPToken,
 	  sameOrigin,
 	  normalizeMethod,
 	  makePolicyContainer,
 	  normalizeMethodRecord
-	} = requireUtil$5();
+	} = requireUtil$6();
 	const {
 	  forbiddenMethodsSet,
 	  corsSafeListedMethodsSet,
@@ -16159,7 +16195,7 @@ function requireRequest () {
 	const { getGlobalOrigin } = requireGlobal$1();
 	const { URLSerializer } = requireDataURL();
 	const { kHeadersList, kConstruct } = requireSymbols$4();
-	const assert = require$$0$3;
+	const assert = require$$0$4;
 	const { getMaxListeners, setMaxListeners, getEventListeners, defaultMaxListeners } = require$$4;
 
 	let TransformStream = globalThis.TransformStream;
@@ -17123,9 +17159,9 @@ function requireFetch () {
 	  urlIsLocal,
 	  urlIsHttpHttpsScheme,
 	  urlHasHttpsScheme
-	} = requireUtil$5();
+	} = requireUtil$6();
 	const { kState, kHeaders, kGuard, kRealm } = requireSymbols$3();
-	const assert = require$$0$3;
+	const assert = require$$0$4;
 	const { safelyExtractBody } = requireBody();
 	const {
 	  redirectStatusSet,
@@ -17137,8 +17173,8 @@ function requireFetch () {
 	} = requireConstants$3();
 	const { kHeadersList } = requireSymbols$4();
 	const EE = require$$4;
-	const { Readable, pipeline } = require$$0$5;
-	const { addAbortListener, isErrored, isReadable, nodeMajor, nodeMinor } = requireUtil$6();
+	const { Readable, pipeline } = require$$0$6;
+	const { addAbortListener, isErrored, isReadable, nodeMajor, nodeMinor } = requireUtil$7();
 	const { dataURLProcessor, serializeAMimeType } = requireDataURL();
 	const { TransformStream } = require$$14;
 	const { getGlobalDispatcher } = requireGlobal();
@@ -19559,12 +19595,12 @@ function requireEncoding () {
 	return encoding;
 }
 
-var util$3;
-var hasRequiredUtil$3;
+var util$4;
+var hasRequiredUtil$4;
 
-function requireUtil$3 () {
-	if (hasRequiredUtil$3) return util$3;
-	hasRequiredUtil$3 = 1;
+function requireUtil$4 () {
+	if (hasRequiredUtil$4) return util$4;
+	hasRequiredUtil$4 = 1;
 
 	const {
 	  kState,
@@ -19577,7 +19613,7 @@ function requireUtil$3 () {
 	const { getEncoding } = requireEncoding();
 	const { DOMException } = requireConstants$3();
 	const { serializeAMimeType, parseMIMEType } = requireDataURL();
-	const { types } = require$$0$2;
+	const { types } = require$$0$3;
 	const { StringDecoder } = require$$6;
 	const { btoa } = require$$7;
 
@@ -19951,12 +19987,12 @@ function requireUtil$3 () {
 	  }, new Uint8Array(size))
 	}
 
-	util$3 = {
+	util$4 = {
 	  staticPropertyDescriptors,
 	  readOperation,
 	  fireAProgressEvent
 	};
-	return util$3;
+	return util$4;
 }
 
 var filereader;
@@ -19970,7 +20006,7 @@ function requireFilereader () {
 	  staticPropertyDescriptors,
 	  readOperation,
 	  fireAProgressEvent
-	} = requireUtil$3();
+	} = requireUtil$4();
 	const {
 	  kState,
 	  kError,
@@ -19979,7 +20015,7 @@ function requireFilereader () {
 	  kAborted
 	} = requireSymbols$2();
 	const { webidl } = requireWebidl();
-	const { kEnumerableProperty } = requireUtil$6();
+	const { kEnumerableProperty } = requireUtil$7();
 
 	class FileReader extends EventTarget {
 	  constructor () {
@@ -20324,16 +20360,16 @@ function requireSymbols$1 () {
 	return symbols$1;
 }
 
-var util$2;
-var hasRequiredUtil$2;
+var util$3;
+var hasRequiredUtil$3;
 
-function requireUtil$2 () {
-	if (hasRequiredUtil$2) return util$2;
-	hasRequiredUtil$2 = 1;
+function requireUtil$3 () {
+	if (hasRequiredUtil$3) return util$3;
+	hasRequiredUtil$3 = 1;
 
-	const assert = require$$0$3;
+	const assert = require$$0$4;
 	const { URLSerializer } = requireDataURL();
-	const { isValidHeaderName } = requireUtil$5();
+	const { isValidHeaderName } = requireUtil$6();
 
 	/**
 	 * @see https://url.spec.whatwg.org/#concept-url-equals
@@ -20374,11 +20410,11 @@ function requireUtil$2 () {
 	  return values
 	}
 
-	util$2 = {
+	util$3 = {
 	  urlEquals,
 	  fieldValues
 	};
-	return util$2;
+	return util$3;
 }
 
 var cache;
@@ -20389,16 +20425,16 @@ function requireCache () {
 	hasRequiredCache = 1;
 
 	const { kConstruct } = requireSymbols$1();
-	const { urlEquals, fieldValues: getFieldValues } = requireUtil$2();
-	const { kEnumerableProperty, isDisturbed } = requireUtil$6();
+	const { urlEquals, fieldValues: getFieldValues } = requireUtil$3();
+	const { kEnumerableProperty, isDisturbed } = requireUtil$7();
 	const { kHeadersList } = requireSymbols$4();
 	const { webidl } = requireWebidl();
 	const { Response, cloneResponse } = requireResponse();
 	const { Request } = requireRequest();
 	const { kState, kHeaders, kGuard, kRealm } = requireSymbols$3();
 	const { fetching } = requireFetch();
-	const { urlIsHttpHttpsScheme, createDeferredPromise, readAllBytes } = requireUtil$5();
-	const assert = require$$0$3;
+	const { urlIsHttpHttpsScheme, createDeferredPromise, readAllBytes } = requireUtil$6();
+	const assert = require$$0$4;
 	const { getGlobalDispatcher } = requireGlobal();
 
 	/**
@@ -21237,7 +21273,7 @@ function requireCachestorage () {
 	const { kConstruct } = requireSymbols$1();
 	const { Cache } = requireCache();
 	const { webidl } = requireWebidl();
-	const { kEnumerableProperty } = requireUtil$6();
+	const { kEnumerableProperty } = requireUtil$7();
 
 	class CacheStorage {
 	  /**
@@ -21399,12 +21435,12 @@ function requireConstants$1 () {
 	return constants$1;
 }
 
-var util$1;
-var hasRequiredUtil$1;
+var util$2;
+var hasRequiredUtil$2;
 
-function requireUtil$1 () {
-	if (hasRequiredUtil$1) return util$1;
-	hasRequiredUtil$1 = 1;
+function requireUtil$2 () {
+	if (hasRequiredUtil$2) return util$2;
+	hasRequiredUtil$2 = 1;
 
 	/**
 	 * @param {string} value
@@ -21670,7 +21706,7 @@ function requireUtil$1 () {
 	  return out.join('; ')
 	}
 
-	util$1 = {
+	util$2 = {
 	  isCTLExcludingHtab,
 	  validateCookieName,
 	  validateCookiePath,
@@ -21678,7 +21714,7 @@ function requireUtil$1 () {
 	  toIMFDate,
 	  stringify
 	};
-	return util$1;
+	return util$2;
 }
 
 var parse;
@@ -21689,9 +21725,9 @@ function requireParse () {
 	hasRequiredParse = 1;
 
 	const { maxNameValuePairSize, maxAttributeValueSize } = requireConstants$1();
-	const { isCTLExcludingHtab } = requireUtil$1();
+	const { isCTLExcludingHtab } = requireUtil$2();
 	const { collectASequenceOfCodePointsFast } = requireDataURL();
-	const assert = require$$0$3;
+	const assert = require$$0$4;
 
 	/**
 	 * @description Parses the field-value attributes of a set-cookie header string.
@@ -22014,7 +22050,7 @@ function requireCookies () {
 	hasRequiredCookies = 1;
 
 	const { parseSetCookie } = requireParse();
-	const { stringify } = requireUtil$1();
+	const { stringify } = requireUtil$2();
 	const { webidl } = requireWebidl();
 	const { Headers } = requireHeaders();
 
@@ -22284,8 +22320,8 @@ function requireEvents () {
 	hasRequiredEvents = 1;
 
 	const { webidl } = requireWebidl();
-	const { kEnumerableProperty } = requireUtil$6();
-	const { MessagePort } = require$$0$8;
+	const { kEnumerableProperty } = requireUtil$7();
+	const { MessagePort } = require$$0$9;
 
 	/**
 	 * @see https://html.spec.whatwg.org/multipage/comms.html#messageevent
@@ -22587,12 +22623,12 @@ function requireEvents () {
 	return events;
 }
 
-var util;
-var hasRequiredUtil;
+var util$1;
+var hasRequiredUtil$1;
 
-function requireUtil () {
-	if (hasRequiredUtil) return util;
-	hasRequiredUtil = 1;
+function requireUtil$1 () {
+	if (hasRequiredUtil$1) return util$1;
+	hasRequiredUtil$1 = 1;
 
 	const { kReadyState, kController, kResponse, kBinaryType, kWebSocketURL } = requireSymbols();
 	const { states, opcodes } = requireConstants();
@@ -22782,7 +22818,7 @@ function requireUtil () {
 	  }
 	}
 
-	util = {
+	util$1 = {
 	  isEstablished,
 	  isClosing,
 	  isClosed,
@@ -22792,7 +22828,7 @@ function requireUtil () {
 	  failWebsocketConnection,
 	  websocketMessageReceived
 	};
-	return util;
+	return util$1;
 }
 
 var connection;
@@ -22802,7 +22838,7 @@ function requireConnection () {
 	if (hasRequiredConnection) return connection;
 	hasRequiredConnection = 1;
 
-	const diagnosticsChannel = require$$0$9;
+	const diagnosticsChannel = require$$0$a;
 	const { uid, states } = requireConstants();
 	const {
 	  kReadyState,
@@ -22810,7 +22846,7 @@ function requireConnection () {
 	  kByteParser,
 	  kReceivedClose
 	} = requireSymbols();
-	const { fireEvent, failWebsocketConnection } = requireUtil();
+	const { fireEvent, failWebsocketConnection } = requireUtil$1();
 	const { CloseEvent } = requireEvents();
 	const { makeRequest } = requireRequest();
 	const { fetching } = requireFetch();
@@ -23182,11 +23218,11 @@ function requireReceiver () {
 	if (hasRequiredReceiver) return receiver;
 	hasRequiredReceiver = 1;
 
-	const { Writable } = require$$0$5;
-	const diagnosticsChannel = require$$0$9;
+	const { Writable } = require$$0$6;
+	const diagnosticsChannel = require$$0$a;
 	const { parserStates, opcodes, states, emptyBuffer } = requireConstants();
 	const { kReadyState, kSentClose, kResponse, kReceivedClose } = requireSymbols();
-	const { isValidStatusCode, failWebsocketConnection, websocketMessageReceived } = requireUtil();
+	const { isValidStatusCode, failWebsocketConnection, websocketMessageReceived } = requireUtil$1();
 	const { WebsocketFrameSend } = requireFrame();
 
 	// This code was influenced by ws released under the MIT license.
@@ -23548,13 +23584,13 @@ function requireWebsocket () {
 	  kSentClose,
 	  kByteParser
 	} = requireSymbols();
-	const { isEstablished, isClosing, isValidSubprotocol, failWebsocketConnection, fireEvent } = requireUtil();
+	const { isEstablished, isClosing, isValidSubprotocol, failWebsocketConnection, fireEvent } = requireUtil$1();
 	const { establishWebSocketConnection } = requireConnection();
 	const { WebsocketFrameSend } = requireFrame();
 	const { ByteParser } = requireReceiver();
-	const { kEnumerableProperty, isBlobLike } = requireUtil$6();
+	const { kEnumerableProperty, isBlobLike } = requireUtil$7();
 	const { getGlobalDispatcher } = requireGlobal();
-	const { types } = require$$0$2;
+	const { types } = require$$0$3;
 
 	let experimentalWarned = false;
 
@@ -24185,7 +24221,7 @@ function requireUndici () {
 	const Pool = requirePool();
 	const BalancedPool = requireBalancedPool();
 	const Agent = requireAgent();
-	const util = requireUtil$6();
+	const util = requireUtil$7();
 	const { InvalidArgumentError } = errors;
 	const api = requireApi();
 	const buildConnector = requireConnect();
@@ -25199,7 +25235,7 @@ function requireSummary () {
 		};
 		Object.defineProperty(exports$1, "__esModule", { value: true });
 		exports$1.summary = exports$1.markdownSummary = exports$1.SUMMARY_DOCS_URL = exports$1.SUMMARY_ENV_VAR = void 0;
-		const os_1 = require$$0;
+		const os_1 = require$$0$1;
 		const fs_1 = require$$1;
 		const { access, appendFile, writeFile } = fs_1.promises;
 		exports$1.SUMMARY_ENV_VAR = 'GITHUB_STEP_SUMMARY';
@@ -25545,7 +25581,7 @@ function requirePathUtils () {
 	return pathUtils;
 }
 
-var platform = {};
+var platform$2 = {};
 
 var exec = {};
 
@@ -25782,7 +25818,7 @@ function requireIo () {
 	};
 	Object.defineProperty(io, "__esModule", { value: true });
 	io.findInPath = io.which = io.mkdirP = io.rmRF = io.mv = io.cp = void 0;
-	const assert_1 = require$$0$3;
+	const assert_1 = require$$0$4;
 	const path = __importStar(require$$1$5);
 	const ioUtil = __importStar(requireIoUtil());
 	/**
@@ -26088,7 +26124,7 @@ function requireToolrunner () {
 	};
 	Object.defineProperty(toolrunner, "__esModule", { value: true });
 	toolrunner.argStringToArray = toolrunner.ToolRunner = void 0;
-	const os = __importStar(require$$0);
+	const os = __importStar(require$$0$1);
 	const events = __importStar(require$$4);
 	const child = __importStar(require$$2$2);
 	const path = __importStar(require$$1$5);
@@ -26788,13 +26824,13 @@ function requireExec () {
 	return exec;
 }
 
-var hasRequiredPlatform;
+var hasRequiredPlatform$1;
 
-function requirePlatform () {
-	if (hasRequiredPlatform) return platform;
-	hasRequiredPlatform = 1;
+function requirePlatform$1 () {
+	if (hasRequiredPlatform$1) return platform$2;
+	hasRequiredPlatform$1 = 1;
 	(function (exports$1) {
-		var __createBinding = (platform && platform.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+		var __createBinding = (platform$2 && platform$2.__createBinding) || (Object.create ? (function(o, m, k, k2) {
 		    if (k2 === undefined) k2 = k;
 		    var desc = Object.getOwnPropertyDescriptor(m, k);
 		    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
@@ -26805,19 +26841,19 @@ function requirePlatform () {
 		    if (k2 === undefined) k2 = k;
 		    o[k2] = m[k];
 		}));
-		var __setModuleDefault = (platform && platform.__setModuleDefault) || (Object.create ? (function(o, v) {
+		var __setModuleDefault = (platform$2 && platform$2.__setModuleDefault) || (Object.create ? (function(o, v) {
 		    Object.defineProperty(o, "default", { enumerable: true, value: v });
 		}) : function(o, v) {
 		    o["default"] = v;
 		});
-		var __importStar = (platform && platform.__importStar) || function (mod) {
+		var __importStar = (platform$2 && platform$2.__importStar) || function (mod) {
 		    if (mod && mod.__esModule) return mod;
 		    var result = {};
 		    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
 		    __setModuleDefault(result, mod);
 		    return result;
 		};
-		var __awaiter = (platform && platform.__awaiter) || function (thisArg, _arguments, P, generator) {
+		var __awaiter = (platform$2 && platform$2.__awaiter) || function (thisArg, _arguments, P, generator) {
 		    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
 		    return new (P || (P = Promise))(function (resolve, reject) {
 		        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
@@ -26826,12 +26862,12 @@ function requirePlatform () {
 		        step((generator = generator.apply(thisArg, _arguments || [])).next());
 		    });
 		};
-		var __importDefault = (platform && platform.__importDefault) || function (mod) {
+		var __importDefault = (platform$2 && platform$2.__importDefault) || function (mod) {
 		    return (mod && mod.__esModule) ? mod : { "default": mod };
 		};
 		Object.defineProperty(exports$1, "__esModule", { value: true });
 		exports$1.getDetails = exports$1.isLinux = exports$1.isMacOS = exports$1.isWindows = exports$1.arch = exports$1.platform = void 0;
-		const os_1 = __importDefault(require$$0);
+		const os_1 = __importDefault(require$$0$1);
 		const exec = __importStar(requireExec());
 		const getWindowsInfo = () => __awaiter(void 0, void 0, void 0, function* () {
 		    const { stdout: version } = yield exec.getExecOutput('powershell -command "(Get-CimInstance -ClassName Win32_OperatingSystem).Version"', undefined, {
@@ -26887,8 +26923,8 @@ function requirePlatform () {
 		}
 		exports$1.getDetails = getDetails;
 		
-	} (platform));
-	return platform;
+	} (platform$2));
+	return platform$2;
 }
 
 var hasRequiredCore;
@@ -26934,7 +26970,7 @@ function requireCore () {
 		const command_1 = requireCommand();
 		const file_command_1 = requireFileCommand();
 		const utils_1 = requireUtils$1();
-		const os = __importStar(require$$0);
+		const os = __importStar(require$$0$1);
 		const path = __importStar(require$$1$5);
 		const oidc_utils_1 = requireOidcUtils();
 		/**
@@ -27238,7 +27274,7 @@ function requireCore () {
 		/**
 		 * Platform utilities exports
 		 */
-		exports$1.platform = __importStar(requirePlatform());
+		exports$1.platform = __importStar(requirePlatform$1());
 		
 	} (core));
 	return core;
@@ -27246,18 +27282,10824 @@ function requireCore () {
 
 var coreExports = requireCore();
 
-/**
- * Waits for a number of milliseconds.
- *
- * @param milliseconds The number of milliseconds to wait.
- * @returns Resolves with 'done!' after the wait is over.
+const PATH_PARAM_RE = /\{[^{}]+\}/g;
+const supportsRequestInitExt = () => {
+  return typeof process === "object" && Number.parseInt(process?.versions?.node?.substring(0, 2)) >= 18 && process.versions.undici;
+};
+function randomID() {
+  return Math.random().toString(36).slice(2, 11);
+}
+function createClient(clientOptions) {
+  let {
+    baseUrl = "",
+    Request: CustomRequest = globalThis.Request,
+    fetch: baseFetch = globalThis.fetch,
+    querySerializer: globalQuerySerializer,
+    bodySerializer: globalBodySerializer,
+    headers: baseHeaders,
+    requestInitExt = void 0,
+    ...baseOptions
+  } = { ...clientOptions };
+  requestInitExt = supportsRequestInitExt() ? requestInitExt : void 0;
+  baseUrl = removeTrailingSlash(baseUrl);
+  const middlewares = [];
+  async function coreFetch(schemaPath, fetchOptions) {
+    const {
+      baseUrl: localBaseUrl,
+      fetch = baseFetch,
+      Request = CustomRequest,
+      headers,
+      params = {},
+      parseAs = "json",
+      querySerializer: requestQuerySerializer,
+      bodySerializer = globalBodySerializer ?? defaultBodySerializer,
+      body,
+      ...init
+    } = fetchOptions || {};
+    let finalBaseUrl = baseUrl;
+    if (localBaseUrl) {
+      finalBaseUrl = removeTrailingSlash(localBaseUrl) ?? baseUrl;
+    }
+    let querySerializer = typeof globalQuerySerializer === "function" ? globalQuerySerializer : createQuerySerializer(globalQuerySerializer);
+    if (requestQuerySerializer) {
+      querySerializer = typeof requestQuerySerializer === "function" ? requestQuerySerializer : createQuerySerializer({
+        ...typeof globalQuerySerializer === "object" ? globalQuerySerializer : {},
+        ...requestQuerySerializer
+      });
+    }
+    const serializedBody = body === void 0 ? void 0 : bodySerializer(
+      body,
+      // Note: we declare mergeHeaders() both here and below because it’s a bit of a chicken-or-egg situation:
+      // bodySerializer() needs all headers so we aren’t dropping ones set by the user, however,
+      // the result of this ALSO sets the lowest-priority content-type header. So we re-merge below,
+      // setting the content-type at the very beginning to be overwritten.
+      // Lastly, based on the way headers work, it’s not a simple “present-or-not” check becauase null intentionally un-sets headers.
+      mergeHeaders(baseHeaders, headers, params.header)
+    );
+    const finalHeaders = mergeHeaders(
+      // with no body, we should not to set Content-Type
+      serializedBody === void 0 || // if serialized body is FormData; browser will correctly set Content-Type & boundary expression
+      serializedBody instanceof FormData ? {} : {
+        "Content-Type": "application/json"
+      },
+      baseHeaders,
+      headers,
+      params.header
+    );
+    const requestInit = {
+      redirect: "follow",
+      ...baseOptions,
+      ...init,
+      body: serializedBody,
+      headers: finalHeaders
+    };
+    let id;
+    let options;
+    let request = new Request(
+      createFinalURL(schemaPath, { baseUrl: finalBaseUrl, params, querySerializer }),
+      requestInit
+    );
+    let response;
+    for (const key in init) {
+      if (!(key in request)) {
+        request[key] = init[key];
+      }
+    }
+    if (middlewares.length) {
+      id = randomID();
+      options = Object.freeze({
+        baseUrl: finalBaseUrl,
+        fetch,
+        parseAs,
+        querySerializer,
+        bodySerializer
+      });
+      for (const m of middlewares) {
+        if (m && typeof m === "object" && typeof m.onRequest === "function") {
+          const result = await m.onRequest({
+            request,
+            schemaPath,
+            params,
+            options,
+            id
+          });
+          if (result) {
+            if (result instanceof Request) {
+              request = result;
+            } else if (result instanceof Response) {
+              response = result;
+              break;
+            } else {
+              throw new Error("onRequest: must return new Request() or Response() when modifying the request");
+            }
+          }
+        }
+      }
+    }
+    if (!response) {
+      try {
+        response = await fetch(request, requestInitExt);
+      } catch (error2) {
+        let errorAfterMiddleware = error2;
+        if (middlewares.length) {
+          for (let i = middlewares.length - 1; i >= 0; i--) {
+            const m = middlewares[i];
+            if (m && typeof m === "object" && typeof m.onError === "function") {
+              const result = await m.onError({
+                request,
+                error: errorAfterMiddleware,
+                schemaPath,
+                params,
+                options,
+                id
+              });
+              if (result) {
+                if (result instanceof Response) {
+                  errorAfterMiddleware = void 0;
+                  response = result;
+                  break;
+                }
+                if (result instanceof Error) {
+                  errorAfterMiddleware = result;
+                  continue;
+                }
+                throw new Error("onError: must return new Response() or instance of Error");
+              }
+            }
+          }
+        }
+        if (errorAfterMiddleware) {
+          throw errorAfterMiddleware;
+        }
+      }
+      if (middlewares.length) {
+        for (let i = middlewares.length - 1; i >= 0; i--) {
+          const m = middlewares[i];
+          if (m && typeof m === "object" && typeof m.onResponse === "function") {
+            const result = await m.onResponse({
+              request,
+              response,
+              schemaPath,
+              params,
+              options,
+              id
+            });
+            if (result) {
+              if (!(result instanceof Response)) {
+                throw new Error("onResponse: must return new Response() when modifying the response");
+              }
+              response = result;
+            }
+          }
+        }
+      }
+    }
+    if (response.status === 204 || request.method === "HEAD" || response.headers.get("Content-Length") === "0") {
+      return response.ok ? { data: void 0, response } : { error: void 0, response };
+    }
+    if (response.ok) {
+      if (parseAs === "stream") {
+        return { data: response.body, response };
+      }
+      return { data: await response[parseAs](), response };
+    }
+    let error = await response.text();
+    try {
+      error = JSON.parse(error);
+    } catch {
+    }
+    return { error, response };
+  }
+  return {
+    request(method, url, init) {
+      return coreFetch(url, { ...init, method: method.toUpperCase() });
+    },
+    /** Call a GET endpoint */
+    GET(url, init) {
+      return coreFetch(url, { ...init, method: "GET" });
+    },
+    /** Call a PUT endpoint */
+    PUT(url, init) {
+      return coreFetch(url, { ...init, method: "PUT" });
+    },
+    /** Call a POST endpoint */
+    POST(url, init) {
+      return coreFetch(url, { ...init, method: "POST" });
+    },
+    /** Call a DELETE endpoint */
+    DELETE(url, init) {
+      return coreFetch(url, { ...init, method: "DELETE" });
+    },
+    /** Call a OPTIONS endpoint */
+    OPTIONS(url, init) {
+      return coreFetch(url, { ...init, method: "OPTIONS" });
+    },
+    /** Call a HEAD endpoint */
+    HEAD(url, init) {
+      return coreFetch(url, { ...init, method: "HEAD" });
+    },
+    /** Call a PATCH endpoint */
+    PATCH(url, init) {
+      return coreFetch(url, { ...init, method: "PATCH" });
+    },
+    /** Call a TRACE endpoint */
+    TRACE(url, init) {
+      return coreFetch(url, { ...init, method: "TRACE" });
+    },
+    /** Register middleware */
+    use(...middleware) {
+      for (const m of middleware) {
+        if (!m) {
+          continue;
+        }
+        if (typeof m !== "object" || !("onRequest" in m || "onResponse" in m || "onError" in m)) {
+          throw new Error("Middleware must be an object with one of `onRequest()`, `onResponse() or `onError()`");
+        }
+        middlewares.push(m);
+      }
+    },
+    /** Unregister middleware */
+    eject(...middleware) {
+      for (const m of middleware) {
+        const i = middlewares.indexOf(m);
+        if (i !== -1) {
+          middlewares.splice(i, 1);
+        }
+      }
+    }
+  };
+}
+function serializePrimitiveParam(name, value, options) {
+  if (value === void 0 || value === null) {
+    return "";
+  }
+  if (typeof value === "object") {
+    throw new Error(
+      "Deeply-nested arrays/objects aren\u2019t supported. Provide your own `querySerializer()` to handle these."
+    );
+  }
+  return `${name}=${options?.allowReserved === true ? value : encodeURIComponent(value)}`;
+}
+function serializeObjectParam(name, value, options) {
+  if (!value || typeof value !== "object") {
+    return "";
+  }
+  const values = [];
+  const joiner = {
+    simple: ",",
+    label: ".",
+    matrix: ";"
+  }[options.style] || "&";
+  if (options.style !== "deepObject" && options.explode === false) {
+    for (const k in value) {
+      values.push(k, options.allowReserved === true ? value[k] : encodeURIComponent(value[k]));
+    }
+    const final2 = values.join(",");
+    switch (options.style) {
+      case "form": {
+        return `${name}=${final2}`;
+      }
+      case "label": {
+        return `.${final2}`;
+      }
+      case "matrix": {
+        return `;${name}=${final2}`;
+      }
+      default: {
+        return final2;
+      }
+    }
+  }
+  for (const k in value) {
+    const finalName = options.style === "deepObject" ? `${name}[${k}]` : k;
+    values.push(serializePrimitiveParam(finalName, value[k], options));
+  }
+  const final = values.join(joiner);
+  return options.style === "label" || options.style === "matrix" ? `${joiner}${final}` : final;
+}
+function serializeArrayParam(name, value, options) {
+  if (!Array.isArray(value)) {
+    return "";
+  }
+  if (options.explode === false) {
+    const joiner2 = { form: ",", spaceDelimited: "%20", pipeDelimited: "|" }[options.style] || ",";
+    const final = (options.allowReserved === true ? value : value.map((v) => encodeURIComponent(v))).join(joiner2);
+    switch (options.style) {
+      case "simple": {
+        return final;
+      }
+      case "label": {
+        return `.${final}`;
+      }
+      case "matrix": {
+        return `;${name}=${final}`;
+      }
+      // case "spaceDelimited":
+      // case "pipeDelimited":
+      default: {
+        return `${name}=${final}`;
+      }
+    }
+  }
+  const joiner = { simple: ",", label: ".", matrix: ";" }[options.style] || "&";
+  const values = [];
+  for (const v of value) {
+    if (options.style === "simple" || options.style === "label") {
+      values.push(options.allowReserved === true ? v : encodeURIComponent(v));
+    } else {
+      values.push(serializePrimitiveParam(name, v, options));
+    }
+  }
+  return options.style === "label" || options.style === "matrix" ? `${joiner}${values.join(joiner)}` : values.join(joiner);
+}
+function createQuerySerializer(options) {
+  return function querySerializer(queryParams) {
+    const search = [];
+    if (queryParams && typeof queryParams === "object") {
+      for (const name in queryParams) {
+        const value = queryParams[name];
+        if (value === void 0 || value === null) {
+          continue;
+        }
+        if (Array.isArray(value)) {
+          if (value.length === 0) {
+            continue;
+          }
+          search.push(
+            serializeArrayParam(name, value, {
+              style: "form",
+              explode: true,
+              ...options?.array,
+              allowReserved: options?.allowReserved || false
+            })
+          );
+          continue;
+        }
+        if (typeof value === "object") {
+          search.push(
+            serializeObjectParam(name, value, {
+              style: "deepObject",
+              explode: true,
+              ...options?.object,
+              allowReserved: options?.allowReserved || false
+            })
+          );
+          continue;
+        }
+        search.push(serializePrimitiveParam(name, value, options));
+      }
+    }
+    return search.join("&");
+  };
+}
+function defaultPathSerializer(pathname, pathParams) {
+  let nextURL = pathname;
+  for (const match of pathname.match(PATH_PARAM_RE) ?? []) {
+    let name = match.substring(1, match.length - 1);
+    let explode = false;
+    let style = "simple";
+    if (name.endsWith("*")) {
+      explode = true;
+      name = name.substring(0, name.length - 1);
+    }
+    if (name.startsWith(".")) {
+      style = "label";
+      name = name.substring(1);
+    } else if (name.startsWith(";")) {
+      style = "matrix";
+      name = name.substring(1);
+    }
+    if (!pathParams || pathParams[name] === void 0 || pathParams[name] === null) {
+      continue;
+    }
+    const value = pathParams[name];
+    if (Array.isArray(value)) {
+      nextURL = nextURL.replace(match, serializeArrayParam(name, value, { style, explode }));
+      continue;
+    }
+    if (typeof value === "object") {
+      nextURL = nextURL.replace(match, serializeObjectParam(name, value, { style, explode }));
+      continue;
+    }
+    if (style === "matrix") {
+      nextURL = nextURL.replace(match, `;${serializePrimitiveParam(name, value)}`);
+      continue;
+    }
+    nextURL = nextURL.replace(match, style === "label" ? `.${encodeURIComponent(value)}` : encodeURIComponent(value));
+  }
+  return nextURL;
+}
+function defaultBodySerializer(body, headers) {
+  if (body instanceof FormData) {
+    return body;
+  }
+  if (headers) {
+    const contentType = headers.get instanceof Function ? headers.get("Content-Type") ?? headers.get("content-type") : headers["Content-Type"] ?? headers["content-type"];
+    if (contentType === "application/x-www-form-urlencoded") {
+      return new URLSearchParams(body).toString();
+    }
+  }
+  return JSON.stringify(body);
+}
+function createFinalURL(pathname, options) {
+  let finalURL = `${options.baseUrl}${pathname}`;
+  if (options.params?.path) {
+    finalURL = defaultPathSerializer(finalURL, options.params.path);
+  }
+  let search = options.querySerializer(options.params.query ?? {});
+  if (search.startsWith("?")) {
+    search = search.substring(1);
+  }
+  if (search) {
+    finalURL += `?${search}`;
+  }
+  return finalURL;
+}
+function mergeHeaders(...allHeaders) {
+  const finalHeaders = new Headers();
+  for (const h of allHeaders) {
+    if (!h || typeof h !== "object") {
+      continue;
+    }
+    const iterator = h instanceof Headers ? h.entries() : Object.entries(h);
+    for (const [k, v] of iterator) {
+      if (v === null) {
+        finalHeaders.delete(k);
+      } else if (Array.isArray(v)) {
+        for (const v2 of v) {
+          finalHeaders.append(k, v2);
+        }
+      } else if (v !== void 0) {
+        finalHeaders.set(k, v);
+      }
+    }
+  }
+  return finalHeaders;
+}
+function removeTrailingSlash(url) {
+  if (url.endsWith("/")) {
+    return url.substring(0, url.length - 1);
+  }
+  return url;
+}
+
+var platform$1 = {exports: {}};
+
+/*!
+ * Platform.js v1.3.6
+ * Copyright 2014-2020 Benjamin Tan
+ * Copyright 2011-2013 John-David Dalton
+ * Available under MIT license
  */
-async function wait(milliseconds) {
-    return new Promise((resolve) => {
-        if (isNaN(milliseconds))
-            throw new Error('milliseconds is not a number');
-        setTimeout(() => resolve('done!'), milliseconds);
+var platform = platform$1.exports;
+
+var hasRequiredPlatform;
+
+function requirePlatform () {
+	if (hasRequiredPlatform) return platform$1.exports;
+	hasRequiredPlatform = 1;
+	(function (module, exports$1) {
+(function() {
+
+		  /** Used to determine if values are of the language type `Object`. */
+		  var objectTypes = {
+		    'function': true,
+		    'object': true
+		  };
+
+		  /** Used as a reference to the global object. */
+		  var root = (objectTypes[typeof window] && window) || this;
+
+		  /** Detect free variable `exports`. */
+		  var freeExports = exports$1;
+
+		  /** Detect free variable `module`. */
+		  var freeModule = module && !module.nodeType && module;
+
+		  /** Detect free variable `global` from Node.js or Browserified code and use it as `root`. */
+		  var freeGlobal = freeExports && freeModule && typeof commonjsGlobal == 'object' && commonjsGlobal;
+		  if (freeGlobal && (freeGlobal.global === freeGlobal || freeGlobal.window === freeGlobal || freeGlobal.self === freeGlobal)) {
+		    root = freeGlobal;
+		  }
+
+		  /**
+		   * Used as the maximum length of an array-like object.
+		   * See the [ES6 spec](http://people.mozilla.org/~jorendorff/es6-draft.html#sec-tolength)
+		   * for more details.
+		   */
+		  var maxSafeInteger = Math.pow(2, 53) - 1;
+
+		  /** Regular expression to detect Opera. */
+		  var reOpera = /\bOpera/;
+
+		  /** Used for native method references. */
+		  var objectProto = Object.prototype;
+
+		  /** Used to check for own properties of an object. */
+		  var hasOwnProperty = objectProto.hasOwnProperty;
+
+		  /** Used to resolve the internal `[[Class]]` of values. */
+		  var toString = objectProto.toString;
+
+		  /*--------------------------------------------------------------------------*/
+
+		  /**
+		   * Capitalizes a string value.
+		   *
+		   * @private
+		   * @param {string} string The string to capitalize.
+		   * @returns {string} The capitalized string.
+		   */
+		  function capitalize(string) {
+		    string = String(string);
+		    return string.charAt(0).toUpperCase() + string.slice(1);
+		  }
+
+		  /**
+		   * A utility function to clean up the OS name.
+		   *
+		   * @private
+		   * @param {string} os The OS name to clean up.
+		   * @param {string} [pattern] A `RegExp` pattern matching the OS name.
+		   * @param {string} [label] A label for the OS.
+		   */
+		  function cleanupOS(os, pattern, label) {
+		    // Platform tokens are defined at:
+		    // http://msdn.microsoft.com/en-us/library/ms537503(VS.85).aspx
+		    // http://web.archive.org/web/20081122053950/http://msdn.microsoft.com/en-us/library/ms537503(VS.85).aspx
+		    var data = {
+		      '10.0': '10',
+		      '6.4':  '10 Technical Preview',
+		      '6.3':  '8.1',
+		      '6.2':  '8',
+		      '6.1':  'Server 2008 R2 / 7',
+		      '6.0':  'Server 2008 / Vista',
+		      '5.2':  'Server 2003 / XP 64-bit',
+		      '5.1':  'XP',
+		      '5.01': '2000 SP1',
+		      '5.0':  '2000',
+		      '4.0':  'NT',
+		      '4.90': 'ME'
+		    };
+		    // Detect Windows version from platform tokens.
+		    if (pattern && label && /^Win/i.test(os) && !/^Windows Phone /i.test(os) &&
+		        (data = data[/[\d.]+$/.exec(os)])) {
+		      os = 'Windows ' + data;
+		    }
+		    // Correct character case and cleanup string.
+		    os = String(os);
+
+		    if (pattern && label) {
+		      os = os.replace(RegExp(pattern, 'i'), label);
+		    }
+
+		    os = format(
+		      os.replace(/ ce$/i, ' CE')
+		        .replace(/\bhpw/i, 'web')
+		        .replace(/\bMacintosh\b/, 'Mac OS')
+		        .replace(/_PowerPC\b/i, ' OS')
+		        .replace(/\b(OS X) [^ \d]+/i, '$1')
+		        .replace(/\bMac (OS X)\b/, '$1')
+		        .replace(/\/(\d)/, ' $1')
+		        .replace(/_/g, '.')
+		        .replace(/(?: BePC|[ .]*fc[ \d.]+)$/i, '')
+		        .replace(/\bx86\.64\b/gi, 'x86_64')
+		        .replace(/\b(Windows Phone) OS\b/, '$1')
+		        .replace(/\b(Chrome OS \w+) [\d.]+\b/, '$1')
+		        .split(' on ')[0]
+		    );
+
+		    return os;
+		  }
+
+		  /**
+		   * An iteration utility for arrays and objects.
+		   *
+		   * @private
+		   * @param {Array|Object} object The object to iterate over.
+		   * @param {Function} callback The function called per iteration.
+		   */
+		  function each(object, callback) {
+		    var index = -1,
+		        length = object ? object.length : 0;
+
+		    if (typeof length == 'number' && length > -1 && length <= maxSafeInteger) {
+		      while (++index < length) {
+		        callback(object[index], index, object);
+		      }
+		    } else {
+		      forOwn(object, callback);
+		    }
+		  }
+
+		  /**
+		   * Trim and conditionally capitalize string values.
+		   *
+		   * @private
+		   * @param {string} string The string to format.
+		   * @returns {string} The formatted string.
+		   */
+		  function format(string) {
+		    string = trim(string);
+		    return /^(?:webOS|i(?:OS|P))/.test(string)
+		      ? string
+		      : capitalize(string);
+		  }
+
+		  /**
+		   * Iterates over an object's own properties, executing the `callback` for each.
+		   *
+		   * @private
+		   * @param {Object} object The object to iterate over.
+		   * @param {Function} callback The function executed per own property.
+		   */
+		  function forOwn(object, callback) {
+		    for (var key in object) {
+		      if (hasOwnProperty.call(object, key)) {
+		        callback(object[key], key, object);
+		      }
+		    }
+		  }
+
+		  /**
+		   * Gets the internal `[[Class]]` of a value.
+		   *
+		   * @private
+		   * @param {*} value The value.
+		   * @returns {string} The `[[Class]]`.
+		   */
+		  function getClassOf(value) {
+		    return value == null
+		      ? capitalize(value)
+		      : toString.call(value).slice(8, -1);
+		  }
+
+		  /**
+		   * Host objects can return type values that are different from their actual
+		   * data type. The objects we are concerned with usually return non-primitive
+		   * types of "object", "function", or "unknown".
+		   *
+		   * @private
+		   * @param {*} object The owner of the property.
+		   * @param {string} property The property to check.
+		   * @returns {boolean} Returns `true` if the property value is a non-primitive, else `false`.
+		   */
+		  function isHostType(object, property) {
+		    var type = object != null ? typeof object[property] : 'number';
+		    return !/^(?:boolean|number|string|undefined)$/.test(type) &&
+		      (type == 'object' ? !!object[property] : true);
+		  }
+
+		  /**
+		   * Prepares a string for use in a `RegExp` by making hyphens and spaces optional.
+		   *
+		   * @private
+		   * @param {string} string The string to qualify.
+		   * @returns {string} The qualified string.
+		   */
+		  function qualify(string) {
+		    return String(string).replace(/([ -])(?!$)/g, '$1?');
+		  }
+
+		  /**
+		   * A bare-bones `Array#reduce` like utility function.
+		   *
+		   * @private
+		   * @param {Array} array The array to iterate over.
+		   * @param {Function} callback The function called per iteration.
+		   * @returns {*} The accumulated result.
+		   */
+		  function reduce(array, callback) {
+		    var accumulator = null;
+		    each(array, function(value, index) {
+		      accumulator = callback(accumulator, value, index, array);
+		    });
+		    return accumulator;
+		  }
+
+		  /**
+		   * Removes leading and trailing whitespace from a string.
+		   *
+		   * @private
+		   * @param {string} string The string to trim.
+		   * @returns {string} The trimmed string.
+		   */
+		  function trim(string) {
+		    return String(string).replace(/^ +| +$/g, '');
+		  }
+
+		  /*--------------------------------------------------------------------------*/
+
+		  /**
+		   * Creates a new platform object.
+		   *
+		   * @memberOf platform
+		   * @param {Object|string} [ua=navigator.userAgent] The user agent string or
+		   *  context object.
+		   * @returns {Object} A platform object.
+		   */
+		  function parse(ua) {
+
+		    /** The environment context object. */
+		    var context = root;
+
+		    /** Used to flag when a custom context is provided. */
+		    var isCustomContext = ua && typeof ua == 'object' && getClassOf(ua) != 'String';
+
+		    // Juggle arguments.
+		    if (isCustomContext) {
+		      context = ua;
+		      ua = null;
+		    }
+
+		    /** Browser navigator object. */
+		    var nav = context.navigator || {};
+
+		    /** Browser user agent string. */
+		    var userAgent = nav.userAgent || '';
+
+		    ua || (ua = userAgent);
+
+		    /** Used to detect if browser is like Chrome. */
+		    var likeChrome = isCustomContext
+		      ? !!nav.likeChrome
+		      : /\bChrome\b/.test(ua) && !/internal|\n/i.test(toString.toString());
+
+		    /** Internal `[[Class]]` value shortcuts. */
+		    var objectClass = 'Object',
+		        airRuntimeClass = isCustomContext ? objectClass : 'ScriptBridgingProxyObject',
+		        enviroClass = isCustomContext ? objectClass : 'Environment',
+		        javaClass = (isCustomContext && context.java) ? 'JavaPackage' : getClassOf(context.java),
+		        phantomClass = isCustomContext ? objectClass : 'RuntimeObject';
+
+		    /** Detect Java environments. */
+		    var java = /\bJava/.test(javaClass) && context.java;
+
+		    /** Detect Rhino. */
+		    var rhino = java && getClassOf(context.environment) == enviroClass;
+
+		    /** A character to represent alpha. */
+		    var alpha = java ? 'a' : '\u03b1';
+
+		    /** A character to represent beta. */
+		    var beta = java ? 'b' : '\u03b2';
+
+		    /** Browser document object. */
+		    var doc = context.document || {};
+
+		    /**
+		     * Detect Opera browser (Presto-based).
+		     * http://www.howtocreate.co.uk/operaStuff/operaObject.html
+		     * http://dev.opera.com/articles/view/opera-mini-web-content-authoring-guidelines/#operamini
+		     */
+		    var opera = context.operamini || context.opera;
+
+		    /** Opera `[[Class]]`. */
+		    var operaClass = reOpera.test(operaClass = (isCustomContext && opera) ? opera['[[Class]]'] : getClassOf(opera))
+		      ? operaClass
+		      : (opera = null);
+
+		    /*------------------------------------------------------------------------*/
+
+		    /** Temporary variable used over the script's lifetime. */
+		    var data;
+
+		    /** The CPU architecture. */
+		    var arch = ua;
+
+		    /** Platform description array. */
+		    var description = [];
+
+		    /** Platform alpha/beta indicator. */
+		    var prerelease = null;
+
+		    /** A flag to indicate that environment features should be used to resolve the platform. */
+		    var useFeatures = ua == userAgent;
+
+		    /** The browser/environment version. */
+		    var version = useFeatures && opera && typeof opera.version == 'function' && opera.version();
+
+		    /** A flag to indicate if the OS ends with "/ Version" */
+		    var isSpecialCasedOS;
+
+		    /* Detectable layout engines (order is important). */
+		    var layout = getLayout([
+		      { 'label': 'EdgeHTML', 'pattern': 'Edge' },
+		      'Trident',
+		      { 'label': 'WebKit', 'pattern': 'AppleWebKit' },
+		      'iCab',
+		      'Presto',
+		      'NetFront',
+		      'Tasman',
+		      'KHTML',
+		      'Gecko'
+		    ]);
+
+		    /* Detectable browser names (order is important). */
+		    var name = getName([
+		      'Adobe AIR',
+		      'Arora',
+		      'Avant Browser',
+		      'Breach',
+		      'Camino',
+		      'Electron',
+		      'Epiphany',
+		      'Fennec',
+		      'Flock',
+		      'Galeon',
+		      'GreenBrowser',
+		      'iCab',
+		      'Iceweasel',
+		      'K-Meleon',
+		      'Konqueror',
+		      'Lunascape',
+		      'Maxthon',
+		      { 'label': 'Microsoft Edge', 'pattern': '(?:Edge|Edg|EdgA|EdgiOS)' },
+		      'Midori',
+		      'Nook Browser',
+		      'PaleMoon',
+		      'PhantomJS',
+		      'Raven',
+		      'Rekonq',
+		      'RockMelt',
+		      { 'label': 'Samsung Internet', 'pattern': 'SamsungBrowser' },
+		      'SeaMonkey',
+		      { 'label': 'Silk', 'pattern': '(?:Cloud9|Silk-Accelerated)' },
+		      'Sleipnir',
+		      'SlimBrowser',
+		      { 'label': 'SRWare Iron', 'pattern': 'Iron' },
+		      'Sunrise',
+		      'Swiftfox',
+		      'Vivaldi',
+		      'Waterfox',
+		      'WebPositive',
+		      { 'label': 'Yandex Browser', 'pattern': 'YaBrowser' },
+		      { 'label': 'UC Browser', 'pattern': 'UCBrowser' },
+		      'Opera Mini',
+		      { 'label': 'Opera Mini', 'pattern': 'OPiOS' },
+		      'Opera',
+		      { 'label': 'Opera', 'pattern': 'OPR' },
+		      'Chromium',
+		      'Chrome',
+		      { 'label': 'Chrome', 'pattern': '(?:HeadlessChrome)' },
+		      { 'label': 'Chrome Mobile', 'pattern': '(?:CriOS|CrMo)' },
+		      { 'label': 'Firefox', 'pattern': '(?:Firefox|Minefield)' },
+		      { 'label': 'Firefox for iOS', 'pattern': 'FxiOS' },
+		      { 'label': 'IE', 'pattern': 'IEMobile' },
+		      { 'label': 'IE', 'pattern': 'MSIE' },
+		      'Safari'
+		    ]);
+
+		    /* Detectable products (order is important). */
+		    var product = getProduct([
+		      { 'label': 'BlackBerry', 'pattern': 'BB10' },
+		      'BlackBerry',
+		      { 'label': 'Galaxy S', 'pattern': 'GT-I9000' },
+		      { 'label': 'Galaxy S2', 'pattern': 'GT-I9100' },
+		      { 'label': 'Galaxy S3', 'pattern': 'GT-I9300' },
+		      { 'label': 'Galaxy S4', 'pattern': 'GT-I9500' },
+		      { 'label': 'Galaxy S5', 'pattern': 'SM-G900' },
+		      { 'label': 'Galaxy S6', 'pattern': 'SM-G920' },
+		      { 'label': 'Galaxy S6 Edge', 'pattern': 'SM-G925' },
+		      { 'label': 'Galaxy S7', 'pattern': 'SM-G930' },
+		      { 'label': 'Galaxy S7 Edge', 'pattern': 'SM-G935' },
+		      'Google TV',
+		      'Lumia',
+		      'iPad',
+		      'iPod',
+		      'iPhone',
+		      'Kindle',
+		      { 'label': 'Kindle Fire', 'pattern': '(?:Cloud9|Silk-Accelerated)' },
+		      'Nexus',
+		      'Nook',
+		      'PlayBook',
+		      'PlayStation Vita',
+		      'PlayStation',
+		      'TouchPad',
+		      'Transformer',
+		      { 'label': 'Wii U', 'pattern': 'WiiU' },
+		      'Wii',
+		      'Xbox One',
+		      { 'label': 'Xbox 360', 'pattern': 'Xbox' },
+		      'Xoom'
+		    ]);
+
+		    /* Detectable manufacturers. */
+		    var manufacturer = getManufacturer({
+		      'Apple': { 'iPad': 1, 'iPhone': 1, 'iPod': 1 },
+		      'Alcatel': {},
+		      'Archos': {},
+		      'Amazon': { 'Kindle': 1, 'Kindle Fire': 1 },
+		      'Asus': { 'Transformer': 1 },
+		      'Barnes & Noble': { 'Nook': 1 },
+		      'BlackBerry': { 'PlayBook': 1 },
+		      'Google': { 'Google TV': 1, 'Nexus': 1 },
+		      'HP': { 'TouchPad': 1 },
+		      'HTC': {},
+		      'Huawei': {},
+		      'Lenovo': {},
+		      'LG': {},
+		      'Microsoft': { 'Xbox': 1, 'Xbox One': 1 },
+		      'Motorola': { 'Xoom': 1 },
+		      'Nintendo': { 'Wii U': 1,  'Wii': 1 },
+		      'Nokia': { 'Lumia': 1 },
+		      'Oppo': {},
+		      'Samsung': { 'Galaxy S': 1, 'Galaxy S2': 1, 'Galaxy S3': 1, 'Galaxy S4': 1 },
+		      'Sony': { 'PlayStation': 1, 'PlayStation Vita': 1 },
+		      'Xiaomi': { 'Mi': 1, 'Redmi': 1 }
+		    });
+
+		    /* Detectable operating systems (order is important). */
+		    var os = getOS([
+		      'Windows Phone',
+		      'KaiOS',
+		      'Android',
+		      'CentOS',
+		      { 'label': 'Chrome OS', 'pattern': 'CrOS' },
+		      'Debian',
+		      { 'label': 'DragonFly BSD', 'pattern': 'DragonFly' },
+		      'Fedora',
+		      'FreeBSD',
+		      'Gentoo',
+		      'Haiku',
+		      'Kubuntu',
+		      'Linux Mint',
+		      'OpenBSD',
+		      'Red Hat',
+		      'SuSE',
+		      'Ubuntu',
+		      'Xubuntu',
+		      'Cygwin',
+		      'Symbian OS',
+		      'hpwOS',
+		      'webOS ',
+		      'webOS',
+		      'Tablet OS',
+		      'Tizen',
+		      'Linux',
+		      'Mac OS X',
+		      'Macintosh',
+		      'Mac',
+		      'Windows 98;',
+		      'Windows '
+		    ]);
+
+		    /*------------------------------------------------------------------------*/
+
+		    /**
+		     * Picks the layout engine from an array of guesses.
+		     *
+		     * @private
+		     * @param {Array} guesses An array of guesses.
+		     * @returns {null|string} The detected layout engine.
+		     */
+		    function getLayout(guesses) {
+		      return reduce(guesses, function(result, guess) {
+		        return result || RegExp('\\b' + (
+		          guess.pattern || qualify(guess)
+		        ) + '\\b', 'i').exec(ua) && (guess.label || guess);
+		      });
+		    }
+
+		    /**
+		     * Picks the manufacturer from an array of guesses.
+		     *
+		     * @private
+		     * @param {Array} guesses An object of guesses.
+		     * @returns {null|string} The detected manufacturer.
+		     */
+		    function getManufacturer(guesses) {
+		      return reduce(guesses, function(result, value, key) {
+		        // Lookup the manufacturer by product or scan the UA for the manufacturer.
+		        return result || (
+		          value[product] ||
+		          value[/^[a-z]+(?: +[a-z]+\b)*/i.exec(product)] ||
+		          RegExp('\\b' + qualify(key) + '(?:\\b|\\w*\\d)', 'i').exec(ua)
+		        ) && key;
+		      });
+		    }
+
+		    /**
+		     * Picks the browser name from an array of guesses.
+		     *
+		     * @private
+		     * @param {Array} guesses An array of guesses.
+		     * @returns {null|string} The detected browser name.
+		     */
+		    function getName(guesses) {
+		      return reduce(guesses, function(result, guess) {
+		        return result || RegExp('\\b' + (
+		          guess.pattern || qualify(guess)
+		        ) + '\\b', 'i').exec(ua) && (guess.label || guess);
+		      });
+		    }
+
+		    /**
+		     * Picks the OS name from an array of guesses.
+		     *
+		     * @private
+		     * @param {Array} guesses An array of guesses.
+		     * @returns {null|string} The detected OS name.
+		     */
+		    function getOS(guesses) {
+		      return reduce(guesses, function(result, guess) {
+		        var pattern = guess.pattern || qualify(guess);
+		        if (!result && (result =
+		              RegExp('\\b' + pattern + '(?:/[\\d.]+|[ \\w.]*)', 'i').exec(ua)
+		            )) {
+		          result = cleanupOS(result, pattern, guess.label || guess);
+		        }
+		        return result;
+		      });
+		    }
+
+		    /**
+		     * Picks the product name from an array of guesses.
+		     *
+		     * @private
+		     * @param {Array} guesses An array of guesses.
+		     * @returns {null|string} The detected product name.
+		     */
+		    function getProduct(guesses) {
+		      return reduce(guesses, function(result, guess) {
+		        var pattern = guess.pattern || qualify(guess);
+		        if (!result && (result =
+		              RegExp('\\b' + pattern + ' *\\d+[.\\w_]*', 'i').exec(ua) ||
+		              RegExp('\\b' + pattern + ' *\\w+-[\\w]*', 'i').exec(ua) ||
+		              RegExp('\\b' + pattern + '(?:; *(?:[a-z]+[_-])?[a-z]+\\d+|[^ ();-]*)', 'i').exec(ua)
+		            )) {
+		          // Split by forward slash and append product version if needed.
+		          if ((result = String((guess.label && !RegExp(pattern, 'i').test(guess.label)) ? guess.label : result).split('/'))[1] && !/[\d.]+/.test(result[0])) {
+		            result[0] += ' ' + result[1];
+		          }
+		          // Correct character case and cleanup string.
+		          guess = guess.label || guess;
+		          result = format(result[0]
+		            .replace(RegExp(pattern, 'i'), guess)
+		            .replace(RegExp('; *(?:' + guess + '[_-])?', 'i'), ' ')
+		            .replace(RegExp('(' + guess + ')[-_.]?(\\w)', 'i'), '$1 $2'));
+		        }
+		        return result;
+		      });
+		    }
+
+		    /**
+		     * Resolves the version using an array of UA patterns.
+		     *
+		     * @private
+		     * @param {Array} patterns An array of UA patterns.
+		     * @returns {null|string} The detected version.
+		     */
+		    function getVersion(patterns) {
+		      return reduce(patterns, function(result, pattern) {
+		        return result || (RegExp(pattern +
+		          '(?:-[\\d.]+/|(?: for [\\w-]+)?[ /-])([\\d.]+[^ ();/_-]*)', 'i').exec(ua) || 0)[1] || null;
+		      });
+		    }
+
+		    /**
+		     * Returns `platform.description` when the platform object is coerced to a string.
+		     *
+		     * @name toString
+		     * @memberOf platform
+		     * @returns {string} Returns `platform.description` if available, else an empty string.
+		     */
+		    function toStringPlatform() {
+		      return this.description || '';
+		    }
+
+		    /*------------------------------------------------------------------------*/
+
+		    // Convert layout to an array so we can add extra details.
+		    layout && (layout = [layout]);
+
+		    // Detect Android products.
+		    // Browsers on Android devices typically provide their product IDS after "Android;"
+		    // up to "Build" or ") AppleWebKit".
+		    // Example:
+		    // "Mozilla/5.0 (Linux; Android 8.1.0; Moto G (5) Plus) AppleWebKit/537.36
+		    // (KHTML, like Gecko) Chrome/70.0.3538.80 Mobile Safari/537.36"
+		    if (/\bAndroid\b/.test(os) && !product &&
+		        (data = /\bAndroid[^;]*;(.*?)(?:Build|\) AppleWebKit)\b/i.exec(ua))) {
+		      product = trim(data[1])
+		        // Replace any language codes (eg. "en-US").
+		        .replace(/^[a-z]{2}-[a-z]{2};\s*/i, '')
+		        || null;
+		    }
+		    // Detect product names that contain their manufacturer's name.
+		    if (manufacturer && !product) {
+		      product = getProduct([manufacturer]);
+		    } else if (manufacturer && product) {
+		      product = product
+		        .replace(RegExp('^(' + qualify(manufacturer) + ')[-_.\\s]', 'i'), manufacturer + ' ')
+		        .replace(RegExp('^(' + qualify(manufacturer) + ')[-_.]?(\\w)', 'i'), manufacturer + ' $2');
+		    }
+		    // Clean up Google TV.
+		    if ((data = /\bGoogle TV\b/.exec(product))) {
+		      product = data[0];
+		    }
+		    // Detect simulators.
+		    if (/\bSimulator\b/i.test(ua)) {
+		      product = (product ? product + ' ' : '') + 'Simulator';
+		    }
+		    // Detect Opera Mini 8+ running in Turbo/Uncompressed mode on iOS.
+		    if (name == 'Opera Mini' && /\bOPiOS\b/.test(ua)) {
+		      description.push('running in Turbo/Uncompressed mode');
+		    }
+		    // Detect IE Mobile 11.
+		    if (name == 'IE' && /\blike iPhone OS\b/.test(ua)) {
+		      data = parse(ua.replace(/like iPhone OS/, ''));
+		      manufacturer = data.manufacturer;
+		      product = data.product;
+		    }
+		    // Detect iOS.
+		    else if (/^iP/.test(product)) {
+		      name || (name = 'Safari');
+		      os = 'iOS' + ((data = / OS ([\d_]+)/i.exec(ua))
+		        ? ' ' + data[1].replace(/_/g, '.')
+		        : '');
+		    }
+		    // Detect Kubuntu.
+		    else if (name == 'Konqueror' && /^Linux\b/i.test(os)) {
+		      os = 'Kubuntu';
+		    }
+		    // Detect Android browsers.
+		    else if ((manufacturer && manufacturer != 'Google' &&
+		        ((/Chrome/.test(name) && !/\bMobile Safari\b/i.test(ua)) || /\bVita\b/.test(product))) ||
+		        (/\bAndroid\b/.test(os) && /^Chrome/.test(name) && /\bVersion\//i.test(ua))) {
+		      name = 'Android Browser';
+		      os = /\bAndroid\b/.test(os) ? os : 'Android';
+		    }
+		    // Detect Silk desktop/accelerated modes.
+		    else if (name == 'Silk') {
+		      if (!/\bMobi/i.test(ua)) {
+		        os = 'Android';
+		        description.unshift('desktop mode');
+		      }
+		      if (/Accelerated *= *true/i.test(ua)) {
+		        description.unshift('accelerated');
+		      }
+		    }
+		    // Detect UC Browser speed mode.
+		    else if (name == 'UC Browser' && /\bUCWEB\b/.test(ua)) {
+		      description.push('speed mode');
+		    }
+		    // Detect PaleMoon identifying as Firefox.
+		    else if (name == 'PaleMoon' && (data = /\bFirefox\/([\d.]+)\b/.exec(ua))) {
+		      description.push('identifying as Firefox ' + data[1]);
+		    }
+		    // Detect Firefox OS and products running Firefox.
+		    else if (name == 'Firefox' && (data = /\b(Mobile|Tablet|TV)\b/i.exec(ua))) {
+		      os || (os = 'Firefox OS');
+		      product || (product = data[1]);
+		    }
+		    // Detect false positives for Firefox/Safari.
+		    else if (!name || (data = !/\bMinefield\b/i.test(ua) && /\b(?:Firefox|Safari)\b/.exec(name))) {
+		      // Escape the `/` for Firefox 1.
+		      if (name && !product && /[\/,]|^[^(]+?\)/.test(ua.slice(ua.indexOf(data + '/') + 8))) {
+		        // Clear name of false positives.
+		        name = null;
+		      }
+		      // Reassign a generic name.
+		      if ((data = product || manufacturer || os) &&
+		          (product || manufacturer || /\b(?:Android|Symbian OS|Tablet OS|webOS)\b/.test(os))) {
+		        name = /[a-z]+(?: Hat)?/i.exec(/\bAndroid\b/.test(os) ? os : data) + ' Browser';
+		      }
+		    }
+		    // Add Chrome version to description for Electron.
+		    else if (name == 'Electron' && (data = (/\bChrome\/([\d.]+)\b/.exec(ua) || 0)[1])) {
+		      description.push('Chromium ' + data);
+		    }
+		    // Detect non-Opera (Presto-based) versions (order is important).
+		    if (!version) {
+		      version = getVersion([
+		        '(?:Cloud9|CriOS|CrMo|Edge|Edg|EdgA|EdgiOS|FxiOS|HeadlessChrome|IEMobile|Iron|Opera ?Mini|OPiOS|OPR|Raven|SamsungBrowser|Silk(?!/[\\d.]+$)|UCBrowser|YaBrowser)',
+		        'Version',
+		        qualify(name),
+		        '(?:Firefox|Minefield|NetFront)'
+		      ]);
+		    }
+		    // Detect stubborn layout engines.
+		    if ((data =
+		          layout == 'iCab' && parseFloat(version) > 3 && 'WebKit' ||
+		          /\bOpera\b/.test(name) && (/\bOPR\b/.test(ua) ? 'Blink' : 'Presto') ||
+		          /\b(?:Midori|Nook|Safari)\b/i.test(ua) && !/^(?:Trident|EdgeHTML)$/.test(layout) && 'WebKit' ||
+		          !layout && /\bMSIE\b/i.test(ua) && (os == 'Mac OS' ? 'Tasman' : 'Trident') ||
+		          layout == 'WebKit' && /\bPlayStation\b(?! Vita\b)/i.test(name) && 'NetFront'
+		        )) {
+		      layout = [data];
+		    }
+		    // Detect Windows Phone 7 desktop mode.
+		    if (name == 'IE' && (data = (/; *(?:XBLWP|ZuneWP)(\d+)/i.exec(ua) || 0)[1])) {
+		      name += ' Mobile';
+		      os = 'Windows Phone ' + (/\+$/.test(data) ? data : data + '.x');
+		      description.unshift('desktop mode');
+		    }
+		    // Detect Windows Phone 8.x desktop mode.
+		    else if (/\bWPDesktop\b/i.test(ua)) {
+		      name = 'IE Mobile';
+		      os = 'Windows Phone 8.x';
+		      description.unshift('desktop mode');
+		      version || (version = (/\brv:([\d.]+)/.exec(ua) || 0)[1]);
+		    }
+		    // Detect IE 11 identifying as other browsers.
+		    else if (name != 'IE' && layout == 'Trident' && (data = /\brv:([\d.]+)/.exec(ua))) {
+		      if (name) {
+		        description.push('identifying as ' + name + (version ? ' ' + version : ''));
+		      }
+		      name = 'IE';
+		      version = data[1];
+		    }
+		    // Leverage environment features.
+		    if (useFeatures) {
+		      // Detect server-side environments.
+		      // Rhino has a global function while others have a global object.
+		      if (isHostType(context, 'global')) {
+		        if (java) {
+		          data = java.lang.System;
+		          arch = data.getProperty('os.arch');
+		          os = os || data.getProperty('os.name') + ' ' + data.getProperty('os.version');
+		        }
+		        if (rhino) {
+		          try {
+		            version = context.require('ringo/engine').version.join('.');
+		            name = 'RingoJS';
+		          } catch(e) {
+		            if ((data = context.system) && data.global.system == context.system) {
+		              name = 'Narwhal';
+		              os || (os = data[0].os || null);
+		            }
+		          }
+		          if (!name) {
+		            name = 'Rhino';
+		          }
+		        }
+		        else if (
+		          typeof context.process == 'object' && !context.process.browser &&
+		          (data = context.process)
+		        ) {
+		          if (typeof data.versions == 'object') {
+		            if (typeof data.versions.electron == 'string') {
+		              description.push('Node ' + data.versions.node);
+		              name = 'Electron';
+		              version = data.versions.electron;
+		            } else if (typeof data.versions.nw == 'string') {
+		              description.push('Chromium ' + version, 'Node ' + data.versions.node);
+		              name = 'NW.js';
+		              version = data.versions.nw;
+		            }
+		          }
+		          if (!name) {
+		            name = 'Node.js';
+		            arch = data.arch;
+		            os = data.platform;
+		            version = /[\d.]+/.exec(data.version);
+		            version = version ? version[0] : null;
+		          }
+		        }
+		      }
+		      // Detect Adobe AIR.
+		      else if (getClassOf((data = context.runtime)) == airRuntimeClass) {
+		        name = 'Adobe AIR';
+		        os = data.flash.system.Capabilities.os;
+		      }
+		      // Detect PhantomJS.
+		      else if (getClassOf((data = context.phantom)) == phantomClass) {
+		        name = 'PhantomJS';
+		        version = (data = data.version || null) && (data.major + '.' + data.minor + '.' + data.patch);
+		      }
+		      // Detect IE compatibility modes.
+		      else if (typeof doc.documentMode == 'number' && (data = /\bTrident\/(\d+)/i.exec(ua))) {
+		        // We're in compatibility mode when the Trident version + 4 doesn't
+		        // equal the document mode.
+		        version = [version, doc.documentMode];
+		        if ((data = +data[1] + 4) != version[1]) {
+		          description.push('IE ' + version[1] + ' mode');
+		          layout && (layout[1] = '');
+		          version[1] = data;
+		        }
+		        version = name == 'IE' ? String(version[1].toFixed(1)) : version[0];
+		      }
+		      // Detect IE 11 masking as other browsers.
+		      else if (typeof doc.documentMode == 'number' && /^(?:Chrome|Firefox)\b/.test(name)) {
+		        description.push('masking as ' + name + ' ' + version);
+		        name = 'IE';
+		        version = '11.0';
+		        layout = ['Trident'];
+		        os = 'Windows';
+		      }
+		      os = os && format(os);
+		    }
+		    // Detect prerelease phases.
+		    if (version && (data =
+		          /(?:[ab]|dp|pre|[ab]\d+pre)(?:\d+\+?)?$/i.exec(version) ||
+		          /(?:alpha|beta)(?: ?\d)?/i.exec(ua + ';' + (useFeatures && nav.appMinorVersion)) ||
+		          /\bMinefield\b/i.test(ua) && 'a'
+		        )) {
+		      prerelease = /b/i.test(data) ? 'beta' : 'alpha';
+		      version = version.replace(RegExp(data + '\\+?$'), '') +
+		        (prerelease == 'beta' ? beta : alpha) + (/\d+\+?/.exec(data) || '');
+		    }
+		    // Detect Firefox Mobile.
+		    if (name == 'Fennec' || name == 'Firefox' && /\b(?:Android|Firefox OS|KaiOS)\b/.test(os)) {
+		      name = 'Firefox Mobile';
+		    }
+		    // Obscure Maxthon's unreliable version.
+		    else if (name == 'Maxthon' && version) {
+		      version = version.replace(/\.[\d.]+/, '.x');
+		    }
+		    // Detect Xbox 360 and Xbox One.
+		    else if (/\bXbox\b/i.test(product)) {
+		      if (product == 'Xbox 360') {
+		        os = null;
+		      }
+		      if (product == 'Xbox 360' && /\bIEMobile\b/.test(ua)) {
+		        description.unshift('mobile mode');
+		      }
+		    }
+		    // Add mobile postfix.
+		    else if ((/^(?:Chrome|IE|Opera)$/.test(name) || name && !product && !/Browser|Mobi/.test(name)) &&
+		        (os == 'Windows CE' || /Mobi/i.test(ua))) {
+		      name += ' Mobile';
+		    }
+		    // Detect IE platform preview.
+		    else if (name == 'IE' && useFeatures) {
+		      try {
+		        if (context.external === null) {
+		          description.unshift('platform preview');
+		        }
+		      } catch(e) {
+		        description.unshift('embedded');
+		      }
+		    }
+		    // Detect BlackBerry OS version.
+		    // http://docs.blackberry.com/en/developers/deliverables/18169/HTTP_headers_sent_by_BB_Browser_1234911_11.jsp
+		    else if ((/\bBlackBerry\b/.test(product) || /\bBB10\b/.test(ua)) && (data =
+		          (RegExp(product.replace(/ +/g, ' *') + '/([.\\d]+)', 'i').exec(ua) || 0)[1] ||
+		          version
+		        )) {
+		      data = [data, /BB10/.test(ua)];
+		      os = (data[1] ? (product = null, manufacturer = 'BlackBerry') : 'Device Software') + ' ' + data[0];
+		      version = null;
+		    }
+		    // Detect Opera identifying/masking itself as another browser.
+		    // http://www.opera.com/support/kb/view/843/
+		    else if (this != forOwn && product != 'Wii' && (
+		          (useFeatures && opera) ||
+		          (/Opera/.test(name) && /\b(?:MSIE|Firefox)\b/i.test(ua)) ||
+		          (name == 'Firefox' && /\bOS X (?:\d+\.){2,}/.test(os)) ||
+		          (name == 'IE' && (
+		            (os && !/^Win/.test(os) && version > 5.5) ||
+		            /\bWindows XP\b/.test(os) && version > 8 ||
+		            version == 8 && !/\bTrident\b/.test(ua)
+		          ))
+		        ) && !reOpera.test((data = parse.call(forOwn, ua.replace(reOpera, '') + ';'))) && data.name) {
+		      // When "identifying", the UA contains both Opera and the other browser's name.
+		      data = 'ing as ' + data.name + ((data = data.version) ? ' ' + data : '');
+		      if (reOpera.test(name)) {
+		        if (/\bIE\b/.test(data) && os == 'Mac OS') {
+		          os = null;
+		        }
+		        data = 'identify' + data;
+		      }
+		      // When "masking", the UA contains only the other browser's name.
+		      else {
+		        data = 'mask' + data;
+		        if (operaClass) {
+		          name = format(operaClass.replace(/([a-z])([A-Z])/g, '$1 $2'));
+		        } else {
+		          name = 'Opera';
+		        }
+		        if (/\bIE\b/.test(data)) {
+		          os = null;
+		        }
+		        if (!useFeatures) {
+		          version = null;
+		        }
+		      }
+		      layout = ['Presto'];
+		      description.push(data);
+		    }
+		    // Detect WebKit Nightly and approximate Chrome/Safari versions.
+		    if ((data = (/\bAppleWebKit\/([\d.]+\+?)/i.exec(ua) || 0)[1])) {
+		      // Correct build number for numeric comparison.
+		      // (e.g. "532.5" becomes "532.05")
+		      data = [parseFloat(data.replace(/\.(\d)$/, '.0$1')), data];
+		      // Nightly builds are postfixed with a "+".
+		      if (name == 'Safari' && data[1].slice(-1) == '+') {
+		        name = 'WebKit Nightly';
+		        prerelease = 'alpha';
+		        version = data[1].slice(0, -1);
+		      }
+		      // Clear incorrect browser versions.
+		      else if (version == data[1] ||
+		          version == (data[2] = (/\bSafari\/([\d.]+\+?)/i.exec(ua) || 0)[1])) {
+		        version = null;
+		      }
+		      // Use the full Chrome version when available.
+		      data[1] = (/\b(?:Headless)?Chrome\/([\d.]+)/i.exec(ua) || 0)[1];
+		      // Detect Blink layout engine.
+		      if (data[0] == 537.36 && data[2] == 537.36 && parseFloat(data[1]) >= 28 && layout == 'WebKit') {
+		        layout = ['Blink'];
+		      }
+		      // Detect JavaScriptCore.
+		      // http://stackoverflow.com/questions/6768474/how-can-i-detect-which-javascript-engine-v8-or-jsc-is-used-at-runtime-in-androi
+		      if (!useFeatures || (!likeChrome && !data[1])) {
+		        layout && (layout[1] = 'like Safari');
+		        data = (data = data[0], data < 400 ? 1 : data < 500 ? 2 : data < 526 ? 3 : data < 533 ? 4 : data < 534 ? '4+' : data < 535 ? 5 : data < 537 ? 6 : data < 538 ? 7 : data < 601 ? 8 : data < 602 ? 9 : data < 604 ? 10 : data < 606 ? 11 : data < 608 ? 12 : '12');
+		      } else {
+		        layout && (layout[1] = 'like Chrome');
+		        data = data[1] || (data = data[0], data < 530 ? 1 : data < 532 ? 2 : data < 532.05 ? 3 : data < 533 ? 4 : data < 534.03 ? 5 : data < 534.07 ? 6 : data < 534.10 ? 7 : data < 534.13 ? 8 : data < 534.16 ? 9 : data < 534.24 ? 10 : data < 534.30 ? 11 : data < 535.01 ? 12 : data < 535.02 ? '13+' : data < 535.07 ? 15 : data < 535.11 ? 16 : data < 535.19 ? 17 : data < 536.05 ? 18 : data < 536.10 ? 19 : data < 537.01 ? 20 : data < 537.11 ? '21+' : data < 537.13 ? 23 : data < 537.18 ? 24 : data < 537.24 ? 25 : data < 537.36 ? 26 : layout != 'Blink' ? '27' : '28');
+		      }
+		      // Add the postfix of ".x" or "+" for approximate versions.
+		      layout && (layout[1] += ' ' + (data += typeof data == 'number' ? '.x' : /[.+]/.test(data) ? '' : '+'));
+		      // Obscure version for some Safari 1-2 releases.
+		      if (name == 'Safari' && (!version || parseInt(version) > 45)) {
+		        version = data;
+		      } else if (name == 'Chrome' && /\bHeadlessChrome/i.test(ua)) {
+		        description.unshift('headless');
+		      }
+		    }
+		    // Detect Opera desktop modes.
+		    if (name == 'Opera' &&  (data = /\bzbov|zvav$/.exec(os))) {
+		      name += ' ';
+		      description.unshift('desktop mode');
+		      if (data == 'zvav') {
+		        name += 'Mini';
+		        version = null;
+		      } else {
+		        name += 'Mobile';
+		      }
+		      os = os.replace(RegExp(' *' + data + '$'), '');
+		    }
+		    // Detect Chrome desktop mode.
+		    else if (name == 'Safari' && /\bChrome\b/.exec(layout && layout[1])) {
+		      description.unshift('desktop mode');
+		      name = 'Chrome Mobile';
+		      version = null;
+
+		      if (/\bOS X\b/.test(os)) {
+		        manufacturer = 'Apple';
+		        os = 'iOS 4.3+';
+		      } else {
+		        os = null;
+		      }
+		    }
+		    // Newer versions of SRWare Iron uses the Chrome tag to indicate its version number.
+		    else if (/\bSRWare Iron\b/.test(name) && !version) {
+		      version = getVersion('Chrome');
+		    }
+		    // Strip incorrect OS versions.
+		    if (version && version.indexOf((data = /[\d.]+$/.exec(os))) == 0 &&
+		        ua.indexOf('/' + data + '-') > -1) {
+		      os = trim(os.replace(data, ''));
+		    }
+		    // Ensure OS does not include the browser name.
+		    if (os && os.indexOf(name) != -1 && !RegExp(name + ' OS').test(os)) {
+		      os = os.replace(RegExp(' *' + qualify(name) + ' *'), '');
+		    }
+		    // Add layout engine.
+		    if (layout && !/\b(?:Avant|Nook)\b/.test(name) && (
+		        /Browser|Lunascape|Maxthon/.test(name) ||
+		        name != 'Safari' && /^iOS/.test(os) && /\bSafari\b/.test(layout[1]) ||
+		        /^(?:Adobe|Arora|Breach|Midori|Opera|Phantom|Rekonq|Rock|Samsung Internet|Sleipnir|SRWare Iron|Vivaldi|Web)/.test(name) && layout[1])) {
+		      // Don't add layout details to description if they are falsey.
+		      (data = layout[layout.length - 1]) && description.push(data);
+		    }
+		    // Combine contextual information.
+		    if (description.length) {
+		      description = ['(' + description.join('; ') + ')'];
+		    }
+		    // Append manufacturer to description.
+		    if (manufacturer && product && product.indexOf(manufacturer) < 0) {
+		      description.push('on ' + manufacturer);
+		    }
+		    // Append product to description.
+		    if (product) {
+		      description.push((/^on /.test(description[description.length - 1]) ? '' : 'on ') + product);
+		    }
+		    // Parse the OS into an object.
+		    if (os) {
+		      data = / ([\d.+]+)$/.exec(os);
+		      isSpecialCasedOS = data && os.charAt(os.length - data[0].length - 1) == '/';
+		      os = {
+		        'architecture': 32,
+		        'family': (data && !isSpecialCasedOS) ? os.replace(data[0], '') : os,
+		        'version': data ? data[1] : null,
+		        'toString': function() {
+		          var version = this.version;
+		          return this.family + ((version && !isSpecialCasedOS) ? ' ' + version : '') + (this.architecture == 64 ? ' 64-bit' : '');
+		        }
+		      };
+		    }
+		    // Add browser/OS architecture.
+		    if ((data = /\b(?:AMD|IA|Win|WOW|x86_|x)64\b/i.exec(arch)) && !/\bi686\b/i.test(arch)) {
+		      if (os) {
+		        os.architecture = 64;
+		        os.family = os.family.replace(RegExp(' *' + data), '');
+		      }
+		      if (
+		          name && (/\bWOW64\b/i.test(ua) ||
+		          (useFeatures && /\w(?:86|32)$/.test(nav.cpuClass || nav.platform) && !/\bWin64; x64\b/i.test(ua)))
+		      ) {
+		        description.unshift('32-bit');
+		      }
+		    }
+		    // Chrome 39 and above on OS X is always 64-bit.
+		    else if (
+		        os && /^OS X/.test(os.family) &&
+		        name == 'Chrome' && parseFloat(version) >= 39
+		    ) {
+		      os.architecture = 64;
+		    }
+
+		    ua || (ua = null);
+
+		    /*------------------------------------------------------------------------*/
+
+		    /**
+		     * The platform object.
+		     *
+		     * @name platform
+		     * @type Object
+		     */
+		    var platform = {};
+
+		    /**
+		     * The platform description.
+		     *
+		     * @memberOf platform
+		     * @type string|null
+		     */
+		    platform.description = ua;
+
+		    /**
+		     * The name of the browser's layout engine.
+		     *
+		     * The list of common layout engines include:
+		     * "Blink", "EdgeHTML", "Gecko", "Trident" and "WebKit"
+		     *
+		     * @memberOf platform
+		     * @type string|null
+		     */
+		    platform.layout = layout && layout[0];
+
+		    /**
+		     * The name of the product's manufacturer.
+		     *
+		     * The list of manufacturers include:
+		     * "Apple", "Archos", "Amazon", "Asus", "Barnes & Noble", "BlackBerry",
+		     * "Google", "HP", "HTC", "LG", "Microsoft", "Motorola", "Nintendo",
+		     * "Nokia", "Samsung" and "Sony"
+		     *
+		     * @memberOf platform
+		     * @type string|null
+		     */
+		    platform.manufacturer = manufacturer;
+
+		    /**
+		     * The name of the browser/environment.
+		     *
+		     * The list of common browser names include:
+		     * "Chrome", "Electron", "Firefox", "Firefox for iOS", "IE",
+		     * "Microsoft Edge", "PhantomJS", "Safari", "SeaMonkey", "Silk",
+		     * "Opera Mini" and "Opera"
+		     *
+		     * Mobile versions of some browsers have "Mobile" appended to their name:
+		     * eg. "Chrome Mobile", "Firefox Mobile", "IE Mobile" and "Opera Mobile"
+		     *
+		     * @memberOf platform
+		     * @type string|null
+		     */
+		    platform.name = name;
+
+		    /**
+		     * The alpha/beta release indicator.
+		     *
+		     * @memberOf platform
+		     * @type string|null
+		     */
+		    platform.prerelease = prerelease;
+
+		    /**
+		     * The name of the product hosting the browser.
+		     *
+		     * The list of common products include:
+		     *
+		     * "BlackBerry", "Galaxy S4", "Lumia", "iPad", "iPod", "iPhone", "Kindle",
+		     * "Kindle Fire", "Nexus", "Nook", "PlayBook", "TouchPad" and "Transformer"
+		     *
+		     * @memberOf platform
+		     * @type string|null
+		     */
+		    platform.product = product;
+
+		    /**
+		     * The browser's user agent string.
+		     *
+		     * @memberOf platform
+		     * @type string|null
+		     */
+		    platform.ua = ua;
+
+		    /**
+		     * The browser/environment version.
+		     *
+		     * @memberOf platform
+		     * @type string|null
+		     */
+		    platform.version = name && version;
+
+		    /**
+		     * The name of the operating system.
+		     *
+		     * @memberOf platform
+		     * @type Object
+		     */
+		    platform.os = os || {
+
+		      /**
+		       * The CPU architecture the OS is built for.
+		       *
+		       * @memberOf platform.os
+		       * @type number|null
+		       */
+		      'architecture': null,
+
+		      /**
+		       * The family of the OS.
+		       *
+		       * Common values include:
+		       * "Windows", "Windows Server 2008 R2 / 7", "Windows Server 2008 / Vista",
+		       * "Windows XP", "OS X", "Linux", "Ubuntu", "Debian", "Fedora", "Red Hat",
+		       * "SuSE", "Android", "iOS" and "Windows Phone"
+		       *
+		       * @memberOf platform.os
+		       * @type string|null
+		       */
+		      'family': null,
+
+		      /**
+		       * The version of the OS.
+		       *
+		       * @memberOf platform.os
+		       * @type string|null
+		       */
+		      'version': null,
+
+		      /**
+		       * Returns the OS string.
+		       *
+		       * @memberOf platform.os
+		       * @returns {string} The OS string.
+		       */
+		      'toString': function() { return 'null'; }
+		    };
+
+		    platform.parse = parse;
+		    platform.toString = toStringPlatform;
+
+		    if (platform.version) {
+		      description.unshift(version);
+		    }
+		    if (platform.name) {
+		      description.unshift(name);
+		    }
+		    if (os && name && !(os == String(os).split(' ')[0] && (os == name.split(' ')[0] || product))) {
+		      description.push(product ? '(' + os + ')' : 'on ' + os);
+		    }
+		    if (description.length) {
+		      platform.description = description.join(' ');
+		    }
+		    return platform;
+		  }
+
+		  /*--------------------------------------------------------------------------*/
+
+		  // Export platform.
+		  var platform = parse();
+
+		  // Some AMD build optimizers, like r.js, check for condition patterns like the following:
+		  if (freeExports && freeModule) {
+		    // Export for CommonJS support.
+		    forOwn(platform, function(value, key) {
+		      freeExports[key] = value;
+		    });
+		  }
+		  else {
+		    // Export to the global object.
+		    root.platform = platform;
+		  }
+		}.call(platform)); 
+	} (platform$1, platform$1.exports));
+	return platform$1.exports;
+}
+
+var platformExports = requirePlatform();
+var platform2 = /*@__PURE__*/getDefaultExportFromCjs(platformExports);
+
+const ANSI_BACKGROUND_OFFSET = 10;
+
+const wrapAnsi16 = (offset = 0) => code => `\u001B[${code + offset}m`;
+
+const wrapAnsi256 = (offset = 0) => code => `\u001B[${38 + offset};5;${code}m`;
+
+const wrapAnsi16m = (offset = 0) => (red, green, blue) => `\u001B[${38 + offset};2;${red};${green};${blue}m`;
+
+const styles$1 = {
+	modifier: {
+		reset: [0, 0],
+		// 21 isn't widely supported and 22 does the same thing
+		bold: [1, 22],
+		dim: [2, 22],
+		italic: [3, 23],
+		underline: [4, 24],
+		overline: [53, 55],
+		inverse: [7, 27],
+		hidden: [8, 28],
+		strikethrough: [9, 29],
+	},
+	color: {
+		black: [30, 39],
+		red: [31, 39],
+		green: [32, 39],
+		yellow: [33, 39],
+		blue: [34, 39],
+		magenta: [35, 39],
+		cyan: [36, 39],
+		white: [37, 39],
+
+		// Bright color
+		blackBright: [90, 39],
+		gray: [90, 39], // Alias of `blackBright`
+		grey: [90, 39], // Alias of `blackBright`
+		redBright: [91, 39],
+		greenBright: [92, 39],
+		yellowBright: [93, 39],
+		blueBright: [94, 39],
+		magentaBright: [95, 39],
+		cyanBright: [96, 39],
+		whiteBright: [97, 39],
+	},
+	bgColor: {
+		bgBlack: [40, 49],
+		bgRed: [41, 49],
+		bgGreen: [42, 49],
+		bgYellow: [43, 49],
+		bgBlue: [44, 49],
+		bgMagenta: [45, 49],
+		bgCyan: [46, 49],
+		bgWhite: [47, 49],
+
+		// Bright color
+		bgBlackBright: [100, 49],
+		bgGray: [100, 49], // Alias of `bgBlackBright`
+		bgGrey: [100, 49], // Alias of `bgBlackBright`
+		bgRedBright: [101, 49],
+		bgGreenBright: [102, 49],
+		bgYellowBright: [103, 49],
+		bgBlueBright: [104, 49],
+		bgMagentaBright: [105, 49],
+		bgCyanBright: [106, 49],
+		bgWhiteBright: [107, 49],
+	},
+};
+
+Object.keys(styles$1.modifier);
+const foregroundColorNames = Object.keys(styles$1.color);
+const backgroundColorNames = Object.keys(styles$1.bgColor);
+[...foregroundColorNames, ...backgroundColorNames];
+
+function assembleStyles() {
+	const codes = new Map();
+
+	for (const [groupName, group] of Object.entries(styles$1)) {
+		for (const [styleName, style] of Object.entries(group)) {
+			styles$1[styleName] = {
+				open: `\u001B[${style[0]}m`,
+				close: `\u001B[${style[1]}m`,
+			};
+
+			group[styleName] = styles$1[styleName];
+
+			codes.set(style[0], style[1]);
+		}
+
+		Object.defineProperty(styles$1, groupName, {
+			value: group,
+			enumerable: false,
+		});
+	}
+
+	Object.defineProperty(styles$1, 'codes', {
+		value: codes,
+		enumerable: false,
+	});
+
+	styles$1.color.close = '\u001B[39m';
+	styles$1.bgColor.close = '\u001B[49m';
+
+	styles$1.color.ansi = wrapAnsi16();
+	styles$1.color.ansi256 = wrapAnsi256();
+	styles$1.color.ansi16m = wrapAnsi16m();
+	styles$1.bgColor.ansi = wrapAnsi16(ANSI_BACKGROUND_OFFSET);
+	styles$1.bgColor.ansi256 = wrapAnsi256(ANSI_BACKGROUND_OFFSET);
+	styles$1.bgColor.ansi16m = wrapAnsi16m(ANSI_BACKGROUND_OFFSET);
+
+	// From https://github.com/Qix-/color-convert/blob/3f0e0d4e92e235796ccb17f6e85c72094a651f49/conversions.js
+	Object.defineProperties(styles$1, {
+		rgbToAnsi256: {
+			value(red, green, blue) {
+				// We use the extended greyscale palette here, with the exception of
+				// black and white. normal palette only has 4 greyscale shades.
+				if (red === green && green === blue) {
+					if (red < 8) {
+						return 16;
+					}
+
+					if (red > 248) {
+						return 231;
+					}
+
+					return Math.round(((red - 8) / 247) * 24) + 232;
+				}
+
+				return 16
+					+ (36 * Math.round(red / 255 * 5))
+					+ (6 * Math.round(green / 255 * 5))
+					+ Math.round(blue / 255 * 5);
+			},
+			enumerable: false,
+		},
+		hexToRgb: {
+			value(hex) {
+				const matches = /[a-f\d]{6}|[a-f\d]{3}/i.exec(hex.toString(16));
+				if (!matches) {
+					return [0, 0, 0];
+				}
+
+				let [colorString] = matches;
+
+				if (colorString.length === 3) {
+					colorString = [...colorString].map(character => character + character).join('');
+				}
+
+				const integer = Number.parseInt(colorString, 16);
+
+				return [
+					/* eslint-disable no-bitwise */
+					(integer >> 16) & 0xFF,
+					(integer >> 8) & 0xFF,
+					integer & 0xFF,
+					/* eslint-enable no-bitwise */
+				];
+			},
+			enumerable: false,
+		},
+		hexToAnsi256: {
+			value: hex => styles$1.rgbToAnsi256(...styles$1.hexToRgb(hex)),
+			enumerable: false,
+		},
+		ansi256ToAnsi: {
+			value(code) {
+				if (code < 8) {
+					return 30 + code;
+				}
+
+				if (code < 16) {
+					return 90 + (code - 8);
+				}
+
+				let red;
+				let green;
+				let blue;
+
+				if (code >= 232) {
+					red = (((code - 232) * 10) + 8) / 255;
+					green = red;
+					blue = red;
+				} else {
+					code -= 16;
+
+					const remainder = code % 36;
+
+					red = Math.floor(code / 36) / 5;
+					green = Math.floor(remainder / 6) / 5;
+					blue = (remainder % 6) / 5;
+				}
+
+				const value = Math.max(red, green, blue) * 2;
+
+				if (value === 0) {
+					return 30;
+				}
+
+				// eslint-disable-next-line no-bitwise
+				let result = 30 + ((Math.round(blue) << 2) | (Math.round(green) << 1) | Math.round(red));
+
+				if (value === 2) {
+					result += 60;
+				}
+
+				return result;
+			},
+			enumerable: false,
+		},
+		rgbToAnsi: {
+			value: (red, green, blue) => styles$1.ansi256ToAnsi(styles$1.rgbToAnsi256(red, green, blue)),
+			enumerable: false,
+		},
+		hexToAnsi: {
+			value: hex => styles$1.ansi256ToAnsi(styles$1.hexToAnsi256(hex)),
+			enumerable: false,
+		},
+	});
+
+	return styles$1;
+}
+
+const ansiStyles = assembleStyles();
+
+/* eslint-env browser */
+
+const level = (() => {
+	if (!('navigator' in globalThis)) {
+		return 0;
+	}
+
+	if (globalThis.navigator.userAgentData) {
+		const brand = navigator.userAgentData.brands.find(({brand}) => brand === 'Chromium');
+		if (brand && brand.version > 93) {
+			return 3;
+		}
+	}
+
+	if (/\b(Chrome|Chromium)\//.test(globalThis.navigator.userAgent)) {
+		return 1;
+	}
+
+	return 0;
+})();
+
+const colorSupport = level !== 0 && {
+	level};
+
+const supportsColor = {
+	stdout: colorSupport,
+	stderr: colorSupport,
+};
+
+// TODO: When targeting Node.js 16, use `String.prototype.replaceAll`.
+function stringReplaceAll(string, substring, replacer) {
+	let index = string.indexOf(substring);
+	if (index === -1) {
+		return string;
+	}
+
+	const substringLength = substring.length;
+	let endIndex = 0;
+	let returnValue = '';
+	do {
+		returnValue += string.slice(endIndex, index) + substring + replacer;
+		endIndex = index + substringLength;
+		index = string.indexOf(substring, endIndex);
+	} while (index !== -1);
+
+	returnValue += string.slice(endIndex);
+	return returnValue;
+}
+
+function stringEncaseCRLFWithFirstIndex(string, prefix, postfix, index) {
+	let endIndex = 0;
+	let returnValue = '';
+	do {
+		const gotCR = string[index - 1] === '\r';
+		returnValue += string.slice(endIndex, (gotCR ? index - 1 : index)) + prefix + (gotCR ? '\r\n' : '\n') + postfix;
+		endIndex = index + 1;
+		index = string.indexOf('\n', endIndex);
+	} while (index !== -1);
+
+	returnValue += string.slice(endIndex);
+	return returnValue;
+}
+
+const {stdout: stdoutColor, stderr: stderrColor} = supportsColor;
+
+const GENERATOR = Symbol('GENERATOR');
+const STYLER = Symbol('STYLER');
+const IS_EMPTY = Symbol('IS_EMPTY');
+
+// `supportsColor.level` → `ansiStyles.color[name]` mapping
+const levelMapping = [
+	'ansi',
+	'ansi',
+	'ansi256',
+	'ansi16m',
+];
+
+const styles = Object.create(null);
+
+const applyOptions = (object, options = {}) => {
+	if (options.level && !(Number.isInteger(options.level) && options.level >= 0 && options.level <= 3)) {
+		throw new Error('The `level` option should be an integer from 0 to 3');
+	}
+
+	// Detect level if not set manually
+	const colorLevel = stdoutColor ? stdoutColor.level : 0;
+	object.level = options.level === undefined ? colorLevel : options.level;
+};
+
+const chalkFactory = options => {
+	const chalk = (...strings) => strings.join(' ');
+	applyOptions(chalk, options);
+
+	Object.setPrototypeOf(chalk, createChalk.prototype);
+
+	return chalk;
+};
+
+function createChalk(options) {
+	return chalkFactory(options);
+}
+
+Object.setPrototypeOf(createChalk.prototype, Function.prototype);
+
+for (const [styleName, style] of Object.entries(ansiStyles)) {
+	styles[styleName] = {
+		get() {
+			const builder = createBuilder(this, createStyler(style.open, style.close, this[STYLER]), this[IS_EMPTY]);
+			Object.defineProperty(this, styleName, {value: builder});
+			return builder;
+		},
+	};
+}
+
+styles.visible = {
+	get() {
+		const builder = createBuilder(this, this[STYLER], true);
+		Object.defineProperty(this, 'visible', {value: builder});
+		return builder;
+	},
+};
+
+const getModelAnsi = (model, level, type, ...arguments_) => {
+	if (model === 'rgb') {
+		if (level === 'ansi16m') {
+			return ansiStyles[type].ansi16m(...arguments_);
+		}
+
+		if (level === 'ansi256') {
+			return ansiStyles[type].ansi256(ansiStyles.rgbToAnsi256(...arguments_));
+		}
+
+		return ansiStyles[type].ansi(ansiStyles.rgbToAnsi(...arguments_));
+	}
+
+	if (model === 'hex') {
+		return getModelAnsi('rgb', level, type, ...ansiStyles.hexToRgb(...arguments_));
+	}
+
+	return ansiStyles[type][model](...arguments_);
+};
+
+const usedModels = ['rgb', 'hex', 'ansi256'];
+
+for (const model of usedModels) {
+	styles[model] = {
+		get() {
+			const {level} = this;
+			return function (...arguments_) {
+				const styler = createStyler(getModelAnsi(model, levelMapping[level], 'color', ...arguments_), ansiStyles.color.close, this[STYLER]);
+				return createBuilder(this, styler, this[IS_EMPTY]);
+			};
+		},
+	};
+
+	const bgModel = 'bg' + model[0].toUpperCase() + model.slice(1);
+	styles[bgModel] = {
+		get() {
+			const {level} = this;
+			return function (...arguments_) {
+				const styler = createStyler(getModelAnsi(model, levelMapping[level], 'bgColor', ...arguments_), ansiStyles.bgColor.close, this[STYLER]);
+				return createBuilder(this, styler, this[IS_EMPTY]);
+			};
+		},
+	};
+}
+
+const proto = Object.defineProperties(() => {}, {
+	...styles,
+	level: {
+		enumerable: true,
+		get() {
+			return this[GENERATOR].level;
+		},
+		set(level) {
+			this[GENERATOR].level = level;
+		},
+	},
+});
+
+const createStyler = (open, close, parent) => {
+	let openAll;
+	let closeAll;
+	if (parent === undefined) {
+		openAll = open;
+		closeAll = close;
+	} else {
+		openAll = parent.openAll + open;
+		closeAll = close + parent.closeAll;
+	}
+
+	return {
+		open,
+		close,
+		openAll,
+		closeAll,
+		parent,
+	};
+};
+
+const createBuilder = (self, _styler, _isEmpty) => {
+	// Single argument is hot path, implicit coercion is faster than anything
+	// eslint-disable-next-line no-implicit-coercion
+	const builder = (...arguments_) => applyStyle(builder, (arguments_.length === 1) ? ('' + arguments_[0]) : arguments_.join(' '));
+
+	// We alter the prototype because we must return a function, but there is
+	// no way to create a function with a different prototype
+	Object.setPrototypeOf(builder, proto);
+
+	builder[GENERATOR] = self;
+	builder[STYLER] = _styler;
+	builder[IS_EMPTY] = _isEmpty;
+
+	return builder;
+};
+
+const applyStyle = (self, string) => {
+	if (self.level <= 0 || !string) {
+		return self[IS_EMPTY] ? '' : string;
+	}
+
+	let styler = self[STYLER];
+
+	if (styler === undefined) {
+		return string;
+	}
+
+	const {openAll, closeAll} = styler;
+	if (string.includes('\u001B')) {
+		while (styler !== undefined) {
+			// Replace any instances already present with a re-opening code
+			// otherwise only the part of the string until said closing code
+			// will be colored, and the rest will simply be 'plain'.
+			string = stringReplaceAll(string, styler.close, styler.open);
+
+			styler = styler.parent;
+		}
+	}
+
+	// We can move both next actions out of loop, because remaining actions in loop won't have
+	// any/visible effect on parts we add here. Close the styling before a linebreak and reopen
+	// after next line to fix a bleed issue on macOS: https://github.com/chalk/chalk/pull/92
+	const lfIndex = string.indexOf('\n');
+	if (lfIndex !== -1) {
+		string = stringEncaseCRLFWithFirstIndex(string, closeAll, openAll, lfIndex);
+	}
+
+	return openAll + string + closeAll;
+};
+
+Object.defineProperties(createChalk.prototype, styles);
+
+const chalk = createChalk();
+createChalk({level: stderrColor ? stderrColor.level : 0});
+
+var main$2 = {};
+
+var argument = {};
+
+var hasRequiredArgument;
+
+function requireArgument () {
+	if (hasRequiredArgument) return argument;
+	hasRequiredArgument = 1;
+	Object.defineProperty(argument, "__esModule", { value: true });
+	argument.Argument = void 0;
+	class Argument {
+	    constructor(value, range) {
+	        this.value = value;
+	        this.range = range;
+	    }
+	    toString() {
+	        return this.value;
+	    }
+	    getRange() {
+	        return this.range;
+	    }
+	    getValue() {
+	        return this.value;
+	    }
+	    isAfter(position) {
+	        if (this.range.end.line < position.line) {
+	            return false;
+	        }
+	        return this.range.start.line > position.line ? true : this.range.start.character > position.character;
+	    }
+	    isBefore(position) {
+	        if (this.range.start.line < position.line) {
+	            return true;
+	        }
+	        return this.range.end.line > position.line ? false : this.range.end.character < position.character;
+	    }
+	}
+	argument.Argument = Argument;
+	return argument;
+}
+
+var jsonArgument = {};
+
+var hasRequiredJsonArgument;
+
+function requireJsonArgument () {
+	if (hasRequiredJsonArgument) return jsonArgument;
+	hasRequiredJsonArgument = 1;
+	Object.defineProperty(jsonArgument, "__esModule", { value: true });
+	jsonArgument.JSONArgument = void 0;
+	const argument_1 = requireArgument();
+	class JSONArgument extends argument_1.Argument {
+	    constructor(value, range, jsonRange) {
+	        super(value, range);
+	        this.jsonRange = jsonRange;
+	    }
+	    getJSONRange() {
+	        return this.jsonRange;
+	    }
+	    getJSONValue() {
+	        let value = super.getValue();
+	        value = value.substring(1, value.length - 1);
+	        return value;
+	    }
+	}
+	jsonArgument.JSONArgument = JSONArgument;
+	return jsonArgument;
+}
+
+var comment = {};
+
+function commonjsRequire(path) {
+	throw new Error('Could not dynamically require "' + path + '". Please configure the dynamicRequireTargets or/and ignoreDynamicRequires option of @rollup/plugin-commonjs appropriately for this require call to work.');
+}
+
+var main$1 = {exports: {}};
+
+var hasRequiredMain$1;
+
+function requireMain$1 () {
+	if (hasRequiredMain$1) return main$1.exports;
+	hasRequiredMain$1 = 1;
+	(function (module, exports$1) {
+		(function (factory) {
+		    {
+		        var v = factory(commonjsRequire, exports$1);
+		        if (v !== undefined) module.exports = v;
+		    }
+		})(function (require, exports$1) {
+		    Object.defineProperty(exports$1, "__esModule", { value: true });
+		    exports$1.TextDocument = exports$1.EOL = exports$1.WorkspaceFolder = exports$1.InlineCompletionContext = exports$1.SelectedCompletionInfo = exports$1.InlineCompletionTriggerKind = exports$1.InlineCompletionList = exports$1.InlineCompletionItem = exports$1.StringValue = exports$1.InlayHint = exports$1.InlayHintLabelPart = exports$1.InlayHintKind = exports$1.InlineValueContext = exports$1.InlineValueEvaluatableExpression = exports$1.InlineValueVariableLookup = exports$1.InlineValueText = exports$1.SemanticTokens = exports$1.SemanticTokenModifiers = exports$1.SemanticTokenTypes = exports$1.SelectionRange = exports$1.DocumentLink = exports$1.FormattingOptions = exports$1.CodeLens = exports$1.CodeAction = exports$1.CodeActionContext = exports$1.CodeActionTriggerKind = exports$1.CodeActionKind = exports$1.DocumentSymbol = exports$1.WorkspaceSymbol = exports$1.SymbolInformation = exports$1.SymbolTag = exports$1.SymbolKind = exports$1.DocumentHighlight = exports$1.DocumentHighlightKind = exports$1.SignatureInformation = exports$1.ParameterInformation = exports$1.Hover = exports$1.MarkedString = exports$1.CompletionList = exports$1.CompletionItem = exports$1.CompletionItemLabelDetails = exports$1.InsertTextMode = exports$1.InsertReplaceEdit = exports$1.CompletionItemTag = exports$1.InsertTextFormat = exports$1.CompletionItemKind = exports$1.MarkupContent = exports$1.MarkupKind = exports$1.TextDocumentItem = exports$1.OptionalVersionedTextDocumentIdentifier = exports$1.VersionedTextDocumentIdentifier = exports$1.TextDocumentIdentifier = exports$1.WorkspaceChange = exports$1.WorkspaceEdit = exports$1.DeleteFile = exports$1.RenameFile = exports$1.CreateFile = exports$1.TextDocumentEdit = exports$1.AnnotatedTextEdit = exports$1.ChangeAnnotationIdentifier = exports$1.ChangeAnnotation = exports$1.TextEdit = exports$1.Command = exports$1.Diagnostic = exports$1.CodeDescription = exports$1.DiagnosticTag = exports$1.DiagnosticSeverity = exports$1.DiagnosticRelatedInformation = exports$1.FoldingRange = exports$1.FoldingRangeKind = exports$1.ColorPresentation = exports$1.ColorInformation = exports$1.Color = exports$1.LocationLink = exports$1.Location = exports$1.Range = exports$1.Position = exports$1.uinteger = exports$1.integer = exports$1.URI = exports$1.DocumentUri = void 0;
+		    var DocumentUri;
+		    (function (DocumentUri) {
+		        function is(value) {
+		            return typeof value === 'string';
+		        }
+		        DocumentUri.is = is;
+		    })(DocumentUri || (exports$1.DocumentUri = DocumentUri = {}));
+		    var URI;
+		    (function (URI) {
+		        function is(value) {
+		            return typeof value === 'string';
+		        }
+		        URI.is = is;
+		    })(URI || (exports$1.URI = URI = {}));
+		    var integer;
+		    (function (integer) {
+		        integer.MIN_VALUE = -2147483648;
+		        integer.MAX_VALUE = 2147483647;
+		        function is(value) {
+		            return typeof value === 'number' && integer.MIN_VALUE <= value && value <= integer.MAX_VALUE;
+		        }
+		        integer.is = is;
+		    })(integer || (exports$1.integer = integer = {}));
+		    var uinteger;
+		    (function (uinteger) {
+		        uinteger.MIN_VALUE = 0;
+		        uinteger.MAX_VALUE = 2147483647;
+		        function is(value) {
+		            return typeof value === 'number' && uinteger.MIN_VALUE <= value && value <= uinteger.MAX_VALUE;
+		        }
+		        uinteger.is = is;
+		    })(uinteger || (exports$1.uinteger = uinteger = {}));
+		    /**
+		     * The Position namespace provides helper functions to work with
+		     * {@link Position} literals.
+		     */
+		    var Position;
+		    (function (Position) {
+		        /**
+		         * Creates a new Position literal from the given line and character.
+		         * @param line The position's line.
+		         * @param character The position's character.
+		         */
+		        function create(line, character) {
+		            if (line === Number.MAX_VALUE) {
+		                line = uinteger.MAX_VALUE;
+		            }
+		            if (character === Number.MAX_VALUE) {
+		                character = uinteger.MAX_VALUE;
+		            }
+		            return { line: line, character: character };
+		        }
+		        Position.create = create;
+		        /**
+		         * Checks whether the given literal conforms to the {@link Position} interface.
+		         */
+		        function is(value) {
+		            var candidate = value;
+		            return Is.objectLiteral(candidate) && Is.uinteger(candidate.line) && Is.uinteger(candidate.character);
+		        }
+		        Position.is = is;
+		    })(Position || (exports$1.Position = Position = {}));
+		    /**
+		     * The Range namespace provides helper functions to work with
+		     * {@link Range} literals.
+		     */
+		    var Range;
+		    (function (Range) {
+		        function create(one, two, three, four) {
+		            if (Is.uinteger(one) && Is.uinteger(two) && Is.uinteger(three) && Is.uinteger(four)) {
+		                return { start: Position.create(one, two), end: Position.create(three, four) };
+		            }
+		            else if (Position.is(one) && Position.is(two)) {
+		                return { start: one, end: two };
+		            }
+		            else {
+		                throw new Error("Range#create called with invalid arguments[".concat(one, ", ").concat(two, ", ").concat(three, ", ").concat(four, "]"));
+		            }
+		        }
+		        Range.create = create;
+		        /**
+		         * Checks whether the given literal conforms to the {@link Range} interface.
+		         */
+		        function is(value) {
+		            var candidate = value;
+		            return Is.objectLiteral(candidate) && Position.is(candidate.start) && Position.is(candidate.end);
+		        }
+		        Range.is = is;
+		    })(Range || (exports$1.Range = Range = {}));
+		    /**
+		     * The Location namespace provides helper functions to work with
+		     * {@link Location} literals.
+		     */
+		    var Location;
+		    (function (Location) {
+		        /**
+		         * Creates a Location literal.
+		         * @param uri The location's uri.
+		         * @param range The location's range.
+		         */
+		        function create(uri, range) {
+		            return { uri: uri, range: range };
+		        }
+		        Location.create = create;
+		        /**
+		         * Checks whether the given literal conforms to the {@link Location} interface.
+		         */
+		        function is(value) {
+		            var candidate = value;
+		            return Is.objectLiteral(candidate) && Range.is(candidate.range) && (Is.string(candidate.uri) || Is.undefined(candidate.uri));
+		        }
+		        Location.is = is;
+		    })(Location || (exports$1.Location = Location = {}));
+		    /**
+		     * The LocationLink namespace provides helper functions to work with
+		     * {@link LocationLink} literals.
+		     */
+		    var LocationLink;
+		    (function (LocationLink) {
+		        /**
+		         * Creates a LocationLink literal.
+		         * @param targetUri The definition's uri.
+		         * @param targetRange The full range of the definition.
+		         * @param targetSelectionRange The span of the symbol definition at the target.
+		         * @param originSelectionRange The span of the symbol being defined in the originating source file.
+		         */
+		        function create(targetUri, targetRange, targetSelectionRange, originSelectionRange) {
+		            return { targetUri: targetUri, targetRange: targetRange, targetSelectionRange: targetSelectionRange, originSelectionRange: originSelectionRange };
+		        }
+		        LocationLink.create = create;
+		        /**
+		         * Checks whether the given literal conforms to the {@link LocationLink} interface.
+		         */
+		        function is(value) {
+		            var candidate = value;
+		            return Is.objectLiteral(candidate) && Range.is(candidate.targetRange) && Is.string(candidate.targetUri)
+		                && Range.is(candidate.targetSelectionRange)
+		                && (Range.is(candidate.originSelectionRange) || Is.undefined(candidate.originSelectionRange));
+		        }
+		        LocationLink.is = is;
+		    })(LocationLink || (exports$1.LocationLink = LocationLink = {}));
+		    /**
+		     * The Color namespace provides helper functions to work with
+		     * {@link Color} literals.
+		     */
+		    var Color;
+		    (function (Color) {
+		        /**
+		         * Creates a new Color literal.
+		         */
+		        function create(red, green, blue, alpha) {
+		            return {
+		                red: red,
+		                green: green,
+		                blue: blue,
+		                alpha: alpha,
+		            };
+		        }
+		        Color.create = create;
+		        /**
+		         * Checks whether the given literal conforms to the {@link Color} interface.
+		         */
+		        function is(value) {
+		            var candidate = value;
+		            return Is.objectLiteral(candidate) && Is.numberRange(candidate.red, 0, 1)
+		                && Is.numberRange(candidate.green, 0, 1)
+		                && Is.numberRange(candidate.blue, 0, 1)
+		                && Is.numberRange(candidate.alpha, 0, 1);
+		        }
+		        Color.is = is;
+		    })(Color || (exports$1.Color = Color = {}));
+		    /**
+		     * The ColorInformation namespace provides helper functions to work with
+		     * {@link ColorInformation} literals.
+		     */
+		    var ColorInformation;
+		    (function (ColorInformation) {
+		        /**
+		         * Creates a new ColorInformation literal.
+		         */
+		        function create(range, color) {
+		            return {
+		                range: range,
+		                color: color,
+		            };
+		        }
+		        ColorInformation.create = create;
+		        /**
+		         * Checks whether the given literal conforms to the {@link ColorInformation} interface.
+		         */
+		        function is(value) {
+		            var candidate = value;
+		            return Is.objectLiteral(candidate) && Range.is(candidate.range) && Color.is(candidate.color);
+		        }
+		        ColorInformation.is = is;
+		    })(ColorInformation || (exports$1.ColorInformation = ColorInformation = {}));
+		    /**
+		     * The Color namespace provides helper functions to work with
+		     * {@link ColorPresentation} literals.
+		     */
+		    var ColorPresentation;
+		    (function (ColorPresentation) {
+		        /**
+		         * Creates a new ColorInformation literal.
+		         */
+		        function create(label, textEdit, additionalTextEdits) {
+		            return {
+		                label: label,
+		                textEdit: textEdit,
+		                additionalTextEdits: additionalTextEdits,
+		            };
+		        }
+		        ColorPresentation.create = create;
+		        /**
+		         * Checks whether the given literal conforms to the {@link ColorInformation} interface.
+		         */
+		        function is(value) {
+		            var candidate = value;
+		            return Is.objectLiteral(candidate) && Is.string(candidate.label)
+		                && (Is.undefined(candidate.textEdit) || TextEdit.is(candidate))
+		                && (Is.undefined(candidate.additionalTextEdits) || Is.typedArray(candidate.additionalTextEdits, TextEdit.is));
+		        }
+		        ColorPresentation.is = is;
+		    })(ColorPresentation || (exports$1.ColorPresentation = ColorPresentation = {}));
+		    /**
+		     * A set of predefined range kinds.
+		     */
+		    var FoldingRangeKind;
+		    (function (FoldingRangeKind) {
+		        /**
+		         * Folding range for a comment
+		         */
+		        FoldingRangeKind.Comment = 'comment';
+		        /**
+		         * Folding range for an import or include
+		         */
+		        FoldingRangeKind.Imports = 'imports';
+		        /**
+		         * Folding range for a region (e.g. `#region`)
+		         */
+		        FoldingRangeKind.Region = 'region';
+		    })(FoldingRangeKind || (exports$1.FoldingRangeKind = FoldingRangeKind = {}));
+		    /**
+		     * The folding range namespace provides helper functions to work with
+		     * {@link FoldingRange} literals.
+		     */
+		    var FoldingRange;
+		    (function (FoldingRange) {
+		        /**
+		         * Creates a new FoldingRange literal.
+		         */
+		        function create(startLine, endLine, startCharacter, endCharacter, kind, collapsedText) {
+		            var result = {
+		                startLine: startLine,
+		                endLine: endLine
+		            };
+		            if (Is.defined(startCharacter)) {
+		                result.startCharacter = startCharacter;
+		            }
+		            if (Is.defined(endCharacter)) {
+		                result.endCharacter = endCharacter;
+		            }
+		            if (Is.defined(kind)) {
+		                result.kind = kind;
+		            }
+		            if (Is.defined(collapsedText)) {
+		                result.collapsedText = collapsedText;
+		            }
+		            return result;
+		        }
+		        FoldingRange.create = create;
+		        /**
+		         * Checks whether the given literal conforms to the {@link FoldingRange} interface.
+		         */
+		        function is(value) {
+		            var candidate = value;
+		            return Is.objectLiteral(candidate) && Is.uinteger(candidate.startLine) && Is.uinteger(candidate.startLine)
+		                && (Is.undefined(candidate.startCharacter) || Is.uinteger(candidate.startCharacter))
+		                && (Is.undefined(candidate.endCharacter) || Is.uinteger(candidate.endCharacter))
+		                && (Is.undefined(candidate.kind) || Is.string(candidate.kind));
+		        }
+		        FoldingRange.is = is;
+		    })(FoldingRange || (exports$1.FoldingRange = FoldingRange = {}));
+		    /**
+		     * The DiagnosticRelatedInformation namespace provides helper functions to work with
+		     * {@link DiagnosticRelatedInformation} literals.
+		     */
+		    var DiagnosticRelatedInformation;
+		    (function (DiagnosticRelatedInformation) {
+		        /**
+		         * Creates a new DiagnosticRelatedInformation literal.
+		         */
+		        function create(location, message) {
+		            return {
+		                location: location,
+		                message: message
+		            };
+		        }
+		        DiagnosticRelatedInformation.create = create;
+		        /**
+		         * Checks whether the given literal conforms to the {@link DiagnosticRelatedInformation} interface.
+		         */
+		        function is(value) {
+		            var candidate = value;
+		            return Is.defined(candidate) && Location.is(candidate.location) && Is.string(candidate.message);
+		        }
+		        DiagnosticRelatedInformation.is = is;
+		    })(DiagnosticRelatedInformation || (exports$1.DiagnosticRelatedInformation = DiagnosticRelatedInformation = {}));
+		    /**
+		     * The diagnostic's severity.
+		     */
+		    var DiagnosticSeverity;
+		    (function (DiagnosticSeverity) {
+		        /**
+		         * Reports an error.
+		         */
+		        DiagnosticSeverity.Error = 1;
+		        /**
+		         * Reports a warning.
+		         */
+		        DiagnosticSeverity.Warning = 2;
+		        /**
+		         * Reports an information.
+		         */
+		        DiagnosticSeverity.Information = 3;
+		        /**
+		         * Reports a hint.
+		         */
+		        DiagnosticSeverity.Hint = 4;
+		    })(DiagnosticSeverity || (exports$1.DiagnosticSeverity = DiagnosticSeverity = {}));
+		    /**
+		     * The diagnostic tags.
+		     *
+		     * @since 3.15.0
+		     */
+		    var DiagnosticTag;
+		    (function (DiagnosticTag) {
+		        /**
+		         * Unused or unnecessary code.
+		         *
+		         * Clients are allowed to render diagnostics with this tag faded out instead of having
+		         * an error squiggle.
+		         */
+		        DiagnosticTag.Unnecessary = 1;
+		        /**
+		         * Deprecated or obsolete code.
+		         *
+		         * Clients are allowed to rendered diagnostics with this tag strike through.
+		         */
+		        DiagnosticTag.Deprecated = 2;
+		    })(DiagnosticTag || (exports$1.DiagnosticTag = DiagnosticTag = {}));
+		    /**
+		     * The CodeDescription namespace provides functions to deal with descriptions for diagnostic codes.
+		     *
+		     * @since 3.16.0
+		     */
+		    var CodeDescription;
+		    (function (CodeDescription) {
+		        function is(value) {
+		            var candidate = value;
+		            return Is.objectLiteral(candidate) && Is.string(candidate.href);
+		        }
+		        CodeDescription.is = is;
+		    })(CodeDescription || (exports$1.CodeDescription = CodeDescription = {}));
+		    /**
+		     * The Diagnostic namespace provides helper functions to work with
+		     * {@link Diagnostic} literals.
+		     */
+		    var Diagnostic;
+		    (function (Diagnostic) {
+		        /**
+		         * Creates a new Diagnostic literal.
+		         */
+		        function create(range, message, severity, code, source, relatedInformation) {
+		            var result = { range: range, message: message };
+		            if (Is.defined(severity)) {
+		                result.severity = severity;
+		            }
+		            if (Is.defined(code)) {
+		                result.code = code;
+		            }
+		            if (Is.defined(source)) {
+		                result.source = source;
+		            }
+		            if (Is.defined(relatedInformation)) {
+		                result.relatedInformation = relatedInformation;
+		            }
+		            return result;
+		        }
+		        Diagnostic.create = create;
+		        /**
+		         * Checks whether the given literal conforms to the {@link Diagnostic} interface.
+		         */
+		        function is(value) {
+		            var _a;
+		            var candidate = value;
+		            return Is.defined(candidate)
+		                && Range.is(candidate.range)
+		                && Is.string(candidate.message)
+		                && (Is.number(candidate.severity) || Is.undefined(candidate.severity))
+		                && (Is.integer(candidate.code) || Is.string(candidate.code) || Is.undefined(candidate.code))
+		                && (Is.undefined(candidate.codeDescription) || (Is.string((_a = candidate.codeDescription) === null || _a === void 0 ? void 0 : _a.href)))
+		                && (Is.string(candidate.source) || Is.undefined(candidate.source))
+		                && (Is.undefined(candidate.relatedInformation) || Is.typedArray(candidate.relatedInformation, DiagnosticRelatedInformation.is));
+		        }
+		        Diagnostic.is = is;
+		    })(Diagnostic || (exports$1.Diagnostic = Diagnostic = {}));
+		    /**
+		     * The Command namespace provides helper functions to work with
+		     * {@link Command} literals.
+		     */
+		    var Command;
+		    (function (Command) {
+		        /**
+		         * Creates a new Command literal.
+		         */
+		        function create(title, command) {
+		            var args = [];
+		            for (var _i = 2; _i < arguments.length; _i++) {
+		                args[_i - 2] = arguments[_i];
+		            }
+		            var result = { title: title, command: command };
+		            if (Is.defined(args) && args.length > 0) {
+		                result.arguments = args;
+		            }
+		            return result;
+		        }
+		        Command.create = create;
+		        /**
+		         * Checks whether the given literal conforms to the {@link Command} interface.
+		         */
+		        function is(value) {
+		            var candidate = value;
+		            return Is.defined(candidate) && Is.string(candidate.title) && Is.string(candidate.command);
+		        }
+		        Command.is = is;
+		    })(Command || (exports$1.Command = Command = {}));
+		    /**
+		     * The TextEdit namespace provides helper function to create replace,
+		     * insert and delete edits more easily.
+		     */
+		    var TextEdit;
+		    (function (TextEdit) {
+		        /**
+		         * Creates a replace text edit.
+		         * @param range The range of text to be replaced.
+		         * @param newText The new text.
+		         */
+		        function replace(range, newText) {
+		            return { range: range, newText: newText };
+		        }
+		        TextEdit.replace = replace;
+		        /**
+		         * Creates an insert text edit.
+		         * @param position The position to insert the text at.
+		         * @param newText The text to be inserted.
+		         */
+		        function insert(position, newText) {
+		            return { range: { start: position, end: position }, newText: newText };
+		        }
+		        TextEdit.insert = insert;
+		        /**
+		         * Creates a delete text edit.
+		         * @param range The range of text to be deleted.
+		         */
+		        function del(range) {
+		            return { range: range, newText: '' };
+		        }
+		        TextEdit.del = del;
+		        function is(value) {
+		            var candidate = value;
+		            return Is.objectLiteral(candidate)
+		                && Is.string(candidate.newText)
+		                && Range.is(candidate.range);
+		        }
+		        TextEdit.is = is;
+		    })(TextEdit || (exports$1.TextEdit = TextEdit = {}));
+		    var ChangeAnnotation;
+		    (function (ChangeAnnotation) {
+		        function create(label, needsConfirmation, description) {
+		            var result = { label: label };
+		            if (needsConfirmation !== undefined) {
+		                result.needsConfirmation = needsConfirmation;
+		            }
+		            if (description !== undefined) {
+		                result.description = description;
+		            }
+		            return result;
+		        }
+		        ChangeAnnotation.create = create;
+		        function is(value) {
+		            var candidate = value;
+		            return Is.objectLiteral(candidate) && Is.string(candidate.label) &&
+		                (Is.boolean(candidate.needsConfirmation) || candidate.needsConfirmation === undefined) &&
+		                (Is.string(candidate.description) || candidate.description === undefined);
+		        }
+		        ChangeAnnotation.is = is;
+		    })(ChangeAnnotation || (exports$1.ChangeAnnotation = ChangeAnnotation = {}));
+		    var ChangeAnnotationIdentifier;
+		    (function (ChangeAnnotationIdentifier) {
+		        function is(value) {
+		            var candidate = value;
+		            return Is.string(candidate);
+		        }
+		        ChangeAnnotationIdentifier.is = is;
+		    })(ChangeAnnotationIdentifier || (exports$1.ChangeAnnotationIdentifier = ChangeAnnotationIdentifier = {}));
+		    var AnnotatedTextEdit;
+		    (function (AnnotatedTextEdit) {
+		        /**
+		         * Creates an annotated replace text edit.
+		         *
+		         * @param range The range of text to be replaced.
+		         * @param newText The new text.
+		         * @param annotation The annotation.
+		         */
+		        function replace(range, newText, annotation) {
+		            return { range: range, newText: newText, annotationId: annotation };
+		        }
+		        AnnotatedTextEdit.replace = replace;
+		        /**
+		         * Creates an annotated insert text edit.
+		         *
+		         * @param position The position to insert the text at.
+		         * @param newText The text to be inserted.
+		         * @param annotation The annotation.
+		         */
+		        function insert(position, newText, annotation) {
+		            return { range: { start: position, end: position }, newText: newText, annotationId: annotation };
+		        }
+		        AnnotatedTextEdit.insert = insert;
+		        /**
+		         * Creates an annotated delete text edit.
+		         *
+		         * @param range The range of text to be deleted.
+		         * @param annotation The annotation.
+		         */
+		        function del(range, annotation) {
+		            return { range: range, newText: '', annotationId: annotation };
+		        }
+		        AnnotatedTextEdit.del = del;
+		        function is(value) {
+		            var candidate = value;
+		            return TextEdit.is(candidate) && (ChangeAnnotation.is(candidate.annotationId) || ChangeAnnotationIdentifier.is(candidate.annotationId));
+		        }
+		        AnnotatedTextEdit.is = is;
+		    })(AnnotatedTextEdit || (exports$1.AnnotatedTextEdit = AnnotatedTextEdit = {}));
+		    /**
+		     * The TextDocumentEdit namespace provides helper function to create
+		     * an edit that manipulates a text document.
+		     */
+		    var TextDocumentEdit;
+		    (function (TextDocumentEdit) {
+		        /**
+		         * Creates a new `TextDocumentEdit`
+		         */
+		        function create(textDocument, edits) {
+		            return { textDocument: textDocument, edits: edits };
+		        }
+		        TextDocumentEdit.create = create;
+		        function is(value) {
+		            var candidate = value;
+		            return Is.defined(candidate)
+		                && OptionalVersionedTextDocumentIdentifier.is(candidate.textDocument)
+		                && Array.isArray(candidate.edits);
+		        }
+		        TextDocumentEdit.is = is;
+		    })(TextDocumentEdit || (exports$1.TextDocumentEdit = TextDocumentEdit = {}));
+		    var CreateFile;
+		    (function (CreateFile) {
+		        function create(uri, options, annotation) {
+		            var result = {
+		                kind: 'create',
+		                uri: uri
+		            };
+		            if (options !== undefined && (options.overwrite !== undefined || options.ignoreIfExists !== undefined)) {
+		                result.options = options;
+		            }
+		            if (annotation !== undefined) {
+		                result.annotationId = annotation;
+		            }
+		            return result;
+		        }
+		        CreateFile.create = create;
+		        function is(value) {
+		            var candidate = value;
+		            return candidate && candidate.kind === 'create' && Is.string(candidate.uri) && (candidate.options === undefined ||
+		                ((candidate.options.overwrite === undefined || Is.boolean(candidate.options.overwrite)) && (candidate.options.ignoreIfExists === undefined || Is.boolean(candidate.options.ignoreIfExists)))) && (candidate.annotationId === undefined || ChangeAnnotationIdentifier.is(candidate.annotationId));
+		        }
+		        CreateFile.is = is;
+		    })(CreateFile || (exports$1.CreateFile = CreateFile = {}));
+		    var RenameFile;
+		    (function (RenameFile) {
+		        function create(oldUri, newUri, options, annotation) {
+		            var result = {
+		                kind: 'rename',
+		                oldUri: oldUri,
+		                newUri: newUri
+		            };
+		            if (options !== undefined && (options.overwrite !== undefined || options.ignoreIfExists !== undefined)) {
+		                result.options = options;
+		            }
+		            if (annotation !== undefined) {
+		                result.annotationId = annotation;
+		            }
+		            return result;
+		        }
+		        RenameFile.create = create;
+		        function is(value) {
+		            var candidate = value;
+		            return candidate && candidate.kind === 'rename' && Is.string(candidate.oldUri) && Is.string(candidate.newUri) && (candidate.options === undefined ||
+		                ((candidate.options.overwrite === undefined || Is.boolean(candidate.options.overwrite)) && (candidate.options.ignoreIfExists === undefined || Is.boolean(candidate.options.ignoreIfExists)))) && (candidate.annotationId === undefined || ChangeAnnotationIdentifier.is(candidate.annotationId));
+		        }
+		        RenameFile.is = is;
+		    })(RenameFile || (exports$1.RenameFile = RenameFile = {}));
+		    var DeleteFile;
+		    (function (DeleteFile) {
+		        function create(uri, options, annotation) {
+		            var result = {
+		                kind: 'delete',
+		                uri: uri
+		            };
+		            if (options !== undefined && (options.recursive !== undefined || options.ignoreIfNotExists !== undefined)) {
+		                result.options = options;
+		            }
+		            if (annotation !== undefined) {
+		                result.annotationId = annotation;
+		            }
+		            return result;
+		        }
+		        DeleteFile.create = create;
+		        function is(value) {
+		            var candidate = value;
+		            return candidate && candidate.kind === 'delete' && Is.string(candidate.uri) && (candidate.options === undefined ||
+		                ((candidate.options.recursive === undefined || Is.boolean(candidate.options.recursive)) && (candidate.options.ignoreIfNotExists === undefined || Is.boolean(candidate.options.ignoreIfNotExists)))) && (candidate.annotationId === undefined || ChangeAnnotationIdentifier.is(candidate.annotationId));
+		        }
+		        DeleteFile.is = is;
+		    })(DeleteFile || (exports$1.DeleteFile = DeleteFile = {}));
+		    var WorkspaceEdit;
+		    (function (WorkspaceEdit) {
+		        function is(value) {
+		            var candidate = value;
+		            return candidate &&
+		                (candidate.changes !== undefined || candidate.documentChanges !== undefined) &&
+		                (candidate.documentChanges === undefined || candidate.documentChanges.every(function (change) {
+		                    if (Is.string(change.kind)) {
+		                        return CreateFile.is(change) || RenameFile.is(change) || DeleteFile.is(change);
+		                    }
+		                    else {
+		                        return TextDocumentEdit.is(change);
+		                    }
+		                }));
+		        }
+		        WorkspaceEdit.is = is;
+		    })(WorkspaceEdit || (exports$1.WorkspaceEdit = WorkspaceEdit = {}));
+		    var TextEditChangeImpl = /** @class */ (function () {
+		        function TextEditChangeImpl(edits, changeAnnotations) {
+		            this.edits = edits;
+		            this.changeAnnotations = changeAnnotations;
+		        }
+		        TextEditChangeImpl.prototype.insert = function (position, newText, annotation) {
+		            var edit;
+		            var id;
+		            if (annotation === undefined) {
+		                edit = TextEdit.insert(position, newText);
+		            }
+		            else if (ChangeAnnotationIdentifier.is(annotation)) {
+		                id = annotation;
+		                edit = AnnotatedTextEdit.insert(position, newText, annotation);
+		            }
+		            else {
+		                this.assertChangeAnnotations(this.changeAnnotations);
+		                id = this.changeAnnotations.manage(annotation);
+		                edit = AnnotatedTextEdit.insert(position, newText, id);
+		            }
+		            this.edits.push(edit);
+		            if (id !== undefined) {
+		                return id;
+		            }
+		        };
+		        TextEditChangeImpl.prototype.replace = function (range, newText, annotation) {
+		            var edit;
+		            var id;
+		            if (annotation === undefined) {
+		                edit = TextEdit.replace(range, newText);
+		            }
+		            else if (ChangeAnnotationIdentifier.is(annotation)) {
+		                id = annotation;
+		                edit = AnnotatedTextEdit.replace(range, newText, annotation);
+		            }
+		            else {
+		                this.assertChangeAnnotations(this.changeAnnotations);
+		                id = this.changeAnnotations.manage(annotation);
+		                edit = AnnotatedTextEdit.replace(range, newText, id);
+		            }
+		            this.edits.push(edit);
+		            if (id !== undefined) {
+		                return id;
+		            }
+		        };
+		        TextEditChangeImpl.prototype.delete = function (range, annotation) {
+		            var edit;
+		            var id;
+		            if (annotation === undefined) {
+		                edit = TextEdit.del(range);
+		            }
+		            else if (ChangeAnnotationIdentifier.is(annotation)) {
+		                id = annotation;
+		                edit = AnnotatedTextEdit.del(range, annotation);
+		            }
+		            else {
+		                this.assertChangeAnnotations(this.changeAnnotations);
+		                id = this.changeAnnotations.manage(annotation);
+		                edit = AnnotatedTextEdit.del(range, id);
+		            }
+		            this.edits.push(edit);
+		            if (id !== undefined) {
+		                return id;
+		            }
+		        };
+		        TextEditChangeImpl.prototype.add = function (edit) {
+		            this.edits.push(edit);
+		        };
+		        TextEditChangeImpl.prototype.all = function () {
+		            return this.edits;
+		        };
+		        TextEditChangeImpl.prototype.clear = function () {
+		            this.edits.splice(0, this.edits.length);
+		        };
+		        TextEditChangeImpl.prototype.assertChangeAnnotations = function (value) {
+		            if (value === undefined) {
+		                throw new Error("Text edit change is not configured to manage change annotations.");
+		            }
+		        };
+		        return TextEditChangeImpl;
+		    }());
+		    /**
+		     * A helper class
+		     */
+		    var ChangeAnnotations = /** @class */ (function () {
+		        function ChangeAnnotations(annotations) {
+		            this._annotations = annotations === undefined ? Object.create(null) : annotations;
+		            this._counter = 0;
+		            this._size = 0;
+		        }
+		        ChangeAnnotations.prototype.all = function () {
+		            return this._annotations;
+		        };
+		        Object.defineProperty(ChangeAnnotations.prototype, "size", {
+		            get: function () {
+		                return this._size;
+		            },
+		            enumerable: false,
+		            configurable: true
+		        });
+		        ChangeAnnotations.prototype.manage = function (idOrAnnotation, annotation) {
+		            var id;
+		            if (ChangeAnnotationIdentifier.is(idOrAnnotation)) {
+		                id = idOrAnnotation;
+		            }
+		            else {
+		                id = this.nextId();
+		                annotation = idOrAnnotation;
+		            }
+		            if (this._annotations[id] !== undefined) {
+		                throw new Error("Id ".concat(id, " is already in use."));
+		            }
+		            if (annotation === undefined) {
+		                throw new Error("No annotation provided for id ".concat(id));
+		            }
+		            this._annotations[id] = annotation;
+		            this._size++;
+		            return id;
+		        };
+		        ChangeAnnotations.prototype.nextId = function () {
+		            this._counter++;
+		            return this._counter.toString();
+		        };
+		        return ChangeAnnotations;
+		    }());
+		    /**
+		     * A workspace change helps constructing changes to a workspace.
+		     */
+		    var WorkspaceChange = /** @class */ (function () {
+		        function WorkspaceChange(workspaceEdit) {
+		            var _this = this;
+		            this._textEditChanges = Object.create(null);
+		            if (workspaceEdit !== undefined) {
+		                this._workspaceEdit = workspaceEdit;
+		                if (workspaceEdit.documentChanges) {
+		                    this._changeAnnotations = new ChangeAnnotations(workspaceEdit.changeAnnotations);
+		                    workspaceEdit.changeAnnotations = this._changeAnnotations.all();
+		                    workspaceEdit.documentChanges.forEach(function (change) {
+		                        if (TextDocumentEdit.is(change)) {
+		                            var textEditChange = new TextEditChangeImpl(change.edits, _this._changeAnnotations);
+		                            _this._textEditChanges[change.textDocument.uri] = textEditChange;
+		                        }
+		                    });
+		                }
+		                else if (workspaceEdit.changes) {
+		                    Object.keys(workspaceEdit.changes).forEach(function (key) {
+		                        var textEditChange = new TextEditChangeImpl(workspaceEdit.changes[key]);
+		                        _this._textEditChanges[key] = textEditChange;
+		                    });
+		                }
+		            }
+		            else {
+		                this._workspaceEdit = {};
+		            }
+		        }
+		        Object.defineProperty(WorkspaceChange.prototype, "edit", {
+		            /**
+		             * Returns the underlying {@link WorkspaceEdit} literal
+		             * use to be returned from a workspace edit operation like rename.
+		             */
+		            get: function () {
+		                this.initDocumentChanges();
+		                if (this._changeAnnotations !== undefined) {
+		                    if (this._changeAnnotations.size === 0) {
+		                        this._workspaceEdit.changeAnnotations = undefined;
+		                    }
+		                    else {
+		                        this._workspaceEdit.changeAnnotations = this._changeAnnotations.all();
+		                    }
+		                }
+		                return this._workspaceEdit;
+		            },
+		            enumerable: false,
+		            configurable: true
+		        });
+		        WorkspaceChange.prototype.getTextEditChange = function (key) {
+		            if (OptionalVersionedTextDocumentIdentifier.is(key)) {
+		                this.initDocumentChanges();
+		                if (this._workspaceEdit.documentChanges === undefined) {
+		                    throw new Error('Workspace edit is not configured for document changes.');
+		                }
+		                var textDocument = { uri: key.uri, version: key.version };
+		                var result = this._textEditChanges[textDocument.uri];
+		                if (!result) {
+		                    var edits = [];
+		                    var textDocumentEdit = {
+		                        textDocument: textDocument,
+		                        edits: edits
+		                    };
+		                    this._workspaceEdit.documentChanges.push(textDocumentEdit);
+		                    result = new TextEditChangeImpl(edits, this._changeAnnotations);
+		                    this._textEditChanges[textDocument.uri] = result;
+		                }
+		                return result;
+		            }
+		            else {
+		                this.initChanges();
+		                if (this._workspaceEdit.changes === undefined) {
+		                    throw new Error('Workspace edit is not configured for normal text edit changes.');
+		                }
+		                var result = this._textEditChanges[key];
+		                if (!result) {
+		                    var edits = [];
+		                    this._workspaceEdit.changes[key] = edits;
+		                    result = new TextEditChangeImpl(edits);
+		                    this._textEditChanges[key] = result;
+		                }
+		                return result;
+		            }
+		        };
+		        WorkspaceChange.prototype.initDocumentChanges = function () {
+		            if (this._workspaceEdit.documentChanges === undefined && this._workspaceEdit.changes === undefined) {
+		                this._changeAnnotations = new ChangeAnnotations();
+		                this._workspaceEdit.documentChanges = [];
+		                this._workspaceEdit.changeAnnotations = this._changeAnnotations.all();
+		            }
+		        };
+		        WorkspaceChange.prototype.initChanges = function () {
+		            if (this._workspaceEdit.documentChanges === undefined && this._workspaceEdit.changes === undefined) {
+		                this._workspaceEdit.changes = Object.create(null);
+		            }
+		        };
+		        WorkspaceChange.prototype.createFile = function (uri, optionsOrAnnotation, options) {
+		            this.initDocumentChanges();
+		            if (this._workspaceEdit.documentChanges === undefined) {
+		                throw new Error('Workspace edit is not configured for document changes.');
+		            }
+		            var annotation;
+		            if (ChangeAnnotation.is(optionsOrAnnotation) || ChangeAnnotationIdentifier.is(optionsOrAnnotation)) {
+		                annotation = optionsOrAnnotation;
+		            }
+		            else {
+		                options = optionsOrAnnotation;
+		            }
+		            var operation;
+		            var id;
+		            if (annotation === undefined) {
+		                operation = CreateFile.create(uri, options);
+		            }
+		            else {
+		                id = ChangeAnnotationIdentifier.is(annotation) ? annotation : this._changeAnnotations.manage(annotation);
+		                operation = CreateFile.create(uri, options, id);
+		            }
+		            this._workspaceEdit.documentChanges.push(operation);
+		            if (id !== undefined) {
+		                return id;
+		            }
+		        };
+		        WorkspaceChange.prototype.renameFile = function (oldUri, newUri, optionsOrAnnotation, options) {
+		            this.initDocumentChanges();
+		            if (this._workspaceEdit.documentChanges === undefined) {
+		                throw new Error('Workspace edit is not configured for document changes.');
+		            }
+		            var annotation;
+		            if (ChangeAnnotation.is(optionsOrAnnotation) || ChangeAnnotationIdentifier.is(optionsOrAnnotation)) {
+		                annotation = optionsOrAnnotation;
+		            }
+		            else {
+		                options = optionsOrAnnotation;
+		            }
+		            var operation;
+		            var id;
+		            if (annotation === undefined) {
+		                operation = RenameFile.create(oldUri, newUri, options);
+		            }
+		            else {
+		                id = ChangeAnnotationIdentifier.is(annotation) ? annotation : this._changeAnnotations.manage(annotation);
+		                operation = RenameFile.create(oldUri, newUri, options, id);
+		            }
+		            this._workspaceEdit.documentChanges.push(operation);
+		            if (id !== undefined) {
+		                return id;
+		            }
+		        };
+		        WorkspaceChange.prototype.deleteFile = function (uri, optionsOrAnnotation, options) {
+		            this.initDocumentChanges();
+		            if (this._workspaceEdit.documentChanges === undefined) {
+		                throw new Error('Workspace edit is not configured for document changes.');
+		            }
+		            var annotation;
+		            if (ChangeAnnotation.is(optionsOrAnnotation) || ChangeAnnotationIdentifier.is(optionsOrAnnotation)) {
+		                annotation = optionsOrAnnotation;
+		            }
+		            else {
+		                options = optionsOrAnnotation;
+		            }
+		            var operation;
+		            var id;
+		            if (annotation === undefined) {
+		                operation = DeleteFile.create(uri, options);
+		            }
+		            else {
+		                id = ChangeAnnotationIdentifier.is(annotation) ? annotation : this._changeAnnotations.manage(annotation);
+		                operation = DeleteFile.create(uri, options, id);
+		            }
+		            this._workspaceEdit.documentChanges.push(operation);
+		            if (id !== undefined) {
+		                return id;
+		            }
+		        };
+		        return WorkspaceChange;
+		    }());
+		    exports$1.WorkspaceChange = WorkspaceChange;
+		    /**
+		     * The TextDocumentIdentifier namespace provides helper functions to work with
+		     * {@link TextDocumentIdentifier} literals.
+		     */
+		    var TextDocumentIdentifier;
+		    (function (TextDocumentIdentifier) {
+		        /**
+		         * Creates a new TextDocumentIdentifier literal.
+		         * @param uri The document's uri.
+		         */
+		        function create(uri) {
+		            return { uri: uri };
+		        }
+		        TextDocumentIdentifier.create = create;
+		        /**
+		         * Checks whether the given literal conforms to the {@link TextDocumentIdentifier} interface.
+		         */
+		        function is(value) {
+		            var candidate = value;
+		            return Is.defined(candidate) && Is.string(candidate.uri);
+		        }
+		        TextDocumentIdentifier.is = is;
+		    })(TextDocumentIdentifier || (exports$1.TextDocumentIdentifier = TextDocumentIdentifier = {}));
+		    /**
+		     * The VersionedTextDocumentIdentifier namespace provides helper functions to work with
+		     * {@link VersionedTextDocumentIdentifier} literals.
+		     */
+		    var VersionedTextDocumentIdentifier;
+		    (function (VersionedTextDocumentIdentifier) {
+		        /**
+		         * Creates a new VersionedTextDocumentIdentifier literal.
+		         * @param uri The document's uri.
+		         * @param version The document's version.
+		         */
+		        function create(uri, version) {
+		            return { uri: uri, version: version };
+		        }
+		        VersionedTextDocumentIdentifier.create = create;
+		        /**
+		         * Checks whether the given literal conforms to the {@link VersionedTextDocumentIdentifier} interface.
+		         */
+		        function is(value) {
+		            var candidate = value;
+		            return Is.defined(candidate) && Is.string(candidate.uri) && Is.integer(candidate.version);
+		        }
+		        VersionedTextDocumentIdentifier.is = is;
+		    })(VersionedTextDocumentIdentifier || (exports$1.VersionedTextDocumentIdentifier = VersionedTextDocumentIdentifier = {}));
+		    /**
+		     * The OptionalVersionedTextDocumentIdentifier namespace provides helper functions to work with
+		     * {@link OptionalVersionedTextDocumentIdentifier} literals.
+		     */
+		    var OptionalVersionedTextDocumentIdentifier;
+		    (function (OptionalVersionedTextDocumentIdentifier) {
+		        /**
+		         * Creates a new OptionalVersionedTextDocumentIdentifier literal.
+		         * @param uri The document's uri.
+		         * @param version The document's version.
+		         */
+		        function create(uri, version) {
+		            return { uri: uri, version: version };
+		        }
+		        OptionalVersionedTextDocumentIdentifier.create = create;
+		        /**
+		         * Checks whether the given literal conforms to the {@link OptionalVersionedTextDocumentIdentifier} interface.
+		         */
+		        function is(value) {
+		            var candidate = value;
+		            return Is.defined(candidate) && Is.string(candidate.uri) && (candidate.version === null || Is.integer(candidate.version));
+		        }
+		        OptionalVersionedTextDocumentIdentifier.is = is;
+		    })(OptionalVersionedTextDocumentIdentifier || (exports$1.OptionalVersionedTextDocumentIdentifier = OptionalVersionedTextDocumentIdentifier = {}));
+		    /**
+		     * The TextDocumentItem namespace provides helper functions to work with
+		     * {@link TextDocumentItem} literals.
+		     */
+		    var TextDocumentItem;
+		    (function (TextDocumentItem) {
+		        /**
+		         * Creates a new TextDocumentItem literal.
+		         * @param uri The document's uri.
+		         * @param languageId The document's language identifier.
+		         * @param version The document's version number.
+		         * @param text The document's text.
+		         */
+		        function create(uri, languageId, version, text) {
+		            return { uri: uri, languageId: languageId, version: version, text: text };
+		        }
+		        TextDocumentItem.create = create;
+		        /**
+		         * Checks whether the given literal conforms to the {@link TextDocumentItem} interface.
+		         */
+		        function is(value) {
+		            var candidate = value;
+		            return Is.defined(candidate) && Is.string(candidate.uri) && Is.string(candidate.languageId) && Is.integer(candidate.version) && Is.string(candidate.text);
+		        }
+		        TextDocumentItem.is = is;
+		    })(TextDocumentItem || (exports$1.TextDocumentItem = TextDocumentItem = {}));
+		    /**
+		     * Describes the content type that a client supports in various
+		     * result literals like `Hover`, `ParameterInfo` or `CompletionItem`.
+		     *
+		     * Please note that `MarkupKinds` must not start with a `$`. This kinds
+		     * are reserved for internal usage.
+		     */
+		    var MarkupKind;
+		    (function (MarkupKind) {
+		        /**
+		         * Plain text is supported as a content format
+		         */
+		        MarkupKind.PlainText = 'plaintext';
+		        /**
+		         * Markdown is supported as a content format
+		         */
+		        MarkupKind.Markdown = 'markdown';
+		        /**
+		         * Checks whether the given value is a value of the {@link MarkupKind} type.
+		         */
+		        function is(value) {
+		            var candidate = value;
+		            return candidate === MarkupKind.PlainText || candidate === MarkupKind.Markdown;
+		        }
+		        MarkupKind.is = is;
+		    })(MarkupKind || (exports$1.MarkupKind = MarkupKind = {}));
+		    var MarkupContent;
+		    (function (MarkupContent) {
+		        /**
+		         * Checks whether the given value conforms to the {@link MarkupContent} interface.
+		         */
+		        function is(value) {
+		            var candidate = value;
+		            return Is.objectLiteral(value) && MarkupKind.is(candidate.kind) && Is.string(candidate.value);
+		        }
+		        MarkupContent.is = is;
+		    })(MarkupContent || (exports$1.MarkupContent = MarkupContent = {}));
+		    /**
+		     * The kind of a completion entry.
+		     */
+		    var CompletionItemKind;
+		    (function (CompletionItemKind) {
+		        CompletionItemKind.Text = 1;
+		        CompletionItemKind.Method = 2;
+		        CompletionItemKind.Function = 3;
+		        CompletionItemKind.Constructor = 4;
+		        CompletionItemKind.Field = 5;
+		        CompletionItemKind.Variable = 6;
+		        CompletionItemKind.Class = 7;
+		        CompletionItemKind.Interface = 8;
+		        CompletionItemKind.Module = 9;
+		        CompletionItemKind.Property = 10;
+		        CompletionItemKind.Unit = 11;
+		        CompletionItemKind.Value = 12;
+		        CompletionItemKind.Enum = 13;
+		        CompletionItemKind.Keyword = 14;
+		        CompletionItemKind.Snippet = 15;
+		        CompletionItemKind.Color = 16;
+		        CompletionItemKind.File = 17;
+		        CompletionItemKind.Reference = 18;
+		        CompletionItemKind.Folder = 19;
+		        CompletionItemKind.EnumMember = 20;
+		        CompletionItemKind.Constant = 21;
+		        CompletionItemKind.Struct = 22;
+		        CompletionItemKind.Event = 23;
+		        CompletionItemKind.Operator = 24;
+		        CompletionItemKind.TypeParameter = 25;
+		    })(CompletionItemKind || (exports$1.CompletionItemKind = CompletionItemKind = {}));
+		    /**
+		     * Defines whether the insert text in a completion item should be interpreted as
+		     * plain text or a snippet.
+		     */
+		    var InsertTextFormat;
+		    (function (InsertTextFormat) {
+		        /**
+		         * The primary text to be inserted is treated as a plain string.
+		         */
+		        InsertTextFormat.PlainText = 1;
+		        /**
+		         * The primary text to be inserted is treated as a snippet.
+		         *
+		         * A snippet can define tab stops and placeholders with `$1`, `$2`
+		         * and `${3:foo}`. `$0` defines the final tab stop, it defaults to
+		         * the end of the snippet. Placeholders with equal identifiers are linked,
+		         * that is typing in one will update others too.
+		         *
+		         * See also: https://microsoft.github.io/language-server-protocol/specifications/specification-current/#snippet_syntax
+		         */
+		        InsertTextFormat.Snippet = 2;
+		    })(InsertTextFormat || (exports$1.InsertTextFormat = InsertTextFormat = {}));
+		    /**
+		     * Completion item tags are extra annotations that tweak the rendering of a completion
+		     * item.
+		     *
+		     * @since 3.15.0
+		     */
+		    var CompletionItemTag;
+		    (function (CompletionItemTag) {
+		        /**
+		         * Render a completion as obsolete, usually using a strike-out.
+		         */
+		        CompletionItemTag.Deprecated = 1;
+		    })(CompletionItemTag || (exports$1.CompletionItemTag = CompletionItemTag = {}));
+		    /**
+		     * The InsertReplaceEdit namespace provides functions to deal with insert / replace edits.
+		     *
+		     * @since 3.16.0
+		     */
+		    var InsertReplaceEdit;
+		    (function (InsertReplaceEdit) {
+		        /**
+		         * Creates a new insert / replace edit
+		         */
+		        function create(newText, insert, replace) {
+		            return { newText: newText, insert: insert, replace: replace };
+		        }
+		        InsertReplaceEdit.create = create;
+		        /**
+		         * Checks whether the given literal conforms to the {@link InsertReplaceEdit} interface.
+		         */
+		        function is(value) {
+		            var candidate = value;
+		            return candidate && Is.string(candidate.newText) && Range.is(candidate.insert) && Range.is(candidate.replace);
+		        }
+		        InsertReplaceEdit.is = is;
+		    })(InsertReplaceEdit || (exports$1.InsertReplaceEdit = InsertReplaceEdit = {}));
+		    /**
+		     * How whitespace and indentation is handled during completion
+		     * item insertion.
+		     *
+		     * @since 3.16.0
+		     */
+		    var InsertTextMode;
+		    (function (InsertTextMode) {
+		        /**
+		         * The insertion or replace strings is taken as it is. If the
+		         * value is multi line the lines below the cursor will be
+		         * inserted using the indentation defined in the string value.
+		         * The client will not apply any kind of adjustments to the
+		         * string.
+		         */
+		        InsertTextMode.asIs = 1;
+		        /**
+		         * The editor adjusts leading whitespace of new lines so that
+		         * they match the indentation up to the cursor of the line for
+		         * which the item is accepted.
+		         *
+		         * Consider a line like this: <2tabs><cursor><3tabs>foo. Accepting a
+		         * multi line completion item is indented using 2 tabs and all
+		         * following lines inserted will be indented using 2 tabs as well.
+		         */
+		        InsertTextMode.adjustIndentation = 2;
+		    })(InsertTextMode || (exports$1.InsertTextMode = InsertTextMode = {}));
+		    var CompletionItemLabelDetails;
+		    (function (CompletionItemLabelDetails) {
+		        function is(value) {
+		            var candidate = value;
+		            return candidate && (Is.string(candidate.detail) || candidate.detail === undefined) &&
+		                (Is.string(candidate.description) || candidate.description === undefined);
+		        }
+		        CompletionItemLabelDetails.is = is;
+		    })(CompletionItemLabelDetails || (exports$1.CompletionItemLabelDetails = CompletionItemLabelDetails = {}));
+		    /**
+		     * The CompletionItem namespace provides functions to deal with
+		     * completion items.
+		     */
+		    var CompletionItem;
+		    (function (CompletionItem) {
+		        /**
+		         * Create a completion item and seed it with a label.
+		         * @param label The completion item's label
+		         */
+		        function create(label) {
+		            return { label: label };
+		        }
+		        CompletionItem.create = create;
+		    })(CompletionItem || (exports$1.CompletionItem = CompletionItem = {}));
+		    /**
+		     * The CompletionList namespace provides functions to deal with
+		     * completion lists.
+		     */
+		    var CompletionList;
+		    (function (CompletionList) {
+		        /**
+		         * Creates a new completion list.
+		         *
+		         * @param items The completion items.
+		         * @param isIncomplete The list is not complete.
+		         */
+		        function create(items, isIncomplete) {
+		            return { items: items ? items : [], isIncomplete: !!isIncomplete };
+		        }
+		        CompletionList.create = create;
+		    })(CompletionList || (exports$1.CompletionList = CompletionList = {}));
+		    var MarkedString;
+		    (function (MarkedString) {
+		        /**
+		         * Creates a marked string from plain text.
+		         *
+		         * @param plainText The plain text.
+		         */
+		        function fromPlainText(plainText) {
+		            return plainText.replace(/[\\`*_{}[\]()#+\-.!]/g, '\\$&'); // escape markdown syntax tokens: http://daringfireball.net/projects/markdown/syntax#backslash
+		        }
+		        MarkedString.fromPlainText = fromPlainText;
+		        /**
+		         * Checks whether the given value conforms to the {@link MarkedString} type.
+		         */
+		        function is(value) {
+		            var candidate = value;
+		            return Is.string(candidate) || (Is.objectLiteral(candidate) && Is.string(candidate.language) && Is.string(candidate.value));
+		        }
+		        MarkedString.is = is;
+		    })(MarkedString || (exports$1.MarkedString = MarkedString = {}));
+		    var Hover;
+		    (function (Hover) {
+		        /**
+		         * Checks whether the given value conforms to the {@link Hover} interface.
+		         */
+		        function is(value) {
+		            var candidate = value;
+		            return !!candidate && Is.objectLiteral(candidate) && (MarkupContent.is(candidate.contents) ||
+		                MarkedString.is(candidate.contents) ||
+		                Is.typedArray(candidate.contents, MarkedString.is)) && (value.range === undefined || Range.is(value.range));
+		        }
+		        Hover.is = is;
+		    })(Hover || (exports$1.Hover = Hover = {}));
+		    /**
+		     * The ParameterInformation namespace provides helper functions to work with
+		     * {@link ParameterInformation} literals.
+		     */
+		    var ParameterInformation;
+		    (function (ParameterInformation) {
+		        /**
+		         * Creates a new parameter information literal.
+		         *
+		         * @param label A label string.
+		         * @param documentation A doc string.
+		         */
+		        function create(label, documentation) {
+		            return documentation ? { label: label, documentation: documentation } : { label: label };
+		        }
+		        ParameterInformation.create = create;
+		    })(ParameterInformation || (exports$1.ParameterInformation = ParameterInformation = {}));
+		    /**
+		     * The SignatureInformation namespace provides helper functions to work with
+		     * {@link SignatureInformation} literals.
+		     */
+		    var SignatureInformation;
+		    (function (SignatureInformation) {
+		        function create(label, documentation) {
+		            var parameters = [];
+		            for (var _i = 2; _i < arguments.length; _i++) {
+		                parameters[_i - 2] = arguments[_i];
+		            }
+		            var result = { label: label };
+		            if (Is.defined(documentation)) {
+		                result.documentation = documentation;
+		            }
+		            if (Is.defined(parameters)) {
+		                result.parameters = parameters;
+		            }
+		            else {
+		                result.parameters = [];
+		            }
+		            return result;
+		        }
+		        SignatureInformation.create = create;
+		    })(SignatureInformation || (exports$1.SignatureInformation = SignatureInformation = {}));
+		    /**
+		     * A document highlight kind.
+		     */
+		    var DocumentHighlightKind;
+		    (function (DocumentHighlightKind) {
+		        /**
+		         * A textual occurrence.
+		         */
+		        DocumentHighlightKind.Text = 1;
+		        /**
+		         * Read-access of a symbol, like reading a variable.
+		         */
+		        DocumentHighlightKind.Read = 2;
+		        /**
+		         * Write-access of a symbol, like writing to a variable.
+		         */
+		        DocumentHighlightKind.Write = 3;
+		    })(DocumentHighlightKind || (exports$1.DocumentHighlightKind = DocumentHighlightKind = {}));
+		    /**
+		     * DocumentHighlight namespace to provide helper functions to work with
+		     * {@link DocumentHighlight} literals.
+		     */
+		    var DocumentHighlight;
+		    (function (DocumentHighlight) {
+		        /**
+		         * Create a DocumentHighlight object.
+		         * @param range The range the highlight applies to.
+		         * @param kind The highlight kind
+		         */
+		        function create(range, kind) {
+		            var result = { range: range };
+		            if (Is.number(kind)) {
+		                result.kind = kind;
+		            }
+		            return result;
+		        }
+		        DocumentHighlight.create = create;
+		    })(DocumentHighlight || (exports$1.DocumentHighlight = DocumentHighlight = {}));
+		    /**
+		     * A symbol kind.
+		     */
+		    var SymbolKind;
+		    (function (SymbolKind) {
+		        SymbolKind.File = 1;
+		        SymbolKind.Module = 2;
+		        SymbolKind.Namespace = 3;
+		        SymbolKind.Package = 4;
+		        SymbolKind.Class = 5;
+		        SymbolKind.Method = 6;
+		        SymbolKind.Property = 7;
+		        SymbolKind.Field = 8;
+		        SymbolKind.Constructor = 9;
+		        SymbolKind.Enum = 10;
+		        SymbolKind.Interface = 11;
+		        SymbolKind.Function = 12;
+		        SymbolKind.Variable = 13;
+		        SymbolKind.Constant = 14;
+		        SymbolKind.String = 15;
+		        SymbolKind.Number = 16;
+		        SymbolKind.Boolean = 17;
+		        SymbolKind.Array = 18;
+		        SymbolKind.Object = 19;
+		        SymbolKind.Key = 20;
+		        SymbolKind.Null = 21;
+		        SymbolKind.EnumMember = 22;
+		        SymbolKind.Struct = 23;
+		        SymbolKind.Event = 24;
+		        SymbolKind.Operator = 25;
+		        SymbolKind.TypeParameter = 26;
+		    })(SymbolKind || (exports$1.SymbolKind = SymbolKind = {}));
+		    /**
+		     * Symbol tags are extra annotations that tweak the rendering of a symbol.
+		     *
+		     * @since 3.16
+		     */
+		    var SymbolTag;
+		    (function (SymbolTag) {
+		        /**
+		         * Render a symbol as obsolete, usually using a strike-out.
+		         */
+		        SymbolTag.Deprecated = 1;
+		    })(SymbolTag || (exports$1.SymbolTag = SymbolTag = {}));
+		    var SymbolInformation;
+		    (function (SymbolInformation) {
+		        /**
+		         * Creates a new symbol information literal.
+		         *
+		         * @param name The name of the symbol.
+		         * @param kind The kind of the symbol.
+		         * @param range The range of the location of the symbol.
+		         * @param uri The resource of the location of symbol.
+		         * @param containerName The name of the symbol containing the symbol.
+		         */
+		        function create(name, kind, range, uri, containerName) {
+		            var result = {
+		                name: name,
+		                kind: kind,
+		                location: { uri: uri, range: range }
+		            };
+		            if (containerName) {
+		                result.containerName = containerName;
+		            }
+		            return result;
+		        }
+		        SymbolInformation.create = create;
+		    })(SymbolInformation || (exports$1.SymbolInformation = SymbolInformation = {}));
+		    var WorkspaceSymbol;
+		    (function (WorkspaceSymbol) {
+		        /**
+		         * Create a new workspace symbol.
+		         *
+		         * @param name The name of the symbol.
+		         * @param kind The kind of the symbol.
+		         * @param uri The resource of the location of the symbol.
+		         * @param range An options range of the location.
+		         * @returns A WorkspaceSymbol.
+		         */
+		        function create(name, kind, uri, range) {
+		            return range !== undefined
+		                ? { name: name, kind: kind, location: { uri: uri, range: range } }
+		                : { name: name, kind: kind, location: { uri: uri } };
+		        }
+		        WorkspaceSymbol.create = create;
+		    })(WorkspaceSymbol || (exports$1.WorkspaceSymbol = WorkspaceSymbol = {}));
+		    var DocumentSymbol;
+		    (function (DocumentSymbol) {
+		        /**
+		         * Creates a new symbol information literal.
+		         *
+		         * @param name The name of the symbol.
+		         * @param detail The detail of the symbol.
+		         * @param kind The kind of the symbol.
+		         * @param range The range of the symbol.
+		         * @param selectionRange The selectionRange of the symbol.
+		         * @param children Children of the symbol.
+		         */
+		        function create(name, detail, kind, range, selectionRange, children) {
+		            var result = {
+		                name: name,
+		                detail: detail,
+		                kind: kind,
+		                range: range,
+		                selectionRange: selectionRange
+		            };
+		            if (children !== undefined) {
+		                result.children = children;
+		            }
+		            return result;
+		        }
+		        DocumentSymbol.create = create;
+		        /**
+		         * Checks whether the given literal conforms to the {@link DocumentSymbol} interface.
+		         */
+		        function is(value) {
+		            var candidate = value;
+		            return candidate &&
+		                Is.string(candidate.name) && Is.number(candidate.kind) &&
+		                Range.is(candidate.range) && Range.is(candidate.selectionRange) &&
+		                (candidate.detail === undefined || Is.string(candidate.detail)) &&
+		                (candidate.deprecated === undefined || Is.boolean(candidate.deprecated)) &&
+		                (candidate.children === undefined || Array.isArray(candidate.children)) &&
+		                (candidate.tags === undefined || Array.isArray(candidate.tags));
+		        }
+		        DocumentSymbol.is = is;
+		    })(DocumentSymbol || (exports$1.DocumentSymbol = DocumentSymbol = {}));
+		    /**
+		     * A set of predefined code action kinds
+		     */
+		    var CodeActionKind;
+		    (function (CodeActionKind) {
+		        /**
+		         * Empty kind.
+		         */
+		        CodeActionKind.Empty = '';
+		        /**
+		         * Base kind for quickfix actions: 'quickfix'
+		         */
+		        CodeActionKind.QuickFix = 'quickfix';
+		        /**
+		         * Base kind for refactoring actions: 'refactor'
+		         */
+		        CodeActionKind.Refactor = 'refactor';
+		        /**
+		         * Base kind for refactoring extraction actions: 'refactor.extract'
+		         *
+		         * Example extract actions:
+		         *
+		         * - Extract method
+		         * - Extract function
+		         * - Extract variable
+		         * - Extract interface from class
+		         * - ...
+		         */
+		        CodeActionKind.RefactorExtract = 'refactor.extract';
+		        /**
+		         * Base kind for refactoring inline actions: 'refactor.inline'
+		         *
+		         * Example inline actions:
+		         *
+		         * - Inline function
+		         * - Inline variable
+		         * - Inline constant
+		         * - ...
+		         */
+		        CodeActionKind.RefactorInline = 'refactor.inline';
+		        /**
+		         * Base kind for refactoring rewrite actions: 'refactor.rewrite'
+		         *
+		         * Example rewrite actions:
+		         *
+		         * - Convert JavaScript function to class
+		         * - Add or remove parameter
+		         * - Encapsulate field
+		         * - Make method static
+		         * - Move method to base class
+		         * - ...
+		         */
+		        CodeActionKind.RefactorRewrite = 'refactor.rewrite';
+		        /**
+		         * Base kind for source actions: `source`
+		         *
+		         * Source code actions apply to the entire file.
+		         */
+		        CodeActionKind.Source = 'source';
+		        /**
+		         * Base kind for an organize imports source action: `source.organizeImports`
+		         */
+		        CodeActionKind.SourceOrganizeImports = 'source.organizeImports';
+		        /**
+		         * Base kind for auto-fix source actions: `source.fixAll`.
+		         *
+		         * Fix all actions automatically fix errors that have a clear fix that do not require user input.
+		         * They should not suppress errors or perform unsafe fixes such as generating new types or classes.
+		         *
+		         * @since 3.15.0
+		         */
+		        CodeActionKind.SourceFixAll = 'source.fixAll';
+		    })(CodeActionKind || (exports$1.CodeActionKind = CodeActionKind = {}));
+		    /**
+		     * The reason why code actions were requested.
+		     *
+		     * @since 3.17.0
+		     */
+		    var CodeActionTriggerKind;
+		    (function (CodeActionTriggerKind) {
+		        /**
+		         * Code actions were explicitly requested by the user or by an extension.
+		         */
+		        CodeActionTriggerKind.Invoked = 1;
+		        /**
+		         * Code actions were requested automatically.
+		         *
+		         * This typically happens when current selection in a file changes, but can
+		         * also be triggered when file content changes.
+		         */
+		        CodeActionTriggerKind.Automatic = 2;
+		    })(CodeActionTriggerKind || (exports$1.CodeActionTriggerKind = CodeActionTriggerKind = {}));
+		    /**
+		     * The CodeActionContext namespace provides helper functions to work with
+		     * {@link CodeActionContext} literals.
+		     */
+		    var CodeActionContext;
+		    (function (CodeActionContext) {
+		        /**
+		         * Creates a new CodeActionContext literal.
+		         */
+		        function create(diagnostics, only, triggerKind) {
+		            var result = { diagnostics: diagnostics };
+		            if (only !== undefined && only !== null) {
+		                result.only = only;
+		            }
+		            if (triggerKind !== undefined && triggerKind !== null) {
+		                result.triggerKind = triggerKind;
+		            }
+		            return result;
+		        }
+		        CodeActionContext.create = create;
+		        /**
+		         * Checks whether the given literal conforms to the {@link CodeActionContext} interface.
+		         */
+		        function is(value) {
+		            var candidate = value;
+		            return Is.defined(candidate) && Is.typedArray(candidate.diagnostics, Diagnostic.is)
+		                && (candidate.only === undefined || Is.typedArray(candidate.only, Is.string))
+		                && (candidate.triggerKind === undefined || candidate.triggerKind === CodeActionTriggerKind.Invoked || candidate.triggerKind === CodeActionTriggerKind.Automatic);
+		        }
+		        CodeActionContext.is = is;
+		    })(CodeActionContext || (exports$1.CodeActionContext = CodeActionContext = {}));
+		    var CodeAction;
+		    (function (CodeAction) {
+		        function create(title, kindOrCommandOrEdit, kind) {
+		            var result = { title: title };
+		            var checkKind = true;
+		            if (typeof kindOrCommandOrEdit === 'string') {
+		                checkKind = false;
+		                result.kind = kindOrCommandOrEdit;
+		            }
+		            else if (Command.is(kindOrCommandOrEdit)) {
+		                result.command = kindOrCommandOrEdit;
+		            }
+		            else {
+		                result.edit = kindOrCommandOrEdit;
+		            }
+		            if (checkKind && kind !== undefined) {
+		                result.kind = kind;
+		            }
+		            return result;
+		        }
+		        CodeAction.create = create;
+		        function is(value) {
+		            var candidate = value;
+		            return candidate && Is.string(candidate.title) &&
+		                (candidate.diagnostics === undefined || Is.typedArray(candidate.diagnostics, Diagnostic.is)) &&
+		                (candidate.kind === undefined || Is.string(candidate.kind)) &&
+		                (candidate.edit !== undefined || candidate.command !== undefined) &&
+		                (candidate.command === undefined || Command.is(candidate.command)) &&
+		                (candidate.isPreferred === undefined || Is.boolean(candidate.isPreferred)) &&
+		                (candidate.edit === undefined || WorkspaceEdit.is(candidate.edit));
+		        }
+		        CodeAction.is = is;
+		    })(CodeAction || (exports$1.CodeAction = CodeAction = {}));
+		    /**
+		     * The CodeLens namespace provides helper functions to work with
+		     * {@link CodeLens} literals.
+		     */
+		    var CodeLens;
+		    (function (CodeLens) {
+		        /**
+		         * Creates a new CodeLens literal.
+		         */
+		        function create(range, data) {
+		            var result = { range: range };
+		            if (Is.defined(data)) {
+		                result.data = data;
+		            }
+		            return result;
+		        }
+		        CodeLens.create = create;
+		        /**
+		         * Checks whether the given literal conforms to the {@link CodeLens} interface.
+		         */
+		        function is(value) {
+		            var candidate = value;
+		            return Is.defined(candidate) && Range.is(candidate.range) && (Is.undefined(candidate.command) || Command.is(candidate.command));
+		        }
+		        CodeLens.is = is;
+		    })(CodeLens || (exports$1.CodeLens = CodeLens = {}));
+		    /**
+		     * The FormattingOptions namespace provides helper functions to work with
+		     * {@link FormattingOptions} literals.
+		     */
+		    var FormattingOptions;
+		    (function (FormattingOptions) {
+		        /**
+		         * Creates a new FormattingOptions literal.
+		         */
+		        function create(tabSize, insertSpaces) {
+		            return { tabSize: tabSize, insertSpaces: insertSpaces };
+		        }
+		        FormattingOptions.create = create;
+		        /**
+		         * Checks whether the given literal conforms to the {@link FormattingOptions} interface.
+		         */
+		        function is(value) {
+		            var candidate = value;
+		            return Is.defined(candidate) && Is.uinteger(candidate.tabSize) && Is.boolean(candidate.insertSpaces);
+		        }
+		        FormattingOptions.is = is;
+		    })(FormattingOptions || (exports$1.FormattingOptions = FormattingOptions = {}));
+		    /**
+		     * The DocumentLink namespace provides helper functions to work with
+		     * {@link DocumentLink} literals.
+		     */
+		    var DocumentLink;
+		    (function (DocumentLink) {
+		        /**
+		         * Creates a new DocumentLink literal.
+		         */
+		        function create(range, target, data) {
+		            return { range: range, target: target, data: data };
+		        }
+		        DocumentLink.create = create;
+		        /**
+		         * Checks whether the given literal conforms to the {@link DocumentLink} interface.
+		         */
+		        function is(value) {
+		            var candidate = value;
+		            return Is.defined(candidate) && Range.is(candidate.range) && (Is.undefined(candidate.target) || Is.string(candidate.target));
+		        }
+		        DocumentLink.is = is;
+		    })(DocumentLink || (exports$1.DocumentLink = DocumentLink = {}));
+		    /**
+		     * The SelectionRange namespace provides helper function to work with
+		     * SelectionRange literals.
+		     */
+		    var SelectionRange;
+		    (function (SelectionRange) {
+		        /**
+		         * Creates a new SelectionRange
+		         * @param range the range.
+		         * @param parent an optional parent.
+		         */
+		        function create(range, parent) {
+		            return { range: range, parent: parent };
+		        }
+		        SelectionRange.create = create;
+		        function is(value) {
+		            var candidate = value;
+		            return Is.objectLiteral(candidate) && Range.is(candidate.range) && (candidate.parent === undefined || SelectionRange.is(candidate.parent));
+		        }
+		        SelectionRange.is = is;
+		    })(SelectionRange || (exports$1.SelectionRange = SelectionRange = {}));
+		    /**
+		     * A set of predefined token types. This set is not fixed
+		     * an clients can specify additional token types via the
+		     * corresponding client capabilities.
+		     *
+		     * @since 3.16.0
+		     */
+		    var SemanticTokenTypes;
+		    (function (SemanticTokenTypes) {
+		        SemanticTokenTypes["namespace"] = "namespace";
+		        /**
+		         * Represents a generic type. Acts as a fallback for types which can't be mapped to
+		         * a specific type like class or enum.
+		         */
+		        SemanticTokenTypes["type"] = "type";
+		        SemanticTokenTypes["class"] = "class";
+		        SemanticTokenTypes["enum"] = "enum";
+		        SemanticTokenTypes["interface"] = "interface";
+		        SemanticTokenTypes["struct"] = "struct";
+		        SemanticTokenTypes["typeParameter"] = "typeParameter";
+		        SemanticTokenTypes["parameter"] = "parameter";
+		        SemanticTokenTypes["variable"] = "variable";
+		        SemanticTokenTypes["property"] = "property";
+		        SemanticTokenTypes["enumMember"] = "enumMember";
+		        SemanticTokenTypes["event"] = "event";
+		        SemanticTokenTypes["function"] = "function";
+		        SemanticTokenTypes["method"] = "method";
+		        SemanticTokenTypes["macro"] = "macro";
+		        SemanticTokenTypes["keyword"] = "keyword";
+		        SemanticTokenTypes["modifier"] = "modifier";
+		        SemanticTokenTypes["comment"] = "comment";
+		        SemanticTokenTypes["string"] = "string";
+		        SemanticTokenTypes["number"] = "number";
+		        SemanticTokenTypes["regexp"] = "regexp";
+		        SemanticTokenTypes["operator"] = "operator";
+		        /**
+		         * @since 3.17.0
+		         */
+		        SemanticTokenTypes["decorator"] = "decorator";
+		    })(SemanticTokenTypes || (exports$1.SemanticTokenTypes = SemanticTokenTypes = {}));
+		    /**
+		     * A set of predefined token modifiers. This set is not fixed
+		     * an clients can specify additional token types via the
+		     * corresponding client capabilities.
+		     *
+		     * @since 3.16.0
+		     */
+		    var SemanticTokenModifiers;
+		    (function (SemanticTokenModifiers) {
+		        SemanticTokenModifiers["declaration"] = "declaration";
+		        SemanticTokenModifiers["definition"] = "definition";
+		        SemanticTokenModifiers["readonly"] = "readonly";
+		        SemanticTokenModifiers["static"] = "static";
+		        SemanticTokenModifiers["deprecated"] = "deprecated";
+		        SemanticTokenModifiers["abstract"] = "abstract";
+		        SemanticTokenModifiers["async"] = "async";
+		        SemanticTokenModifiers["modification"] = "modification";
+		        SemanticTokenModifiers["documentation"] = "documentation";
+		        SemanticTokenModifiers["defaultLibrary"] = "defaultLibrary";
+		    })(SemanticTokenModifiers || (exports$1.SemanticTokenModifiers = SemanticTokenModifiers = {}));
+		    /**
+		     * @since 3.16.0
+		     */
+		    var SemanticTokens;
+		    (function (SemanticTokens) {
+		        function is(value) {
+		            var candidate = value;
+		            return Is.objectLiteral(candidate) && (candidate.resultId === undefined || typeof candidate.resultId === 'string') &&
+		                Array.isArray(candidate.data) && (candidate.data.length === 0 || typeof candidate.data[0] === 'number');
+		        }
+		        SemanticTokens.is = is;
+		    })(SemanticTokens || (exports$1.SemanticTokens = SemanticTokens = {}));
+		    /**
+		     * The InlineValueText namespace provides functions to deal with InlineValueTexts.
+		     *
+		     * @since 3.17.0
+		     */
+		    var InlineValueText;
+		    (function (InlineValueText) {
+		        /**
+		         * Creates a new InlineValueText literal.
+		         */
+		        function create(range, text) {
+		            return { range: range, text: text };
+		        }
+		        InlineValueText.create = create;
+		        function is(value) {
+		            var candidate = value;
+		            return candidate !== undefined && candidate !== null && Range.is(candidate.range) && Is.string(candidate.text);
+		        }
+		        InlineValueText.is = is;
+		    })(InlineValueText || (exports$1.InlineValueText = InlineValueText = {}));
+		    /**
+		     * The InlineValueVariableLookup namespace provides functions to deal with InlineValueVariableLookups.
+		     *
+		     * @since 3.17.0
+		     */
+		    var InlineValueVariableLookup;
+		    (function (InlineValueVariableLookup) {
+		        /**
+		         * Creates a new InlineValueText literal.
+		         */
+		        function create(range, variableName, caseSensitiveLookup) {
+		            return { range: range, variableName: variableName, caseSensitiveLookup: caseSensitiveLookup };
+		        }
+		        InlineValueVariableLookup.create = create;
+		        function is(value) {
+		            var candidate = value;
+		            return candidate !== undefined && candidate !== null && Range.is(candidate.range) && Is.boolean(candidate.caseSensitiveLookup)
+		                && (Is.string(candidate.variableName) || candidate.variableName === undefined);
+		        }
+		        InlineValueVariableLookup.is = is;
+		    })(InlineValueVariableLookup || (exports$1.InlineValueVariableLookup = InlineValueVariableLookup = {}));
+		    /**
+		     * The InlineValueEvaluatableExpression namespace provides functions to deal with InlineValueEvaluatableExpression.
+		     *
+		     * @since 3.17.0
+		     */
+		    var InlineValueEvaluatableExpression;
+		    (function (InlineValueEvaluatableExpression) {
+		        /**
+		         * Creates a new InlineValueEvaluatableExpression literal.
+		         */
+		        function create(range, expression) {
+		            return { range: range, expression: expression };
+		        }
+		        InlineValueEvaluatableExpression.create = create;
+		        function is(value) {
+		            var candidate = value;
+		            return candidate !== undefined && candidate !== null && Range.is(candidate.range)
+		                && (Is.string(candidate.expression) || candidate.expression === undefined);
+		        }
+		        InlineValueEvaluatableExpression.is = is;
+		    })(InlineValueEvaluatableExpression || (exports$1.InlineValueEvaluatableExpression = InlineValueEvaluatableExpression = {}));
+		    /**
+		     * The InlineValueContext namespace provides helper functions to work with
+		     * {@link InlineValueContext} literals.
+		     *
+		     * @since 3.17.0
+		     */
+		    var InlineValueContext;
+		    (function (InlineValueContext) {
+		        /**
+		         * Creates a new InlineValueContext literal.
+		         */
+		        function create(frameId, stoppedLocation) {
+		            return { frameId: frameId, stoppedLocation: stoppedLocation };
+		        }
+		        InlineValueContext.create = create;
+		        /**
+		         * Checks whether the given literal conforms to the {@link InlineValueContext} interface.
+		         */
+		        function is(value) {
+		            var candidate = value;
+		            return Is.defined(candidate) && Range.is(value.stoppedLocation);
+		        }
+		        InlineValueContext.is = is;
+		    })(InlineValueContext || (exports$1.InlineValueContext = InlineValueContext = {}));
+		    /**
+		     * Inlay hint kinds.
+		     *
+		     * @since 3.17.0
+		     */
+		    var InlayHintKind;
+		    (function (InlayHintKind) {
+		        /**
+		         * An inlay hint that for a type annotation.
+		         */
+		        InlayHintKind.Type = 1;
+		        /**
+		         * An inlay hint that is for a parameter.
+		         */
+		        InlayHintKind.Parameter = 2;
+		        function is(value) {
+		            return value === 1 || value === 2;
+		        }
+		        InlayHintKind.is = is;
+		    })(InlayHintKind || (exports$1.InlayHintKind = InlayHintKind = {}));
+		    var InlayHintLabelPart;
+		    (function (InlayHintLabelPart) {
+		        function create(value) {
+		            return { value: value };
+		        }
+		        InlayHintLabelPart.create = create;
+		        function is(value) {
+		            var candidate = value;
+		            return Is.objectLiteral(candidate)
+		                && (candidate.tooltip === undefined || Is.string(candidate.tooltip) || MarkupContent.is(candidate.tooltip))
+		                && (candidate.location === undefined || Location.is(candidate.location))
+		                && (candidate.command === undefined || Command.is(candidate.command));
+		        }
+		        InlayHintLabelPart.is = is;
+		    })(InlayHintLabelPart || (exports$1.InlayHintLabelPart = InlayHintLabelPart = {}));
+		    var InlayHint;
+		    (function (InlayHint) {
+		        function create(position, label, kind) {
+		            var result = { position: position, label: label };
+		            if (kind !== undefined) {
+		                result.kind = kind;
+		            }
+		            return result;
+		        }
+		        InlayHint.create = create;
+		        function is(value) {
+		            var candidate = value;
+		            return Is.objectLiteral(candidate) && Position.is(candidate.position)
+		                && (Is.string(candidate.label) || Is.typedArray(candidate.label, InlayHintLabelPart.is))
+		                && (candidate.kind === undefined || InlayHintKind.is(candidate.kind))
+		                && (candidate.textEdits === undefined) || Is.typedArray(candidate.textEdits, TextEdit.is)
+		                && (candidate.tooltip === undefined || Is.string(candidate.tooltip) || MarkupContent.is(candidate.tooltip))
+		                && (candidate.paddingLeft === undefined || Is.boolean(candidate.paddingLeft))
+		                && (candidate.paddingRight === undefined || Is.boolean(candidate.paddingRight));
+		        }
+		        InlayHint.is = is;
+		    })(InlayHint || (exports$1.InlayHint = InlayHint = {}));
+		    var StringValue;
+		    (function (StringValue) {
+		        function createSnippet(value) {
+		            return { kind: 'snippet', value: value };
+		        }
+		        StringValue.createSnippet = createSnippet;
+		    })(StringValue || (exports$1.StringValue = StringValue = {}));
+		    var InlineCompletionItem;
+		    (function (InlineCompletionItem) {
+		        function create(insertText, filterText, range, command) {
+		            return { insertText: insertText, filterText: filterText, range: range, command: command };
+		        }
+		        InlineCompletionItem.create = create;
+		    })(InlineCompletionItem || (exports$1.InlineCompletionItem = InlineCompletionItem = {}));
+		    var InlineCompletionList;
+		    (function (InlineCompletionList) {
+		        function create(items) {
+		            return { items: items };
+		        }
+		        InlineCompletionList.create = create;
+		    })(InlineCompletionList || (exports$1.InlineCompletionList = InlineCompletionList = {}));
+		    /**
+		     * Describes how an {@link InlineCompletionItemProvider inline completion provider} was triggered.
+		     *
+		     * @since 3.18.0
+		     * @proposed
+		     */
+		    var InlineCompletionTriggerKind;
+		    (function (InlineCompletionTriggerKind) {
+		        /**
+		         * Completion was triggered explicitly by a user gesture.
+		         */
+		        InlineCompletionTriggerKind.Invoked = 0;
+		        /**
+		         * Completion was triggered automatically while editing.
+		         */
+		        InlineCompletionTriggerKind.Automatic = 1;
+		    })(InlineCompletionTriggerKind || (exports$1.InlineCompletionTriggerKind = InlineCompletionTriggerKind = {}));
+		    var SelectedCompletionInfo;
+		    (function (SelectedCompletionInfo) {
+		        function create(range, text) {
+		            return { range: range, text: text };
+		        }
+		        SelectedCompletionInfo.create = create;
+		    })(SelectedCompletionInfo || (exports$1.SelectedCompletionInfo = SelectedCompletionInfo = {}));
+		    var InlineCompletionContext;
+		    (function (InlineCompletionContext) {
+		        function create(triggerKind, selectedCompletionInfo) {
+		            return { triggerKind: triggerKind, selectedCompletionInfo: selectedCompletionInfo };
+		        }
+		        InlineCompletionContext.create = create;
+		    })(InlineCompletionContext || (exports$1.InlineCompletionContext = InlineCompletionContext = {}));
+		    var WorkspaceFolder;
+		    (function (WorkspaceFolder) {
+		        function is(value) {
+		            var candidate = value;
+		            return Is.objectLiteral(candidate) && URI.is(candidate.uri) && Is.string(candidate.name);
+		        }
+		        WorkspaceFolder.is = is;
+		    })(WorkspaceFolder || (exports$1.WorkspaceFolder = WorkspaceFolder = {}));
+		    exports$1.EOL = ['\n', '\r\n', '\r'];
+		    /**
+		     * @deprecated Use the text document from the new vscode-languageserver-textdocument package.
+		     */
+		    var TextDocument;
+		    (function (TextDocument) {
+		        /**
+		         * Creates a new ITextDocument literal from the given uri and content.
+		         * @param uri The document's uri.
+		         * @param languageId The document's language Id.
+		         * @param version The document's version.
+		         * @param content The document's content.
+		         */
+		        function create(uri, languageId, version, content) {
+		            return new FullTextDocument(uri, languageId, version, content);
+		        }
+		        TextDocument.create = create;
+		        /**
+		         * Checks whether the given literal conforms to the {@link ITextDocument} interface.
+		         */
+		        function is(value) {
+		            var candidate = value;
+		            return Is.defined(candidate) && Is.string(candidate.uri) && (Is.undefined(candidate.languageId) || Is.string(candidate.languageId)) && Is.uinteger(candidate.lineCount)
+		                && Is.func(candidate.getText) && Is.func(candidate.positionAt) && Is.func(candidate.offsetAt) ? true : false;
+		        }
+		        TextDocument.is = is;
+		        function applyEdits(document, edits) {
+		            var text = document.getText();
+		            var sortedEdits = mergeSort(edits, function (a, b) {
+		                var diff = a.range.start.line - b.range.start.line;
+		                if (diff === 0) {
+		                    return a.range.start.character - b.range.start.character;
+		                }
+		                return diff;
+		            });
+		            var lastModifiedOffset = text.length;
+		            for (var i = sortedEdits.length - 1; i >= 0; i--) {
+		                var e = sortedEdits[i];
+		                var startOffset = document.offsetAt(e.range.start);
+		                var endOffset = document.offsetAt(e.range.end);
+		                if (endOffset <= lastModifiedOffset) {
+		                    text = text.substring(0, startOffset) + e.newText + text.substring(endOffset, text.length);
+		                }
+		                else {
+		                    throw new Error('Overlapping edit');
+		                }
+		                lastModifiedOffset = startOffset;
+		            }
+		            return text;
+		        }
+		        TextDocument.applyEdits = applyEdits;
+		        function mergeSort(data, compare) {
+		            if (data.length <= 1) {
+		                // sorted
+		                return data;
+		            }
+		            var p = (data.length / 2) | 0;
+		            var left = data.slice(0, p);
+		            var right = data.slice(p);
+		            mergeSort(left, compare);
+		            mergeSort(right, compare);
+		            var leftIdx = 0;
+		            var rightIdx = 0;
+		            var i = 0;
+		            while (leftIdx < left.length && rightIdx < right.length) {
+		                var ret = compare(left[leftIdx], right[rightIdx]);
+		                if (ret <= 0) {
+		                    // smaller_equal -> take left to preserve order
+		                    data[i++] = left[leftIdx++];
+		                }
+		                else {
+		                    // greater -> take right
+		                    data[i++] = right[rightIdx++];
+		                }
+		            }
+		            while (leftIdx < left.length) {
+		                data[i++] = left[leftIdx++];
+		            }
+		            while (rightIdx < right.length) {
+		                data[i++] = right[rightIdx++];
+		            }
+		            return data;
+		        }
+		    })(TextDocument || (exports$1.TextDocument = TextDocument = {}));
+		    /**
+		     * @deprecated Use the text document from the new vscode-languageserver-textdocument package.
+		     */
+		    var FullTextDocument = /** @class */ (function () {
+		        function FullTextDocument(uri, languageId, version, content) {
+		            this._uri = uri;
+		            this._languageId = languageId;
+		            this._version = version;
+		            this._content = content;
+		            this._lineOffsets = undefined;
+		        }
+		        Object.defineProperty(FullTextDocument.prototype, "uri", {
+		            get: function () {
+		                return this._uri;
+		            },
+		            enumerable: false,
+		            configurable: true
+		        });
+		        Object.defineProperty(FullTextDocument.prototype, "languageId", {
+		            get: function () {
+		                return this._languageId;
+		            },
+		            enumerable: false,
+		            configurable: true
+		        });
+		        Object.defineProperty(FullTextDocument.prototype, "version", {
+		            get: function () {
+		                return this._version;
+		            },
+		            enumerable: false,
+		            configurable: true
+		        });
+		        FullTextDocument.prototype.getText = function (range) {
+		            if (range) {
+		                var start = this.offsetAt(range.start);
+		                var end = this.offsetAt(range.end);
+		                return this._content.substring(start, end);
+		            }
+		            return this._content;
+		        };
+		        FullTextDocument.prototype.update = function (event, version) {
+		            this._content = event.text;
+		            this._version = version;
+		            this._lineOffsets = undefined;
+		        };
+		        FullTextDocument.prototype.getLineOffsets = function () {
+		            if (this._lineOffsets === undefined) {
+		                var lineOffsets = [];
+		                var text = this._content;
+		                var isLineStart = true;
+		                for (var i = 0; i < text.length; i++) {
+		                    if (isLineStart) {
+		                        lineOffsets.push(i);
+		                        isLineStart = false;
+		                    }
+		                    var ch = text.charAt(i);
+		                    isLineStart = (ch === '\r' || ch === '\n');
+		                    if (ch === '\r' && i + 1 < text.length && text.charAt(i + 1) === '\n') {
+		                        i++;
+		                    }
+		                }
+		                if (isLineStart && text.length > 0) {
+		                    lineOffsets.push(text.length);
+		                }
+		                this._lineOffsets = lineOffsets;
+		            }
+		            return this._lineOffsets;
+		        };
+		        FullTextDocument.prototype.positionAt = function (offset) {
+		            offset = Math.max(Math.min(offset, this._content.length), 0);
+		            var lineOffsets = this.getLineOffsets();
+		            var low = 0, high = lineOffsets.length;
+		            if (high === 0) {
+		                return Position.create(0, offset);
+		            }
+		            while (low < high) {
+		                var mid = Math.floor((low + high) / 2);
+		                if (lineOffsets[mid] > offset) {
+		                    high = mid;
+		                }
+		                else {
+		                    low = mid + 1;
+		                }
+		            }
+		            // low is the least x for which the line offset is larger than the current offset
+		            // or array.length if no line offset is larger than the current offset
+		            var line = low - 1;
+		            return Position.create(line, offset - lineOffsets[line]);
+		        };
+		        FullTextDocument.prototype.offsetAt = function (position) {
+		            var lineOffsets = this.getLineOffsets();
+		            if (position.line >= lineOffsets.length) {
+		                return this._content.length;
+		            }
+		            else if (position.line < 0) {
+		                return 0;
+		            }
+		            var lineOffset = lineOffsets[position.line];
+		            var nextLineOffset = (position.line + 1 < lineOffsets.length) ? lineOffsets[position.line + 1] : this._content.length;
+		            return Math.max(Math.min(lineOffset + position.character, nextLineOffset), lineOffset);
+		        };
+		        Object.defineProperty(FullTextDocument.prototype, "lineCount", {
+		            get: function () {
+		                return this.getLineOffsets().length;
+		            },
+		            enumerable: false,
+		            configurable: true
+		        });
+		        return FullTextDocument;
+		    }());
+		    var Is;
+		    (function (Is) {
+		        var toString = Object.prototype.toString;
+		        function defined(value) {
+		            return typeof value !== 'undefined';
+		        }
+		        Is.defined = defined;
+		        function undefined$1(value) {
+		            return typeof value === 'undefined';
+		        }
+		        Is.undefined = undefined$1;
+		        function boolean(value) {
+		            return value === true || value === false;
+		        }
+		        Is.boolean = boolean;
+		        function string(value) {
+		            return toString.call(value) === '[object String]';
+		        }
+		        Is.string = string;
+		        function number(value) {
+		            return toString.call(value) === '[object Number]';
+		        }
+		        Is.number = number;
+		        function numberRange(value, min, max) {
+		            return toString.call(value) === '[object Number]' && min <= value && value <= max;
+		        }
+		        Is.numberRange = numberRange;
+		        function integer(value) {
+		            return toString.call(value) === '[object Number]' && -2147483648 <= value && value <= 2147483647;
+		        }
+		        Is.integer = integer;
+		        function uinteger(value) {
+		            return toString.call(value) === '[object Number]' && 0 <= value && value <= 2147483647;
+		        }
+		        Is.uinteger = uinteger;
+		        function func(value) {
+		            return toString.call(value) === '[object Function]';
+		        }
+		        Is.func = func;
+		        function objectLiteral(value) {
+		            // Strictly speaking class instances pass this check as well. Since the LSP
+		            // doesn't use classes we ignore this for now. If we do we need to add something
+		            // like this: `Object.getPrototypeOf(Object.getPrototypeOf(x)) === null`
+		            return value !== null && typeof value === 'object';
+		        }
+		        Is.objectLiteral = objectLiteral;
+		        function typedArray(value, check) {
+		            return Array.isArray(value) && value.every(check);
+		        }
+		        Is.typedArray = typedArray;
+		    })(Is || (Is = {}));
+		}); 
+	} (main$1, main$1.exports));
+	return main$1.exports;
+}
+
+var line = {};
+
+var hasRequiredLine;
+
+function requireLine () {
+	if (hasRequiredLine) return line;
+	hasRequiredLine = 1;
+	Object.defineProperty(line, "__esModule", { value: true });
+	line.Line = void 0;
+	class Line {
+	    constructor(document, range) {
+	        this.document = document;
+	        this.range = range;
+	    }
+	    getRange() {
+	        return this.range;
+	    }
+	    getTextContent() {
+	        return this.document.getText().substring(this.document.offsetAt(this.range.start), this.document.offsetAt(this.range.end));
+	    }
+	    isAfter(line) {
+	        return this.range.start.line > line.range.start.line;
+	    }
+	    isBefore(line) {
+	        return this.range.start.line < line;
+	    }
+	}
+	line.Line = Line;
+	return line;
+}
+
+var util = {};
+
+/* --------------------------------------------------------------------------------------------
+ * Copyright (c) Remy Suen. All rights reserved.
+ * Licensed under the MIT License. See License.txt in the project root for license information.
+ * ------------------------------------------------------------------------------------------ */
+
+var hasRequiredUtil;
+
+function requireUtil () {
+	if (hasRequiredUtil) return util;
+	hasRequiredUtil = 1;
+	Object.defineProperty(util, "__esModule", { value: true });
+	util.Util = void 0;
+	class Util {
+	    static isUTF8BOM(char) {
+	        const uintArray = Uint8Array.from(Buffer.from(char, "UTF-8"));
+	        return uintArray[0] === 0xEF && uintArray[1] == 0xBB && uintArray[2] == 0xBF;
+	    }
+	    static isWhitespace(char) {
+	        return char === ' ' || char === '\t' || Util.isNewline(char);
+	    }
+	    static isNewline(char) {
+	        return char === '\r' || char === '\n';
+	    }
+	    static findLeadingNonWhitespace(content, escapeChar) {
+	        whitespaceCheck: for (let i = 0; i < content.length; i++) {
+	            switch (content.charAt(i)) {
+	                case ' ':
+	                case '\t':
+	                    continue;
+	                case escapeChar:
+	                    escapeCheck: for (let j = i + 1; j < content.length; j++) {
+	                        switch (content.charAt(j)) {
+	                            case ' ':
+	                            case '\t':
+	                                continue;
+	                            case '\r':
+	                                // offset one more for \r\n
+	                                i = j + 1;
+	                                continue whitespaceCheck;
+	                            case '\n':
+	                                i = j;
+	                                continue whitespaceCheck;
+	                            default:
+	                                break escapeCheck;
+	                        }
+	                    }
+	                    // found an escape character and then reached EOF
+	                    return -1;
+	                default:
+	                    return i;
+	            }
+	        }
+	        // only possible if the content is the empty string
+	        return -1;
+	    }
+	    /**
+	     * Determines if the given position is contained within the given range.
+	     *
+	     * @param position the position to check
+	     * @param range the range to see if the position is inside of
+	     */
+	    static isInsideRange(position, range) {
+	        if (range.start.line === range.end.line) {
+	            return range.start.line === position.line
+	                && range.start.character <= position.character
+	                && position.character <= range.end.character;
+	        }
+	        else if (range.start.line === position.line) {
+	            return range.start.character <= position.character;
+	        }
+	        else if (range.end.line === position.line) {
+	            return position.character <= range.end.character;
+	        }
+	        return range.start.line < position.line && position.line < range.end.line;
+	    }
+	    static parseHeredocName(value) {
+	        value = value.substring(2);
+	        if (value.charAt(0) === '-') {
+	            value = value.substring(1);
+	        }
+	        if (value.charAt(0) === '"') {
+	            if (value.charAt(value.length - 1) !== '"') {
+	                return null;
+	            }
+	            value = value.substring(1, value.length - 1);
+	        }
+	        if (value.charAt(0) === '\'') {
+	            if (value.charAt(value.length - 1) !== '\'') {
+	                return null;
+	            }
+	            value = value.substring(1, value.length - 1);
+	        }
+	        if (value.charAt(0) === "<") {
+	            return null;
+	        }
+	        return value;
+	    }
+	}
+	util.Util = Util;
+	return util;
+}
+
+var hasRequiredComment;
+
+function requireComment () {
+	if (hasRequiredComment) return comment;
+	hasRequiredComment = 1;
+	Object.defineProperty(comment, "__esModule", { value: true });
+	comment.Comment = void 0;
+	const vscode_languageserver_types_1 = requireMain$1();
+	const line_1 = requireLine();
+	const util_1 = requireUtil();
+	class Comment extends line_1.Line {
+	    constructor(document, range) {
+	        super(document, range);
+	    }
+	    toString() {
+	        const content = this.getContent();
+	        if (content) {
+	            return "# " + content;
+	        }
+	        return "#";
+	    }
+	    /**
+	     * Returns the content of this comment. This excludes leading and
+	     * trailing whitespace as well as the # symbol. If the comment only
+	     * consists of whitespace, the empty string will be returned.
+	     */
+	    getContent() {
+	        let range = this.getContentRange();
+	        if (range === null) {
+	            return "";
+	        }
+	        return this.document.getText().substring(this.document.offsetAt(range.start), this.document.offsetAt(range.end));
+	    }
+	    /**
+	     * Returns a range that includes the content of the comment
+	     * excluding any leading and trailing whitespace as well as the #
+	     * symbol. May return null if the comment only consists of whitespace
+	     * characters.
+	     */
+	    getContentRange() {
+	        let range = this.getRange();
+	        const startOffset = this.document.offsetAt(range.start);
+	        let raw = this.document.getText().substring(startOffset, this.document.offsetAt(range.end));
+	        let start = -1;
+	        let end = -1;
+	        // skip the first # symbol
+	        for (let i = 1; i < raw.length; i++) {
+	            if (!util_1.Util.isWhitespace(raw.charAt(i))) {
+	                start = i;
+	                break;
+	            }
+	        }
+	        if (start === -1) {
+	            return null;
+	        }
+	        // go backwards up to the first # symbol
+	        for (let i = raw.length - 1; i >= 1; i--) {
+	            if (!util_1.Util.isWhitespace(raw.charAt(i))) {
+	                end = i + 1;
+	                break;
+	            }
+	        }
+	        return vscode_languageserver_types_1.Range.create(this.document.positionAt(startOffset + start), this.document.positionAt(startOffset + end));
+	    }
+	}
+	comment.Comment = Comment;
+	return comment;
+}
+
+var parser = {};
+
+/* --------------------------------------------------------------------------------------------
+ * Copyright (c) Microsoft Corporation. All rights reserved.
+ * Licensed under the MIT License. See License.txt in the project root for license information.
+ * ------------------------------------------------------------------------------------------ */
+class FullTextDocument {
+    constructor(uri, languageId, version, content) {
+        this._uri = uri;
+        this._languageId = languageId;
+        this._version = version;
+        this._content = content;
+        this._lineOffsets = undefined;
+    }
+    get uri() {
+        return this._uri;
+    }
+    get languageId() {
+        return this._languageId;
+    }
+    get version() {
+        return this._version;
+    }
+    getText(range) {
+        if (range) {
+            const start = this.offsetAt(range.start);
+            const end = this.offsetAt(range.end);
+            return this._content.substring(start, end);
+        }
+        return this._content;
+    }
+    update(changes, version) {
+        for (const change of changes) {
+            if (FullTextDocument.isIncremental(change)) {
+                // makes sure start is before end
+                const range = getWellformedRange(change.range);
+                // update content
+                const startOffset = this.offsetAt(range.start);
+                const endOffset = this.offsetAt(range.end);
+                this._content = this._content.substring(0, startOffset) + change.text + this._content.substring(endOffset, this._content.length);
+                // update the offsets
+                const startLine = Math.max(range.start.line, 0);
+                const endLine = Math.max(range.end.line, 0);
+                let lineOffsets = this._lineOffsets;
+                const addedLineOffsets = computeLineOffsets(change.text, false, startOffset);
+                if (endLine - startLine === addedLineOffsets.length) {
+                    for (let i = 0, len = addedLineOffsets.length; i < len; i++) {
+                        lineOffsets[i + startLine + 1] = addedLineOffsets[i];
+                    }
+                }
+                else {
+                    if (addedLineOffsets.length < 10000) {
+                        lineOffsets.splice(startLine + 1, endLine - startLine, ...addedLineOffsets);
+                    }
+                    else { // avoid too many arguments for splice
+                        this._lineOffsets = lineOffsets = lineOffsets.slice(0, startLine + 1).concat(addedLineOffsets, lineOffsets.slice(endLine + 1));
+                    }
+                }
+                const diff = change.text.length - (endOffset - startOffset);
+                if (diff !== 0) {
+                    for (let i = startLine + 1 + addedLineOffsets.length, len = lineOffsets.length; i < len; i++) {
+                        lineOffsets[i] = lineOffsets[i] + diff;
+                    }
+                }
+            }
+            else if (FullTextDocument.isFull(change)) {
+                this._content = change.text;
+                this._lineOffsets = undefined;
+            }
+            else {
+                throw new Error('Unknown change event received');
+            }
+        }
+        this._version = version;
+    }
+    getLineOffsets() {
+        if (this._lineOffsets === undefined) {
+            this._lineOffsets = computeLineOffsets(this._content, true);
+        }
+        return this._lineOffsets;
+    }
+    positionAt(offset) {
+        offset = Math.max(Math.min(offset, this._content.length), 0);
+        const lineOffsets = this.getLineOffsets();
+        let low = 0, high = lineOffsets.length;
+        if (high === 0) {
+            return { line: 0, character: offset };
+        }
+        while (low < high) {
+            const mid = Math.floor((low + high) / 2);
+            if (lineOffsets[mid] > offset) {
+                high = mid;
+            }
+            else {
+                low = mid + 1;
+            }
+        }
+        // low is the least x for which the line offset is larger than the current offset
+        // or array.length if no line offset is larger than the current offset
+        const line = low - 1;
+        offset = this.ensureBeforeEOL(offset, lineOffsets[line]);
+        return { line, character: offset - lineOffsets[line] };
+    }
+    offsetAt(position) {
+        const lineOffsets = this.getLineOffsets();
+        if (position.line >= lineOffsets.length) {
+            return this._content.length;
+        }
+        else if (position.line < 0) {
+            return 0;
+        }
+        const lineOffset = lineOffsets[position.line];
+        if (position.character <= 0) {
+            return lineOffset;
+        }
+        const nextLineOffset = (position.line + 1 < lineOffsets.length) ? lineOffsets[position.line + 1] : this._content.length;
+        const offset = Math.min(lineOffset + position.character, nextLineOffset);
+        return this.ensureBeforeEOL(offset, lineOffset);
+    }
+    ensureBeforeEOL(offset, lineOffset) {
+        while (offset > lineOffset && isEOL(this._content.charCodeAt(offset - 1))) {
+            offset--;
+        }
+        return offset;
+    }
+    get lineCount() {
+        return this.getLineOffsets().length;
+    }
+    static isIncremental(event) {
+        const candidate = event;
+        return candidate !== undefined && candidate !== null &&
+            typeof candidate.text === 'string' && candidate.range !== undefined &&
+            (candidate.rangeLength === undefined || typeof candidate.rangeLength === 'number');
+    }
+    static isFull(event) {
+        const candidate = event;
+        return candidate !== undefined && candidate !== null &&
+            typeof candidate.text === 'string' && candidate.range === undefined && candidate.rangeLength === undefined;
+    }
+}
+var TextDocument;
+(function (TextDocument) {
+    /**
+     * Creates a new text document.
+     *
+     * @param uri The document's uri.
+     * @param languageId  The document's language Id.
+     * @param version The document's initial version number.
+     * @param content The document's content.
+     */
+    function create(uri, languageId, version, content) {
+        return new FullTextDocument(uri, languageId, version, content);
+    }
+    TextDocument.create = create;
+    /**
+     * Updates a TextDocument by modifying its content.
+     *
+     * @param document the document to update. Only documents created by TextDocument.create are valid inputs.
+     * @param changes the changes to apply to the document.
+     * @param version the changes version for the document.
+     * @returns The updated TextDocument. Note: That's the same document instance passed in as first parameter.
+     *
+     */
+    function update(document, changes, version) {
+        if (document instanceof FullTextDocument) {
+            document.update(changes, version);
+            return document;
+        }
+        else {
+            throw new Error('TextDocument.update: document must be created by TextDocument.create');
+        }
+    }
+    TextDocument.update = update;
+    function applyEdits(document, edits) {
+        const text = document.getText();
+        const sortedEdits = mergeSort(edits.map(getWellformedEdit), (a, b) => {
+            const diff = a.range.start.line - b.range.start.line;
+            if (diff === 0) {
+                return a.range.start.character - b.range.start.character;
+            }
+            return diff;
+        });
+        let lastModifiedOffset = 0;
+        const spans = [];
+        for (const e of sortedEdits) {
+            const startOffset = document.offsetAt(e.range.start);
+            if (startOffset < lastModifiedOffset) {
+                throw new Error('Overlapping edit');
+            }
+            else if (startOffset > lastModifiedOffset) {
+                spans.push(text.substring(lastModifiedOffset, startOffset));
+            }
+            if (e.newText.length) {
+                spans.push(e.newText);
+            }
+            lastModifiedOffset = document.offsetAt(e.range.end);
+        }
+        spans.push(text.substr(lastModifiedOffset));
+        return spans.join('');
+    }
+    TextDocument.applyEdits = applyEdits;
+})(TextDocument || (TextDocument = {}));
+function mergeSort(data, compare) {
+    if (data.length <= 1) {
+        // sorted
+        return data;
+    }
+    const p = (data.length / 2) | 0;
+    const left = data.slice(0, p);
+    const right = data.slice(p);
+    mergeSort(left, compare);
+    mergeSort(right, compare);
+    let leftIdx = 0;
+    let rightIdx = 0;
+    let i = 0;
+    while (leftIdx < left.length && rightIdx < right.length) {
+        const ret = compare(left[leftIdx], right[rightIdx]);
+        if (ret <= 0) {
+            // smaller_equal -> take left to preserve order
+            data[i++] = left[leftIdx++];
+        }
+        else {
+            // greater -> take right
+            data[i++] = right[rightIdx++];
+        }
+    }
+    while (leftIdx < left.length) {
+        data[i++] = left[leftIdx++];
+    }
+    while (rightIdx < right.length) {
+        data[i++] = right[rightIdx++];
+    }
+    return data;
+}
+function computeLineOffsets(text, isAtLineStart, textOffset = 0) {
+    const result = isAtLineStart ? [textOffset] : [];
+    for (let i = 0; i < text.length; i++) {
+        const ch = text.charCodeAt(i);
+        if (isEOL(ch)) {
+            if (ch === 13 /* CharCode.CarriageReturn */ && i + 1 < text.length && text.charCodeAt(i + 1) === 10 /* CharCode.LineFeed */) {
+                i++;
+            }
+            result.push(textOffset + i + 1);
+        }
+    }
+    return result;
+}
+function isEOL(char) {
+    return char === 13 /* CharCode.CarriageReturn */ || char === 10 /* CharCode.LineFeed */;
+}
+function getWellformedRange(range) {
+    const start = range.start;
+    const end = range.end;
+    if (start.line > end.line || (start.line === end.line && start.character > end.character)) {
+        return { start: end, end: start };
+    }
+    return range;
+}
+function getWellformedEdit(textEdit) {
+    const range = getWellformedRange(textEdit.range);
+    if (range !== textEdit.range) {
+        return { newText: textEdit.newText, range };
+    }
+    return textEdit;
+}
+
+var main = /*#__PURE__*/Object.freeze({
+	__proto__: null,
+	get TextDocument () { return TextDocument; }
+});
+
+var require$$0 = /*@__PURE__*/getAugmentedNamespace(main);
+
+var parserDirective = {};
+
+var hasRequiredParserDirective;
+
+function requireParserDirective () {
+	if (hasRequiredParserDirective) return parserDirective;
+	hasRequiredParserDirective = 1;
+	Object.defineProperty(parserDirective, "__esModule", { value: true });
+	parserDirective.ParserDirective = void 0;
+	const main_1 = requireMain();
+	const line_1 = requireLine();
+	class ParserDirective extends line_1.Line {
+	    constructor(document, range, nameRange, valueRange) {
+	        super(document, range);
+	        this.nameRange = nameRange;
+	        this.valueRange = valueRange;
+	    }
+	    toString() {
+	        return "# " + this.getName() + '=' + this.getValue();
+	    }
+	    getNameRange() {
+	        return this.nameRange;
+	    }
+	    getValueRange() {
+	        return this.valueRange;
+	    }
+	    getName() {
+	        return this.document.getText().substring(this.document.offsetAt(this.nameRange.start), this.document.offsetAt(this.nameRange.end));
+	    }
+	    getValue() {
+	        return this.document.getText().substring(this.document.offsetAt(this.valueRange.start), this.document.offsetAt(this.valueRange.end));
+	    }
+	    getDirective() {
+	        const directive = main_1.Directive[this.getName().toLowerCase()];
+	        return directive === undefined ? null : directive;
+	    }
+	}
+	parserDirective.ParserDirective = ParserDirective;
+	return parserDirective;
+}
+
+var instruction = {};
+
+var heredoc = {};
+
+var hasRequiredHeredoc;
+
+function requireHeredoc () {
+	if (hasRequiredHeredoc) return heredoc;
+	hasRequiredHeredoc = 1;
+	Object.defineProperty(heredoc, "__esModule", { value: true });
+	heredoc.Heredoc = void 0;
+	/**
+	 * Heredoc represents a here-document that has been embedded in a
+	 * Dockerfile.
+	 *
+	 * This API is experimental and subject to change.
+	 */
+	class Heredoc {
+	    constructor(startRange, name, nameRange, contentRange, endRange) {
+	        this.startRange = startRange;
+	        this.name = name;
+	        this.nameRange = nameRange;
+	        this.contentRange = contentRange;
+	        this.endRange = endRange;
+	    }
+	    /**
+	     * Returns the name of the here-document.
+	     *
+	     * This API is experimental and subject to change.
+	     */
+	    getName() {
+	        return this.name;
+	    }
+	    /**
+	     * Returns the range of the start operator and the name. If the
+	     * here-document is initialized with <<EOT then the start range would
+	     * encompass all five characters.
+	     *
+	     * This API is experimental and subject to change.
+	     */
+	    getStartRange() {
+	        return this.startRange;
+	    }
+	    /**
+	     * Returns the range of this here-document's name that is declared at
+	     * the beginning of the here-document with the operator. If the
+	     * here-document is initialized with <<EOT then the name range would
+	     * encompass the latter three "EOT" characters.
+	     *
+	     * This API is experimental and subject to change.
+	     */
+	    getNameRange() {
+	        return this.nameRange;
+	    }
+	    /**
+	     * Returns the range of the content of this here-document. This may
+	     * be null if the here-document has no content because:
+	     * - the start range is the only thing that was declared
+	     * - the end range was declared immediately and there is no content
+	     *
+	     * This API is experimental and subject to change.
+	     */
+	    getContentRange() {
+	        return this.contentRange;
+	    }
+	    /**
+	     * Returns the range of the here-document's name on a line that
+	     * represents the end of the here-document.
+	     *
+	     * This API is experimental and subject to change.
+	     */
+	    getDelimiterRange() {
+	        return this.endRange;
+	    }
+	}
+	heredoc.Heredoc = Heredoc;
+	return heredoc;
+}
+
+var variable = {};
+
+var hasRequiredVariable;
+
+function requireVariable () {
+	if (hasRequiredVariable) return variable;
+	hasRequiredVariable = 1;
+	Object.defineProperty(variable, "__esModule", { value: true });
+	variable.Variable = void 0;
+	class Variable {
+	    constructor(name, nameRange, range, modifier, modifierRange, substitutionParameter, substitutionRange, defined, buildVariable, stringValue) {
+	        this.name = name;
+	        this.nameRange = nameRange;
+	        this.range = range;
+	        this.modifier = modifier;
+	        this.modifierRange = modifierRange;
+	        this.substitutionParameter = substitutionParameter;
+	        this.substitutionRange = substitutionRange;
+	        this.defined = defined;
+	        this.buildVariable = buildVariable;
+	        this.stringValue = stringValue;
+	    }
+	    toString() {
+	        return this.stringValue;
+	    }
+	    getName() {
+	        return this.name;
+	    }
+	    getNameRange() {
+	        return this.nameRange;
+	    }
+	    /**
+	     * Returns the range of the entire variable. This includes the symbols for
+	     * the declaration of the variable such as the $, {, and } symbols.
+	     *
+	     * @return the range in the document that this variable encompasses in its
+	     *         entirety
+	     */
+	    getRange() {
+	        return this.range;
+	    }
+	    /**
+	     * Returns the modifier character that has been set for
+	     * specifying how this variable should be expanded and resolved.
+	     * If this variable is ${variable:+value} then the modifier
+	     * character is '+'. Will be the empty string if the variable is
+	     * declared as ${variable:}. Otherwise, will be null if this
+	     * variable will not use variable substitution at all (such as
+	     * ${variable} or $variable).
+	     *
+	     * @return this variable's modifier character, or the empty
+	     *         string if it does not have one, or null if this
+	     *         variable will not use variable substitution
+	     */
+	    getModifier() {
+	        return this.modifier;
+	    }
+	    getModifierRange() {
+	        return this.modifierRange;
+	    }
+	    /**
+	     * Returns the parameter that will be used for substitution if
+	     * this variable uses modifiers to define how its value should be
+	     * resolved. If this variable is ${variable:+value} then the
+	     * substitution value will be 'value'. Will be the empty string
+	     * if the variable is declared as ${variable:+} or some other
+	     * variant where the only thing that follows the modifier
+	     * character (excluding considerations of escape characters and
+	     * so on) is the variable's closing bracket. May be null if this
+	     * variable does not have a modifier character defined (such as
+	     * ${variable} or $variable).
+	     *
+	     * @return this variable's substitution parameter, or the empty
+	     *         string if it does not have one, or null if there is
+	     *         not one defined
+	     */
+	    getSubstitutionParameter() {
+	        return this.substitutionParameter;
+	    }
+	    getSubstitutionRange() {
+	        return this.substitutionRange;
+	    }
+	    /**
+	     * Returns whether this variable has been defined or not.
+	     *
+	     * @return true if this variable has been defined, false otherwise
+	     */
+	    isDefined() {
+	        return this.defined;
+	    }
+	    isBuildVariable() {
+	        return this.buildVariable === true;
+	    }
+	    isEnvironmentVariable() {
+	        return this.buildVariable === false;
+	    }
+	}
+	variable.Variable = Variable;
+	return variable;
+}
+
+var hasRequiredInstruction;
+
+function requireInstruction () {
+	if (hasRequiredInstruction) return instruction;
+	hasRequiredInstruction = 1;
+	Object.defineProperty(instruction, "__esModule", { value: true });
+	instruction.Instruction = void 0;
+	const vscode_languageserver_types_1 = requireMain$1();
+	const util_1 = requireUtil();
+	const line_1 = requireLine();
+	const argument_1 = requireArgument();
+	const heredoc_1 = requireHeredoc();
+	const variable_1 = requireVariable();
+	const main_1 = requireMain();
+	class Instruction extends line_1.Line {
+	    constructor(document, range, dockerfile, escapeChar, instruction, instructionRange) {
+	        super(document, range);
+	        this.dockerfile = dockerfile;
+	        this.escapeChar = escapeChar;
+	        this.instruction = instruction;
+	        this.instructionRange = instructionRange;
+	    }
+	    toString() {
+	        let value = this.getKeyword();
+	        for (let arg of this.getRawArguments()) {
+	            value += ' ';
+	            value += arg.getValue();
+	        }
+	        return value;
+	    }
+	    getRangeContent(range) {
+	        if (range === null) {
+	            return null;
+	        }
+	        return this.document.getText().substring(this.document.offsetAt(range.start), this.document.offsetAt(range.end));
+	    }
+	    getInstructionRange() {
+	        return this.instructionRange;
+	    }
+	    getInstruction() {
+	        return this.instruction;
+	    }
+	    getKeyword() {
+	        return this.getInstruction().toUpperCase();
+	    }
+	    getArgumentsRange() {
+	        let args = this.getArguments();
+	        if (args.length === 0) {
+	            return null;
+	        }
+	        return vscode_languageserver_types_1.Range.create(args[0].getRange().start, args[args.length - 1].getRange().end);
+	    }
+	    getArgumentsRanges() {
+	        let args = this.getArguments();
+	        if (args.length === 0) {
+	            return [];
+	        }
+	        if (args[0].getRange().start.line === args[args.length - 1].getRange().end.line) {
+	            return [vscode_languageserver_types_1.Range.create(args[0].getRange().start, args[args.length - 1].getRange().end)];
+	        }
+	        let ranges = [];
+	        let end = -1;
+	        let startPosition = args[0].getRange().start;
+	        let range = this.getInstructionRange();
+	        let extra = this.document.offsetAt(startPosition) - this.document.offsetAt(range.start);
+	        let content = this.getTextContent();
+	        let fullArgs = content.substring(extra, this.document.offsetAt(args[args.length - 1].getRange().end) - this.document.offsetAt(range.start));
+	        let offset = this.document.offsetAt(range.start) + extra;
+	        let comment = false;
+	        for (let i = 0; i < fullArgs.length; i++) {
+	            let char = fullArgs.charAt(i);
+	            if (char === this.escapeChar) {
+	                let next = fullArgs.charAt(i + 1);
+	                if (next === ' ' || next === '\t') {
+	                    whitespaceCheck: for (let j = i + 2; j < fullArgs.length; j++) {
+	                        switch (fullArgs.charAt(j)) {
+	                            case ' ':
+	                            case '\t':
+	                                continue;
+	                            case '\r':
+	                                j++;
+	                            case '\n':
+	                                if (startPosition !== null) {
+	                                    ranges.push(vscode_languageserver_types_1.Range.create(startPosition, this.document.positionAt(offset + end + 1)));
+	                                }
+	                                startPosition = null;
+	                                comment = false;
+	                                i = j;
+	                                break whitespaceCheck;
+	                            default:
+	                                break whitespaceCheck;
+	                        }
+	                    }
+	                }
+	                else if (next === '\r') {
+	                    if (startPosition !== null) {
+	                        ranges.push(vscode_languageserver_types_1.Range.create(startPosition, this.document.positionAt(offset + end + 1)));
+	                        startPosition = null;
+	                    }
+	                    comment = false;
+	                    i += 2;
+	                }
+	                else if (next === '\n') {
+	                    if (startPosition !== null) {
+	                        ranges.push(vscode_languageserver_types_1.Range.create(startPosition, this.document.positionAt(offset + end + 1)));
+	                    }
+	                    startPosition = null;
+	                    comment = false;
+	                    i++;
+	                }
+	                else {
+	                    i++;
+	                }
+	            }
+	            else if (util_1.Util.isNewline(char)) {
+	                if (comment) {
+	                    startPosition = null;
+	                    comment = false;
+	                }
+	            }
+	            else {
+	                if (!comment) {
+	                    if (startPosition === null) {
+	                        if (char === '#') {
+	                            comment = true;
+	                            continue;
+	                        }
+	                        let position = this.document.positionAt(offset + i);
+	                        if (position.character !== 0) {
+	                            startPosition = vscode_languageserver_types_1.Position.create(position.line, 0);
+	                        }
+	                    }
+	                    end = i;
+	                }
+	            }
+	        }
+	        if (startPosition === null) {
+	            // should only happen if the last argument is on its own line with
+	            // no leading whitespace
+	            ranges.push(vscode_languageserver_types_1.Range.create(this.document.positionAt(offset + end), this.document.positionAt(offset + end + 1)));
+	        }
+	        else {
+	            ranges.push(vscode_languageserver_types_1.Range.create(startPosition, this.document.positionAt(offset + end + 1)));
+	        }
+	        return ranges;
+	    }
+	    getRawArgumentsContent() {
+	        let args = this.getArguments();
+	        if (args.length === 0) {
+	            return null;
+	        }
+	        return this.getRangeContent(vscode_languageserver_types_1.Range.create(args[0].getRange().start, args[args.length - 1].getRange().end));
+	    }
+	    getArgumentsContent() {
+	        let args = this.getArguments();
+	        if (args.length === 0) {
+	            return null;
+	        }
+	        let content = "";
+	        let ranges = this.getArgumentsRanges();
+	        let documentText = this.document.getText();
+	        for (let range of ranges) {
+	            content += documentText.substring(this.document.offsetAt(range.start), this.document.offsetAt(range.end));
+	        }
+	        return content;
+	    }
+	    getArguments() {
+	        return this.getRawArguments();
+	    }
+	    getRawArguments() {
+	        let args = [];
+	        let range = this.getInstructionRange();
+	        let extra = this.document.offsetAt(range.end) - this.document.offsetAt(range.start);
+	        let content = this.getTextContent();
+	        let fullArgs = content.substring(extra);
+	        let offset = this.document.offsetAt(range.start) + extra;
+	        let start = false;
+	        let comment = false;
+	        let found = -1;
+	        // determines whether the parser has found a space or tab
+	        // whitespace character that's a part of an escaped newline sequence
+	        let escapedWhitespaceDetected = false;
+	        // determines if the parser is currently in an escaped newline sequence
+	        let escaping = false;
+	        let escapeMarker = -1;
+	        let escapedArg = "";
+	        for (let i = 0; i < fullArgs.length; i++) {
+	            let char = fullArgs.charAt(i);
+	            if (util_1.Util.isWhitespace(char)) {
+	                if (escaping) {
+	                    escapedWhitespaceDetected = true;
+	                    if (util_1.Util.isNewline(char)) {
+	                        // reached a newline, any previously
+	                        // detected whitespace should be ignored
+	                        escapedWhitespaceDetected = false;
+	                        if (comment) {
+	                            // reached a newline, no longer in a comment
+	                            comment = false;
+	                            start = true;
+	                        }
+	                    }
+	                    continue;
+	                }
+	                else if (found !== -1) {
+	                    if (escapeMarker === -1) {
+	                        args.push(new argument_1.Argument(escapedArg, vscode_languageserver_types_1.Range.create(this.document.positionAt(offset + found), this.document.positionAt(offset + i))));
+	                    }
+	                    else {
+	                        args.push(new argument_1.Argument(escapedArg, vscode_languageserver_types_1.Range.create(this.document.positionAt(offset + found), this.document.positionAt(offset + escapeMarker))));
+	                    }
+	                    escapeMarker = -1;
+	                    escapedArg = "";
+	                    found = -1;
+	                }
+	            }
+	            else if (char === this.escapeChar) {
+	                let next = fullArgs.charAt(i + 1);
+	                if (next === ' ' || next === '\t') {
+	                    whitespaceCheck: for (let j = i + 2; j < fullArgs.length; j++) {
+	                        let newlineCheck = fullArgs.charAt(j);
+	                        switch (newlineCheck) {
+	                            case ' ':
+	                            case '\t':
+	                                continue;
+	                            case '\r':
+	                                j++;
+	                            case '\n':
+	                                comment = false;
+	                                escaping = true;
+	                                start = true;
+	                                if (found !== -1) {
+	                                    escapeMarker = i;
+	                                }
+	                                i = j;
+	                                break whitespaceCheck;
+	                            default:
+	                                escapeMarker = i;
+	                                if (found === -1) {
+	                                    i = j - 1;
+	                                }
+	                                break whitespaceCheck;
+	                        }
+	                    }
+	                }
+	                else if (next === '\r') {
+	                    comment = false;
+	                    escaping = true;
+	                    start = true;
+	                    if (found !== -1 && escapeMarker === -1) {
+	                        escapeMarker = i;
+	                    }
+	                    i += 2;
+	                }
+	                else if (next === '\n') {
+	                    comment = false;
+	                    escaping = true;
+	                    start = true;
+	                    if (found !== -1 && escapeMarker === -1) {
+	                        escapeMarker = i;
+	                    }
+	                    i++;
+	                }
+	                else {
+	                    if (escapedWhitespaceDetected && escapeMarker !== -1) {
+	                        args.push(new argument_1.Argument(escapedArg, vscode_languageserver_types_1.Range.create(this.document.positionAt(offset + found), this.document.positionAt(offset + escapeMarker))));
+	                        escapedArg = "";
+	                        found = -1;
+	                    }
+	                    escapeMarker = -1;
+	                    escapedWhitespaceDetected = false;
+	                    escaping = false;
+	                    if (next === '$') {
+	                        escapedArg = escapedArg + char + next;
+	                    }
+	                    else if (next === '') {
+	                        // reached EOF, stop processing
+	                        break;
+	                    }
+	                    else {
+	                        escapedArg = escapedArg + next;
+	                    }
+	                    if (found === -1) {
+	                        found = i;
+	                    }
+	                    i++;
+	                }
+	            }
+	            else if (!comment) {
+	                if (start && char === '#') {
+	                    comment = true;
+	                }
+	                else {
+	                    if (escapedWhitespaceDetected && escapeMarker !== -1) {
+	                        args.push(new argument_1.Argument(escapedArg, vscode_languageserver_types_1.Range.create(this.document.positionAt(offset + found), this.document.positionAt(offset + escapeMarker))));
+	                        escapedArg = "";
+	                        found = -1;
+	                    }
+	                    escapedWhitespaceDetected = false;
+	                    escaping = false;
+	                    escapeMarker = -1;
+	                    escapedArg = escapedArg + char;
+	                    if (found === -1) {
+	                        found = i;
+	                    }
+	                }
+	                // non-whitespace character detected, reset
+	                start = false;
+	            }
+	        }
+	        if (found !== -1) {
+	            if (escapeMarker === -1) {
+	                args.push(new argument_1.Argument(escapedArg, vscode_languageserver_types_1.Range.create(this.document.positionAt(offset + found), this.document.positionAt(offset + fullArgs.length))));
+	            }
+	            else {
+	                args.push(new argument_1.Argument(escapedArg, vscode_languageserver_types_1.Range.create(this.document.positionAt(offset + found), this.document.positionAt(offset + escapeMarker))));
+	            }
+	        }
+	        return args;
+	    }
+	    getExpandedArguments() {
+	        let args = this.getArguments();
+	        for (let i = 0; i < args.length; i++) {
+	            const argRange = args[i].getRange();
+	            let offset = this.document.offsetAt(argRange.start);
+	            const variables = this.parseVariables(offset, args[i].getValue());
+	            const swaps = [];
+	            let requiresExpansion = false;
+	            for (let variable of variables) {
+	                const value = this.dockerfile.resolveVariable(variable.getName(), variable.getNameRange().start.line);
+	                swaps.push(value);
+	                requiresExpansion = requiresExpansion || value !== undefined;
+	            }
+	            if (requiresExpansion) {
+	                let expanded = "";
+	                for (let j = 0; j < swaps.length; j++) {
+	                    const variableRange = variables[j].getRange();
+	                    const start = this.document.offsetAt(variableRange.start);
+	                    const end = this.document.offsetAt(variableRange.end);
+	                    if (swaps[j]) {
+	                        // replace variable with its resolved value
+	                        expanded += this.document.getText().substring(offset, start);
+	                        expanded += swaps[j];
+	                        offset = end;
+	                    }
+	                    else {
+	                        expanded += this.document.getText().substring(offset, end);
+	                        offset = end;
+	                    }
+	                }
+	                const argEnd = this.document.offsetAt(argRange.end);
+	                if (argEnd !== offset) {
+	                    // if the variable's range doesn't match the argument,
+	                    // append the remaining text
+	                    expanded += this.document.getText().substring(offset, argEnd);
+	                }
+	                args[i] = new argument_1.Argument(expanded, argRange);
+	            }
+	        }
+	        return args;
+	    }
+	    getVariables() {
+	        const variables = [];
+	        const args = this.getRawArguments();
+	        for (const arg of args) {
+	            let range = arg.getRange();
+	            let rawValue = this.document.getText().substring(this.document.offsetAt(range.start), this.document.offsetAt(range.end));
+	            const parsedVariables = this.parseVariables(this.document.offsetAt(arg.getRange().start), rawValue);
+	            for (const parsedVariable of parsedVariables) {
+	                variables.push(parsedVariable);
+	            }
+	        }
+	        return variables;
+	    }
+	    parseVariables(offset, arg) {
+	        let variables = [];
+	        variableLoop: for (let i = 0; i < arg.length; i++) {
+	            switch (arg.charAt(i)) {
+	                case this.escapeChar:
+	                    if (arg.charAt(i + 1) === '$') {
+	                        i++;
+	                    }
+	                    break;
+	                case '$':
+	                    if (arg.charAt(i + 1) === '{') {
+	                        let escapedString = "${";
+	                        let escapedName = "";
+	                        let nameEnd = -1;
+	                        let escapedSubstitutionParameter = "";
+	                        let substitutionStart = -1;
+	                        let substitutionEnd = -1;
+	                        let modifierRead = -1;
+	                        nameLoop: for (let j = i + 2; j < arg.length; j++) {
+	                            let char = arg.charAt(j);
+	                            switch (char) {
+	                                case this.escapeChar:
+	                                    for (let k = j + 1; k < arg.length; k++) {
+	                                        switch (arg.charAt(k)) {
+	                                            case ' ':
+	                                            case '\t':
+	                                            case '\r':
+	                                                // ignore whitespace
+	                                                continue;
+	                                            case '\n':
+	                                                // escape this newline
+	                                                j = k;
+	                                                continue nameLoop;
+	                                        }
+	                                    }
+	                                    break;
+	                                case '}':
+	                                    escapedString += '}';
+	                                    let modifier = null;
+	                                    let modifierRange = null;
+	                                    let substitutionParameter = modifierRead !== -1 ? escapedSubstitutionParameter : null;
+	                                    let substitutionRange = null;
+	                                    if (nameEnd === -1) {
+	                                        nameEnd = j;
+	                                    }
+	                                    else if (nameEnd + 1 === j) {
+	                                        modifier = "";
+	                                        modifierRange = vscode_languageserver_types_1.Range.create(this.document.positionAt(offset + nameEnd + 1), this.document.positionAt(offset + nameEnd + 1));
+	                                    }
+	                                    else {
+	                                        if (substitutionStart === -1) {
+	                                            // no substitution parameter found,
+	                                            // but a modifier character existed,
+	                                            // just offset the range by 1 from
+	                                            // the modifier character
+	                                            substitutionStart = modifierRead + 1;
+	                                            substitutionEnd = modifierRead + 1;
+	                                        }
+	                                        else {
+	                                            // offset one more from the last
+	                                            // character found
+	                                            substitutionEnd = substitutionEnd + 1;
+	                                        }
+	                                        modifier = arg.substring(modifierRead, modifierRead + 1);
+	                                        modifierRange = vscode_languageserver_types_1.Range.create(this.document.positionAt(offset + modifierRead), this.document.positionAt(offset + modifierRead + 1));
+	                                        substitutionRange = vscode_languageserver_types_1.Range.create(this.document.positionAt(offset + substitutionStart), this.document.positionAt(offset + substitutionEnd));
+	                                    }
+	                                    let start = this.document.positionAt(offset + i);
+	                                    variables.push(new variable_1.Variable(escapedName, vscode_languageserver_types_1.Range.create(this.document.positionAt(offset + i + 2), this.document.positionAt(offset + nameEnd)), vscode_languageserver_types_1.Range.create(start, this.document.positionAt(offset + j + 1)), modifier, modifierRange, substitutionParameter, substitutionRange, this.dockerfile.resolveVariable(escapedName, start.line) !== undefined, this.isBuildVariable(escapedName, start.line), escapedString));
+	                                    i = j;
+	                                    continue variableLoop;
+	                                case ':':
+	                                    if (nameEnd === -1) {
+	                                        nameEnd = j;
+	                                    }
+	                                    else if (modifierRead !== -1) {
+	                                        if (substitutionStart === -1) {
+	                                            substitutionStart = j;
+	                                            substitutionEnd = j;
+	                                        }
+	                                        else {
+	                                            substitutionEnd = j;
+	                                        }
+	                                        escapedSubstitutionParameter += ':';
+	                                    }
+	                                    else {
+	                                        modifierRead = j;
+	                                    }
+	                                    escapedString += ':';
+	                                    break;
+	                                case '\n':
+	                                case '\r':
+	                                case ' ':
+	                                case '\t':
+	                                    break;
+	                                default:
+	                                    if (nameEnd === -1) {
+	                                        escapedName += char;
+	                                    }
+	                                    else if (modifierRead !== -1) {
+	                                        if (substitutionStart === -1) {
+	                                            substitutionStart = j;
+	                                            substitutionEnd = j;
+	                                        }
+	                                        else {
+	                                            substitutionEnd = j;
+	                                        }
+	                                        escapedSubstitutionParameter += char;
+	                                    }
+	                                    else {
+	                                        modifierRead = j;
+	                                    }
+	                                    escapedString += char;
+	                                    break;
+	                            }
+	                        }
+	                        // no } found, not a valid variable, stop processing
+	                        break variableLoop;
+	                    }
+	                    else if (util_1.Util.isWhitespace(arg.charAt(i + 1)) || i === arg.length - 1) {
+	                        // $ followed by whitespace or EOF, ignore this variable
+	                        continue;
+	                    }
+	                    else {
+	                        let escapedName = "";
+	                        nameLoop: for (let j = i + 1; j < arg.length; j++) {
+	                            let char = arg.charAt(j);
+	                            switch (char) {
+	                                case '\r':
+	                                case '\n':
+	                                case ' ':
+	                                case '\t':
+	                                    continue;
+	                                case '$':
+	                                case '\'':
+	                                case '"':
+	                                    let varStart = this.document.positionAt(offset + i);
+	                                    variables.push(new variable_1.Variable(escapedName, vscode_languageserver_types_1.Range.create(this.document.positionAt(offset + i + 1), this.document.positionAt(offset + j)), vscode_languageserver_types_1.Range.create(varStart, this.document.positionAt(offset + j)), null, null, null, null, this.dockerfile.resolveVariable(escapedName, varStart.line) !== undefined, this.isBuildVariable(escapedName, varStart.line), '$' + escapedName));
+	                                    i = j - 1;
+	                                    continue variableLoop;
+	                                case this.escapeChar:
+	                                    for (let k = j + 1; k < arg.length; k++) {
+	                                        switch (arg.charAt(k)) {
+	                                            case ' ':
+	                                            case '\t':
+	                                            case '\r':
+	                                                // ignore whitespace
+	                                                continue;
+	                                            case '\n':
+	                                                // escape this newline
+	                                                j = k;
+	                                                continue nameLoop;
+	                                        }
+	                                    }
+	                                    // reached EOF after an escape character
+	                                    let start = this.document.positionAt(offset + i);
+	                                    variables.push(new variable_1.Variable(escapedName, vscode_languageserver_types_1.Range.create(this.document.positionAt(offset + i + 1), this.document.positionAt(offset + j)), vscode_languageserver_types_1.Range.create(start, this.document.positionAt(offset + j)), null, null, null, null, this.dockerfile.resolveVariable(escapedName, start.line) !== undefined, this.isBuildVariable(escapedName, start.line), '$' + escapedName));
+	                                    break variableLoop;
+	                            }
+	                            if (char.match(/^[a-z0-9_]+$/i) === null) {
+	                                let varStart = this.document.positionAt(offset + i);
+	                                variables.push(new variable_1.Variable(escapedName, vscode_languageserver_types_1.Range.create(this.document.positionAt(offset + i + 1), this.document.positionAt(offset + j)), vscode_languageserver_types_1.Range.create(varStart, this.document.positionAt(offset + j)), null, null, null, null, this.dockerfile.resolveVariable(escapedName, varStart.line) !== undefined, this.isBuildVariable(escapedName, varStart.line), '$' + escapedName));
+	                                i = j - 1;
+	                                continue variableLoop;
+	                            }
+	                            escapedName += char;
+	                        }
+	                        let start = this.document.positionAt(offset + i);
+	                        variables.push(new variable_1.Variable(escapedName, vscode_languageserver_types_1.Range.create(this.document.positionAt(offset + i + 1), this.document.positionAt(offset + arg.length)), vscode_languageserver_types_1.Range.create(start, this.document.positionAt(offset + arg.length)), null, null, null, null, this.dockerfile.resolveVariable(escapedName, start.line) !== undefined, this.isBuildVariable(escapedName, start.line), '$' + escapedName));
+	                    }
+	                    break variableLoop;
+	            }
+	        }
+	        return variables;
+	    }
+	    isBuildVariable(variable, line) {
+	        if (this.getKeyword() === main_1.Keyword.FROM) {
+	            for (const initialArg of this.dockerfile.getInitialARGs()) {
+	                const arg = initialArg;
+	                const property = arg.getProperty();
+	                if (property && variable === property.getName()) {
+	                    return true;
+	                }
+	            }
+	            return undefined;
+	        }
+	        let image = this.dockerfile.getContainingImage(vscode_languageserver_types_1.Position.create(line, 0));
+	        let envs = image.getENVs();
+	        for (let i = envs.length - 1; i >= 0; i--) {
+	            if (envs[i].isBefore(line)) {
+	                for (let property of envs[i].getProperties()) {
+	                    if (property.getName() === variable) {
+	                        return false;
+	                    }
+	                }
+	            }
+	        }
+	        let args = image.getARGs();
+	        for (let i = args.length - 1; i >= 0; i--) {
+	            if (args[i].isBefore(line)) {
+	                let property = args[i].getProperty();
+	                if (property && property.getName() === variable) {
+	                    return true;
+	                }
+	            }
+	        }
+	        return undefined;
+	    }
+	    createSingleLineHeredocs(args) {
+	        const heredocs = [];
+	        // instruction only on one line, if heredocs exist they would be incomplete
+	        for (const arg of args) {
+	            const value = arg.getValue();
+	            if (value.startsWith("<<") && util_1.Util.parseHeredocName(value) !== null) {
+	                const startRange = arg.getRange();
+	                const nameRange = this.getNameRange(startRange);
+	                const name = this.getName(nameRange);
+	                heredocs.push(new heredoc_1.Heredoc(startRange, name, nameRange, null, null));
+	            }
+	        }
+	        return heredocs;
+	    }
+	    getName(nameRange) {
+	        const content = this.document.getText(nameRange);
+	        let escaping = false;
+	        let name = "";
+	        nameLoop: for (let i = 0; i < content.length; i++) {
+	            const ch = content.charAt(i);
+	            switch (ch) {
+	                case this.escapeChar:
+	                    escaping = true;
+	                    for (let j = i + 1; j < content.length; j++) {
+	                        switch (content.charAt(j)) {
+	                            case ' ':
+	                            case '\t':
+	                                break;
+	                            case '\r':
+	                                i = j + 1;
+	                                continue nameLoop;
+	                            case '\n':
+	                                i = j;
+	                                continue nameLoop;
+	                            default:
+	                                name += content.charAt(j);
+	                                i = j;
+	                                continue nameLoop;
+	                        }
+	                    }
+	                    break;
+	                case '#':
+	                    if (escaping) {
+	                        for (let j = i + 1; j < content.length; j++) {
+	                            switch (content.charAt(j)) {
+	                                case '\n':
+	                                    i = j;
+	                                    continue nameLoop;
+	                            }
+	                        }
+	                    }
+	                case ' ':
+	                case '\t':
+	                case '\r':
+	                case '\n':
+	                    if (escaping) {
+	                        break;
+	                    }
+	                default:
+	                    name += ch;
+	                    break;
+	            }
+	        }
+	        return name;
+	    }
+	    getNameRange(startRange) {
+	        const content = this.document.getText(startRange);
+	        let endFound = false;
+	        let searchHyphen = false;
+	        let start = -1;
+	        let end = -1;
+	        let escaping = false;
+	        let quote = null;
+	        contentLoop: for (let i = 0; i < content.length; i++) {
+	            const ch = content.charAt(i);
+	            switch (ch) {
+	                case '"':
+	                case '\'':
+	                    if (quote === ch) {
+	                        break contentLoop;
+	                    }
+	                    quote = ch;
+	                    continue;
+	                case this.escapeChar:
+	                    for (let j = i + 1; j < content.length; j++) {
+	                        switch (content.charAt(j)) {
+	                            case '\n':
+	                                escaping = true;
+	                                j = i;
+	                                continue contentLoop;
+	                        }
+	                    }
+	                    break;
+	                case ' ':
+	                case '\t':
+	                case '\r':
+	                case '\n':
+	                    break;
+	                case '<':
+	                    if (endFound) {
+	                        searchHyphen = true;
+	                    }
+	                    else {
+	                        endFound = true;
+	                    }
+	                    break;
+	                case '-':
+	                    if (searchHyphen) {
+	                        searchHyphen = false;
+	                        break;
+	                    }
+	                case '#':
+	                    if (escaping) {
+	                        for (let j = i + 1; j < content.length; j++) {
+	                            switch (content.charAt(j)) {
+	                                case '\n':
+	                                    i = j;
+	                                    continue contentLoop;
+	                            }
+	                        }
+	                    }
+	                default:
+	                    if (start === -1) {
+	                        start = i;
+	                    }
+	                    if (quote !== null) {
+	                        end = i + 1;
+	                        break;
+	                    }
+	                    break contentLoop;
+	            }
+	        }
+	        if (start === -1) {
+	            return vscode_languageserver_types_1.Range.create(startRange.end, startRange.end);
+	        }
+	        const nameStart = this.document.positionAt(this.document.offsetAt(startRange.start) + start);
+	        const nameEnd = quote !== null ? this.document.positionAt(this.document.offsetAt(startRange.start) + end) : startRange.end;
+	        return vscode_languageserver_types_1.Range.create(nameStart, nameEnd);
+	    }
+	    getHeredocs() {
+	        const args = this.getArguments();
+	        if (args.length === 0) {
+	            return [];
+	        }
+	        const heredocs = [];
+	        const range = this.getRange();
+	        if (range.start.line === range.end.line) {
+	            // instruction only on one line, if heredocs exist they would be incomplete
+	            return this.createSingleLineHeredocs(args);
+	        }
+	        const heredocDefinitions = [];
+	        let heredocsProcessed = false;
+	        let escaping = false;
+	        let contentStart = -1;
+	        let contentEnd = -1;
+	        let lineStart = -1;
+	        let currentHeredoc = 0;
+	        const startOffset = this.document.offsetAt(args[0].getRange().start);
+	        const content = this.getRangeContent(vscode_languageserver_types_1.Range.create(args[0].getRange().start, this.getRange().end));
+	        contentLoop: for (let i = 0; i < content.length; i++) {
+	            switch (content.charAt(i)) {
+	                case this.escapeChar:
+	                    escaping = true;
+	                    for (let j = i + 1; j < content.length; j++) {
+	                        switch (content.charAt(j)) {
+	                            case ' ':
+	                            case '\t':
+	                                break;
+	                            case '\r':
+	                                j++;
+	                            case '\n':
+	                                i = j;
+	                                continue contentLoop;
+	                            default:
+	                                i = j;
+	                                continue contentLoop;
+	                        }
+	                    }
+	                    break;
+	                case '\r':
+	                    break;
+	                case '\n':
+	                    if (escaping) {
+	                        break;
+	                    }
+	                    if (heredocsProcessed) {
+	                        if (contentStart === -1) {
+	                            contentStart = i;
+	                        }
+	                        contentEnd = i;
+	                        const arg = heredocDefinitions[currentHeredoc];
+	                        const startRange = arg.getRange();
+	                        const nameRange = this.getNameRange(startRange);
+	                        const name = this.getName(nameRange);
+	                        const delimiterRange = this.getDelimiterRange(arg, name, vscode_languageserver_types_1.Range.create(this.document.positionAt(startOffset + lineStart), this.document.positionAt(startOffset + i)));
+	                        if (delimiterRange !== null) {
+	                            const contentRange = vscode_languageserver_types_1.Range.create(this.document.positionAt(startOffset + contentStart), this.document.positionAt(startOffset + lineStart - 1));
+	                            heredocs.push(new heredoc_1.Heredoc(startRange, name, nameRange, contentRange, delimiterRange));
+	                            contentStart = -1;
+	                            currentHeredoc++;
+	                        }
+	                        lineStart = -1;
+	                    }
+	                    else {
+	                        // found a newline that hasn't been escaped,
+	                        // must be in a heredoc
+	                        const offsetLimit = startOffset + i;
+	                        for (const arg of args) {
+	                            // check if this argument is on the initial line of the instruction,
+	                            // note that it may not all be on the same line due to escaped newlines,
+	                            // because of that we need to use offset checks instead of line checks
+	                            // as an argument being on a different line in the document does not
+	                            // imply it is on a different line from the Dockerfile's point of view
+	                            if (this.document.offsetAt(arg.getRange().start) < offsetLimit) {
+	                                if (arg.getValue().startsWith("<<")) {
+	                                    heredocDefinitions.push(arg);
+	                                }
+	                            }
+	                            else {
+	                                break;
+	                            }
+	                        }
+	                        heredocsProcessed = true;
+	                        lineStart = -1;
+	                        continue contentLoop;
+	                    }
+	                    break;
+	                case ' ':
+	                case '\t':
+	                    if (escaping) {
+	                        break;
+	                    }
+	                case '#':
+	                    if (escaping) {
+	                        for (let j = i + 1; j < content.length; j++) {
+	                            switch (content.charAt(j)) {
+	                                case '\n':
+	                                    i = j;
+	                                    continue contentLoop;
+	                            }
+	                        }
+	                    }
+	                default:
+	                    if (escaping) {
+	                        escaping = false;
+	                    }
+	                    if (heredocsProcessed) {
+	                        if (contentStart === -1) {
+	                            contentStart = i;
+	                        }
+	                        if (lineStart === -1) {
+	                            lineStart = i;
+	                        }
+	                    }
+	                    break;
+	            }
+	        }
+	        if (heredocsProcessed) {
+	            const arg = heredocDefinitions[currentHeredoc];
+	            const startRange = arg.getRange();
+	            const nameRange = this.getNameRange(startRange);
+	            const name = this.getName(nameRange);
+	            let contentRange = null;
+	            // check if the last line of this instruction matches the name of the last heredoc
+	            const delimiterRange = this.getDelimiterRange(arg, name, vscode_languageserver_types_1.Range.create(this.document.positionAt(startOffset + lineStart), range.end));
+	            if (delimiterRange === null) {
+	                contentRange = vscode_languageserver_types_1.Range.create(this.document.positionAt(startOffset + contentStart), range.end);
+	            }
+	            else if (contentEnd !== -1) {
+	                contentRange = vscode_languageserver_types_1.Range.create(this.document.positionAt(startOffset + contentStart), this.document.positionAt(startOffset + contentEnd));
+	            }
+	            heredocs.push(new heredoc_1.Heredoc(startRange, name, nameRange, contentRange, delimiterRange));
+	            currentHeredoc++;
+	            for (let i = currentHeredoc; i < heredocDefinitions.length; i++) {
+	                const arg = heredocDefinitions[currentHeredoc];
+	                const startRange = arg.getRange();
+	                const nameRange = this.getNameRange(startRange);
+	                const name = this.getName(nameRange);
+	                heredocs.push(new heredoc_1.Heredoc(startRange, name, nameRange, null, null));
+	                currentHeredoc++;
+	            }
+	        }
+	        else {
+	            // instruction only on one line, if heredocs exist they would be incomplete
+	            return this.createSingleLineHeredocs(args);
+	        }
+	        return heredocs;
+	    }
+	    getDelimiterRange(startArg, name, candidateRange) {
+	        const text = this.document.getText(candidateRange);
+	        if (startArg.getValue().startsWith("<<-")) {
+	            // remove tabs in the front
+	            let index = 0;
+	            while (text.charAt(index) === '\t') {
+	                index++;
+	            }
+	            if (text.substring(index) === name) {
+	                return vscode_languageserver_types_1.Range.create(vscode_languageserver_types_1.Position.create(candidateRange.start.line, index), candidateRange.end);
+	            }
+	            return null;
+	        }
+	        return text === name ? candidateRange : null;
+	    }
+	}
+	instruction.Instruction = Instruction;
+	return instruction;
+}
+
+var add = {};
+
+var jsonInstruction = {};
+
+var modifiableInstruction = {};
+
+var flag = {};
+
+var flagOption = {};
+
+var hasRequiredFlagOption;
+
+function requireFlagOption () {
+	if (hasRequiredFlagOption) return flagOption;
+	hasRequiredFlagOption = 1;
+	Object.defineProperty(flagOption, "__esModule", { value: true });
+	flagOption.FlagOption = void 0;
+	class FlagOption {
+	    constructor(range, name, nameRange, value, valueRange) {
+	        this.range = range;
+	        this.name = name;
+	        this.nameRange = nameRange;
+	        this.value = value;
+	        this.valueRange = valueRange;
+	    }
+	    toString() {
+	        if (this.valueRange !== null) {
+	            return this.name + "=" + this.value;
+	        }
+	        return this.name;
+	    }
+	    getRange() {
+	        return this.range;
+	    }
+	    getName() {
+	        return this.name;
+	    }
+	    getNameRange() {
+	        return this.nameRange;
+	    }
+	    getValue() {
+	        return this.value;
+	    }
+	    getValueRange() {
+	        return this.valueRange;
+	    }
+	}
+	flagOption.FlagOption = FlagOption;
+	return flagOption;
+}
+
+var hasRequiredFlag;
+
+function requireFlag () {
+	if (hasRequiredFlag) return flag;
+	hasRequiredFlag = 1;
+	Object.defineProperty(flag, "__esModule", { value: true });
+	flag.Flag = void 0;
+	const vscode_languageserver_types_1 = requireMain$1();
+	const flagOption_1 = requireFlagOption();
+	class Flag {
+	    constructor(document, range, name, nameRange, value, valueRange) {
+	        this.options = [];
+	        this.range = range;
+	        this.name = name;
+	        this.nameRange = nameRange;
+	        this.value = value;
+	        this.valueRange = valueRange;
+	        if (this.value !== null) {
+	            let offset = document.offsetAt(valueRange.start);
+	            let nameStart = -1;
+	            let valueStart = -1;
+	            let hasOptions = false;
+	            for (let i = 0; i < value.length; i++) {
+	                switch (value.charAt(i)) {
+	                    case '=':
+	                        hasOptions = true;
+	                        if (valueStart === -1) {
+	                            valueStart = i + 1;
+	                            break;
+	                        }
+	                        break;
+	                    case ',':
+	                        this.options.push(this.createFlagOption(document, value, offset, nameStart, valueStart, i));
+	                        nameStart = -1;
+	                        valueStart = -1;
+	                        break;
+	                    default:
+	                        if (nameStart === -1) {
+	                            nameStart = i;
+	                        }
+	                        break;
+	                }
+	            }
+	            if (hasOptions && nameStart !== -1) {
+	                this.options.push(this.createFlagOption(document, value, offset, nameStart, valueStart, value.length));
+	            }
+	        }
+	    }
+	    createFlagOption(document, content, documentOffset, nameStart, valueStart, valueEnd) {
+	        const optionRange = vscode_languageserver_types_1.Range.create(document.positionAt(documentOffset + nameStart), document.positionAt(documentOffset + valueEnd));
+	        if (valueStart === -1) {
+	            return new flagOption_1.FlagOption(optionRange, content.substring(nameStart, valueEnd), optionRange, null, null);
+	        }
+	        return new flagOption_1.FlagOption(optionRange, content.substring(nameStart, valueStart - 1), vscode_languageserver_types_1.Range.create(document.positionAt(documentOffset + nameStart), document.positionAt(documentOffset + valueStart - 1)), content.substring(valueStart, valueEnd), vscode_languageserver_types_1.Range.create(document.positionAt(documentOffset + valueStart), document.positionAt(documentOffset + valueEnd)));
+	    }
+	    toString() {
+	        if (this.valueRange) {
+	            return "--" + this.name + "=" + this.value;
+	        }
+	        return "--" + this.name;
+	    }
+	    /**
+	     * Returns the range that encompasses this entire flag. This includes the
+	     * -- prefix in the beginning to the last character of the flag's value (if
+	     * it has been defined).
+	     *
+	     * @return the entire range of this flag
+	     */
+	    getRange() {
+	        return this.range;
+	    }
+	    /**
+	     * Returns the name of this flag. The name does not include the -- prefix.
+	     * Thus, for HEALTHCHECK's --interval flag, interval is the flag's name and
+	     * not --interval.
+	     *
+	     * @return this flag's name
+	     */
+	    getName() {
+	        return this.name;
+	    }
+	    /**
+	     * Returns the range that encompasses the flag's name
+	     *
+	     * @return the range containing the flag's name
+	     */
+	    getNameRange() {
+	        return this.nameRange;
+	    }
+	    /**
+	     * Returns the value that has been set to this flag. May be null if the
+	     * flag is invalid and has no value set like a --start-period. If the flag
+	     * is instead a --start-period= with an equals sign then the flag's value
+	     * is the empty string.
+	     *
+	     * @return this flag's value if it has been defined, null otherwise
+	     */
+	    getValue() {
+	        return this.value;
+	    }
+	    /**
+	     * Returns the range that encompasses this flag's value. If no value has
+	     * been set then null will be returned.
+	     *
+	     * @return the range containing this flag's value, or null if the flag
+	     *         has no value defined
+	     */
+	    getValueRange() {
+	        return this.valueRange;
+	    }
+	    getOption(name) {
+	        for (const option of this.options) {
+	            if (option.getName() === name) {
+	                return option;
+	            }
+	        }
+	        return null;
+	    }
+	    getOptions() {
+	        return this.options;
+	    }
+	    hasOptions() {
+	        return this.options.length > 0;
+	    }
+	}
+	flag.Flag = Flag;
+	return flag;
+}
+
+var hasRequiredModifiableInstruction;
+
+function requireModifiableInstruction () {
+	if (hasRequiredModifiableInstruction) return modifiableInstruction;
+	hasRequiredModifiableInstruction = 1;
+	Object.defineProperty(modifiableInstruction, "__esModule", { value: true });
+	modifiableInstruction.ModifiableInstruction = void 0;
+	const vscode_languageserver_types_1 = requireMain$1();
+	const flag_1 = requireFlag();
+	const instruction_1 = requireInstruction();
+	class ModifiableInstruction extends instruction_1.Instruction {
+	    constructor(document, range, dockerfile, escapeChar, instruction, instructionRange) {
+	        super(document, range, dockerfile, escapeChar, instruction, instructionRange);
+	    }
+	    getFlags() {
+	        if (!this.flags) {
+	            this.flags = [];
+	            for (let arg of this.getArguments()) {
+	                let value = arg.getValue();
+	                if (this.stopSearchingForFlags(value)) {
+	                    return this.flags;
+	                }
+	                else if (value.indexOf("--") === 0) {
+	                    let range = arg.getRange();
+	                    let rawValue = this.document.getText().substring(this.document.offsetAt(range.start), this.document.offsetAt(range.end));
+	                    let nameIndex = value.indexOf('=');
+	                    let index = rawValue.indexOf('=');
+	                    let firstMatch = false;
+	                    let secondMatch = false;
+	                    let startIndex = -1;
+	                    nameSearchLoop: for (let i = 0; i < rawValue.length; i++) {
+	                        switch (rawValue.charAt(i)) {
+	                            case '\\':
+	                            case ' ':
+	                            case '\t':
+	                            case '\r':
+	                            case '\n':
+	                                break;
+	                            case '-':
+	                                if (secondMatch) {
+	                                    startIndex = i;
+	                                    break nameSearchLoop;
+	                                }
+	                                else if (firstMatch) {
+	                                    secondMatch = true;
+	                                }
+	                                else {
+	                                    firstMatch = true;
+	                                }
+	                                break;
+	                            default:
+	                                startIndex = i;
+	                                break nameSearchLoop;
+	                        }
+	                    }
+	                    let nameStart = this.document.positionAt(this.document.offsetAt(range.start) + startIndex);
+	                    if (index === -1) {
+	                        this.flags.push(new flag_1.Flag(this.document, range, value.substring(2), vscode_languageserver_types_1.Range.create(nameStart, range.end), null, null));
+	                    }
+	                    else if (index === value.length - 1) {
+	                        let nameEnd = this.document.positionAt(this.document.offsetAt(range.start) + index);
+	                        this.flags.push(new flag_1.Flag(this.document, range, value.substring(2, index), vscode_languageserver_types_1.Range.create(nameStart, nameEnd), "", vscode_languageserver_types_1.Range.create(range.end, range.end)));
+	                    }
+	                    else {
+	                        let nameEnd = this.document.positionAt(this.document.offsetAt(range.start) + index);
+	                        this.flags.push(new flag_1.Flag(this.document, range, value.substring(2, nameIndex), vscode_languageserver_types_1.Range.create(nameStart, nameEnd), value.substring(nameIndex + 1), vscode_languageserver_types_1.Range.create(this.document.positionAt(this.document.offsetAt(range.start) + index + 1), range.end)));
+	                    }
+	                }
+	            }
+	        }
+	        return this.flags;
+	    }
+	    getArguments() {
+	        const args = super.getArguments();
+	        const flags = this.getFlags();
+	        if (flags.length === 0) {
+	            return args;
+	        }
+	        for (let i = 0; i < flags.length; i++) {
+	            args.shift();
+	        }
+	        return args;
+	    }
+	}
+	modifiableInstruction.ModifiableInstruction = ModifiableInstruction;
+	return modifiableInstruction;
+}
+
+var hasRequiredJsonInstruction;
+
+function requireJsonInstruction () {
+	if (hasRequiredJsonInstruction) return jsonInstruction;
+	hasRequiredJsonInstruction = 1;
+	Object.defineProperty(jsonInstruction, "__esModule", { value: true });
+	jsonInstruction.JSONInstruction = void 0;
+	const vscode_languageserver_types_1 = requireMain$1();
+	const argument_1 = requireArgument();
+	const jsonArgument_1 = requireJsonArgument();
+	const modifiableInstruction_1 = requireModifiableInstruction();
+	class JSONInstruction extends modifiableInstruction_1.ModifiableInstruction {
+	    constructor(document, range, dockerfile, escapeChar, instruction, instructionRange) {
+	        super(document, range, dockerfile, escapeChar, instruction, instructionRange);
+	        this.openingBracket = null;
+	        this.closingBracket = null;
+	        this.jsonStrings = [];
+	        const argsContent = this.getRawArgumentsContent();
+	        if (argsContent === null) {
+	            return;
+	        }
+	        const args = this.getArguments();
+	        if (args.length === 1 && args[0].getValue() === "[]") {
+	            let argRange = args[0].getRange();
+	            this.openingBracket = new argument_1.Argument("[", vscode_languageserver_types_1.Range.create(argRange.start.line, argRange.start.character, argRange.start.line, argRange.start.character + 1));
+	            this.closingBracket = new argument_1.Argument("]", vscode_languageserver_types_1.Range.create(argRange.start.line, argRange.start.character + 1, argRange.end.line, argRange.end.character));
+	            return;
+	        }
+	        else if (args.length === 2 && args[0].getValue() === '[' && args[1].getValue() === ']') {
+	            this.openingBracket = args[0];
+	            this.closingBracket = args[1];
+	            return;
+	        }
+	        const argsOffset = document.offsetAt(this.getArgumentsRange().start);
+	        let start = -1;
+	        let last = "";
+	        let quoted = false;
+	        let escapedArg = "";
+	        argsCheck: for (let i = 0; i < argsContent.length; i++) {
+	            let char = argsContent.charAt(i);
+	            switch (char) {
+	                case '[':
+	                    if (last === "") {
+	                        this.openingBracket = new argument_1.Argument("[", vscode_languageserver_types_1.Range.create(document.positionAt(argsOffset + i), document.positionAt(argsOffset + i + 1)));
+	                        last = '[';
+	                    }
+	                    else if (quoted) {
+	                        escapedArg = escapedArg + char;
+	                    }
+	                    else {
+	                        break argsCheck;
+	                    }
+	                    break;
+	                case '"':
+	                    if (last === '[' || last === ',') {
+	                        start = i;
+	                        quoted = true;
+	                        last = '"';
+	                        escapedArg = escapedArg + char;
+	                        continue;
+	                    }
+	                    else if (last === '"') {
+	                        if (quoted) {
+	                            escapedArg = escapedArg + char;
+	                            // quoted string done
+	                            quoted = false;
+	                            this.jsonStrings.push(new jsonArgument_1.JSONArgument(escapedArg, vscode_languageserver_types_1.Range.create(document.positionAt(argsOffset + start), document.positionAt(argsOffset + i + 1)), vscode_languageserver_types_1.Range.create(document.positionAt(argsOffset + start + 1), document.positionAt(argsOffset + i))));
+	                            escapedArg = "";
+	                        }
+	                        else {
+	                            // should be a , or a ]
+	                            break argsCheck;
+	                        }
+	                    }
+	                    else {
+	                        break argsCheck;
+	                    }
+	                    break;
+	                case ',':
+	                    if (quoted) {
+	                        escapedArg = escapedArg + char;
+	                    }
+	                    else {
+	                        if (last === '"') {
+	                            last = ',';
+	                        }
+	                        else {
+	                            break argsCheck;
+	                        }
+	                    }
+	                    break;
+	                case ']':
+	                    if (quoted) {
+	                        escapedArg = escapedArg + char;
+	                    }
+	                    else if (last !== "") {
+	                        this.closingBracket = new argument_1.Argument("]", vscode_languageserver_types_1.Range.create(document.positionAt(argsOffset + i), document.positionAt(argsOffset + i + 1)));
+	                        break argsCheck;
+	                    }
+	                    break;
+	                case ' ':
+	                case '\t':
+	                    break;
+	                case '\\':
+	                    if (quoted) {
+	                        switch (argsContent.charAt(i + 1)) {
+	                            case '"':
+	                            case '\\':
+	                                escapedArg = escapedArg + argsContent.charAt(i + 1);
+	                                i++;
+	                                continue;
+	                            case ' ':
+	                            case '\t':
+	                                escapeCheck: for (let j = i + 2; j < argsContent.length; j++) {
+	                                    switch (argsContent.charAt(j)) {
+	                                        case '\r':
+	                                            // offset one more for \r\n
+	                                            j++;
+	                                        case '\n':
+	                                            i = j;
+	                                            continue argsCheck;
+	                                        case ' ':
+	                                        case '\t':
+	                                            break;
+	                                        default:
+	                                            break escapeCheck;
+	                                    }
+	                                }
+	                                break;
+	                            case '\r':
+	                                // offset one more for \r\n
+	                                i++;
+	                            default:
+	                                i++;
+	                                continue;
+	                        }
+	                    }
+	                    else {
+	                        escapeCheck: for (let j = i + 1; j < argsContent.length; j++) {
+	                            switch (argsContent.charAt(j)) {
+	                                case '\r':
+	                                    // offset one more for \r\n
+	                                    j++;
+	                                case '\n':
+	                                    i = j;
+	                                    continue argsCheck;
+	                                case ' ':
+	                                case '\t':
+	                                    break;
+	                                default:
+	                                    break escapeCheck;
+	                            }
+	                        }
+	                    }
+	                    break argsCheck;
+	                default:
+	                    if (!quoted) {
+	                        break argsCheck;
+	                    }
+	                    escapedArg = escapedArg + char;
+	                    break;
+	            }
+	        }
+	    }
+	    stopSearchingForFlags(_value) {
+	        return true;
+	    }
+	    getOpeningBracket() {
+	        return this.openingBracket;
+	    }
+	    getJSONStrings() {
+	        return this.jsonStrings;
+	    }
+	    getClosingBracket() {
+	        return this.closingBracket;
+	    }
+	}
+	jsonInstruction.JSONInstruction = JSONInstruction;
+	return jsonInstruction;
+}
+
+var hasRequiredAdd;
+
+function requireAdd () {
+	if (hasRequiredAdd) return add;
+	hasRequiredAdd = 1;
+	Object.defineProperty(add, "__esModule", { value: true });
+	add.Add = void 0;
+	const jsonInstruction_1 = requireJsonInstruction();
+	class Add extends jsonInstruction_1.JSONInstruction {
+	    constructor(document, range, dockerfile, escapeChar, instruction, instructionRange) {
+	        super(document, range, dockerfile, escapeChar, instruction, instructionRange);
+	    }
+	    stopSearchingForFlags(argument) {
+	        return argument.indexOf("--") === -1;
+	    }
+	}
+	add.Add = Add;
+	return add;
+}
+
+var arg = {};
+
+var property = {};
+
+var hasRequiredProperty;
+
+function requireProperty () {
+	if (hasRequiredProperty) return property;
+	hasRequiredProperty = 1;
+	Object.defineProperty(property, "__esModule", { value: true });
+	property.Property = void 0;
+	const vscode_languageserver_types_1 = requireMain$1();
+	const util_1 = requireUtil();
+	class Property {
+	    constructor(document, escapeChar, arg, arg2) {
+	        this.assignmentOperatorRange = null;
+	        this.assignmentOperator = null;
+	        this.valueRange = null;
+	        this.value = null;
+	        this.document = document;
+	        this.escapeChar = escapeChar;
+	        this.nameRange = Property.getNameRange(document, arg);
+	        let value = document.getText().substring(document.offsetAt(this.nameRange.start), document.offsetAt(this.nameRange.end));
+	        this.name = Property.getValue(value, escapeChar);
+	        if (arg2) {
+	            this.valueRange = arg2.getRange();
+	            value = document.getText().substring(document.offsetAt(this.valueRange.start), document.offsetAt(this.valueRange.end));
+	            this.value = Property.getValue(value, escapeChar);
+	            this.range = vscode_languageserver_types_1.Range.create(this.nameRange.start, this.valueRange.end);
+	        }
+	        else {
+	            let argRange = arg.getRange();
+	            if (this.nameRange.start.line === argRange.start.line
+	                && this.nameRange.start.character === argRange.start.character
+	                && this.nameRange.end.line === argRange.end.line
+	                && this.nameRange.end.character === argRange.end.character) ;
+	            else {
+	                this.valueRange = Property.getValueRange(document, arg);
+	                value = document.getText().substring(document.offsetAt(this.valueRange.start), document.offsetAt(this.valueRange.end));
+	                this.value = Property.getValue(value, escapeChar);
+	                this.assignmentOperatorRange = vscode_languageserver_types_1.Range.create(this.nameRange.end, this.valueRange.start);
+	                this.assignmentOperator = "=";
+	            }
+	            this.range = argRange;
+	        }
+	    }
+	    getRange() {
+	        return this.range;
+	    }
+	    getName() {
+	        return this.name;
+	    }
+	    getNameRange() {
+	        return this.nameRange;
+	    }
+	    getValue() {
+	        return this.value;
+	    }
+	    getValueRange() {
+	        return this.valueRange;
+	    }
+	    /**
+	     * Retrieves the operator used for delimiting between the name and
+	     * value of this property. This will either be the "=" character
+	     * or null if a character was not used or if this property has no
+	     * value defined.
+	     */
+	    getAssignmentOperator() {
+	        return this.assignmentOperator;
+	    }
+	    getAssignmentOperatorRange() {
+	        return this.assignmentOperatorRange;
+	    }
+	    /**
+	     * Returns the value of this property including any enclosing
+	     * single or double quotes and relevant escape characters.
+	     * Escaped newlines and its associated contiguous whitespace
+	     * characters however will not be returned as they are deemed to
+	     * be uninteresting to clients trying to return a Dockerfile.
+	     *
+	     * @return the unescaped value of this property or null if this
+	     *         property has no associated value
+	     */
+	    getUnescapedValue() {
+	        if (this.valueRange === null) {
+	            return null;
+	        }
+	        let escaped = false;
+	        let rawValue = "";
+	        let value = this.document.getText().substring(this.document.offsetAt(this.valueRange.start), this.document.offsetAt(this.valueRange.end));
+	        rawLoop: for (let i = 0; i < value.length; i++) {
+	            let char = value.charAt(i);
+	            switch (char) {
+	                case this.escapeChar:
+	                    for (let j = i + 1; j < value.length; j++) {
+	                        switch (value.charAt(j)) {
+	                            case '\r':
+	                                j++;
+	                            case '\n':
+	                                escaped = true;
+	                                i = j;
+	                                continue rawLoop;
+	                            case ' ':
+	                            case '\t':
+	                                break;
+	                            default:
+	                                rawValue = rawValue + char;
+	                                continue rawLoop;
+	                        }
+	                    }
+	                    // this happens if there's only whitespace after the escape character
+	                    rawValue = rawValue + char;
+	                    break;
+	                case '\r':
+	                case '\n':
+	                    break;
+	                case ' ':
+	                case '\t':
+	                    if (!escaped) {
+	                        rawValue = rawValue + char;
+	                    }
+	                    break;
+	                case '#':
+	                    if (escaped) {
+	                        for (let j = i + 1; j < value.length; j++) {
+	                            switch (value.charAt(j)) {
+	                                case '\r':
+	                                    j++;
+	                                case '\n':
+	                                    i = j;
+	                                    continue rawLoop;
+	                            }
+	                        }
+	                    }
+	                    else {
+	                        rawValue = rawValue + char;
+	                    }
+	                    break;
+	                default:
+	                    rawValue = rawValue + char;
+	                    escaped = false;
+	                    break;
+	            }
+	        }
+	        return rawValue;
+	    }
+	    static getNameRange(document, arg) {
+	        let value = arg.getValue();
+	        let index = value.indexOf('=');
+	        if (index !== -1) {
+	            let initial = value.charAt(0);
+	            let before = value.charAt(index - 1);
+	            // check if content before the equals sign are in quotes
+	            // "var"=value
+	            // 'var'=value
+	            // otherwise, just assume it's a standard definition
+	            // var=value
+	            if ((initial === '"' && before === '"') || (initial === '\'' && before === '\'') || (initial !== '"' && initial !== '\'')) {
+	                return vscode_languageserver_types_1.Range.create(arg.getRange().start, document.positionAt(document.offsetAt(arg.getRange().start) + index));
+	            }
+	        }
+	        // no '=' found, just defined the property's name
+	        return arg.getRange();
+	    }
+	    static getValueRange(document, arg) {
+	        return vscode_languageserver_types_1.Range.create(document.positionAt(document.offsetAt(arg.getRange().start) + arg.getValue().indexOf('=') + 1), document.positionAt(document.offsetAt(arg.getRange().end)));
+	    }
+	    /**
+	     * Returns the actual value of this key-value pair. The value will
+	     * have its escape characters removed if applicable. If the value
+	     * spans multiple lines and there are comments nested within the
+	     * lines, they too will be removed.
+	     *
+	     * @return the value that this key-value pair will actually be, may
+	     *         be null if no value is defined, may be the empty string
+	     *         if the value only consists of whitespace
+	     */
+	    static getValue(value, escapeChar) {
+	        let escaped = false;
+	        const skip = util_1.Util.findLeadingNonWhitespace(value, escapeChar);
+	        if (skip !== 0 && value.charAt(skip) === '#') {
+	            // need to skip over comments
+	            escaped = true;
+	        }
+	        value = value.substring(skip);
+	        let first = value.charAt(0);
+	        let last = value.charAt(value.length - 1);
+	        let literal = first === '\'' || first === '"';
+	        let inSingle = (first === '\'' && last === '\'');
+	        let inDouble = false;
+	        if (first === '"') {
+	            for (let i = 1; i < value.length; i++) {
+	                if (value.charAt(i) === escapeChar) {
+	                    i++;
+	                }
+	                else if (value.charAt(i) === '"' && i === value.length - 1) {
+	                    inDouble = true;
+	                }
+	            }
+	        }
+	        if (inSingle || inDouble) {
+	            value = value.substring(1, value.length - 1);
+	        }
+	        let commentCheck = -1;
+	        let escapedValue = "";
+	        parseValue: for (let i = 0; i < value.length; i++) {
+	            let char = value.charAt(i);
+	            switch (char) {
+	                case escapeChar:
+	                    if (i + 1 === value.length) {
+	                        escapedValue = escapedValue + escapeChar;
+	                        break parseValue;
+	                    }
+	                    char = value.charAt(i + 1);
+	                    if (char === ' ' || char === '\t') {
+	                        whitespaceCheck: for (let j = i + 2; j < value.length; j++) {
+	                            let char2 = value.charAt(j);
+	                            switch (char2) {
+	                                case ' ':
+	                                case '\t':
+	                                    break;
+	                                case '\r':
+	                                    j++;
+	                                case '\n':
+	                                    escaped = true;
+	                                    i = j;
+	                                    continue parseValue;
+	                                default:
+	                                    if (!inDouble && !inSingle && !literal) {
+	                                        if (char2 === escapeChar) {
+	                                            // add the escaped character
+	                                            escapedValue = escapedValue + char;
+	                                            // now start parsing from the next escape character
+	                                            i = i + 1;
+	                                        }
+	                                        else {
+	                                            // the expectation is that this j = i + 2 here
+	                                            escapedValue = escapedValue + char + char2;
+	                                            i = j;
+	                                        }
+	                                        continue parseValue;
+	                                    }
+	                                    break whitespaceCheck;
+	                            }
+	                        }
+	                    }
+	                    if (inDouble) {
+	                        if (char === '\r') {
+	                            escaped = true;
+	                            i = i + 2;
+	                        }
+	                        else if (char === '\n') {
+	                            escaped = true;
+	                            i++;
+	                        }
+	                        else if (char !== '"') {
+	                            if (char === escapeChar) {
+	                                i++;
+	                            }
+	                            escapedValue = escapedValue + escapeChar;
+	                        }
+	                        continue parseValue;
+	                    }
+	                    else if (inSingle || literal) {
+	                        if (char === '\r') {
+	                            escaped = true;
+	                            i = i + 2;
+	                        }
+	                        else if (char === '\n') {
+	                            escaped = true;
+	                            i++;
+	                        }
+	                        else {
+	                            escapedValue = escapedValue + escapeChar;
+	                        }
+	                        continue parseValue;
+	                    }
+	                    else if (char === escapeChar) {
+	                        // double escape, append one and move on
+	                        escapedValue = escapedValue + escapeChar;
+	                        i++;
+	                    }
+	                    else if (char === '\r') {
+	                        escaped = true;
+	                        // offset one more for \r\n
+	                        i = i + 2;
+	                    }
+	                    else if (char === '\n') {
+	                        escaped = true;
+	                        i++;
+	                    }
+	                    else {
+	                        // any other escapes are simply ignored
+	                        escapedValue = escapedValue + char;
+	                        i++;
+	                    }
+	                    break;
+	                case ' ':
+	                case '\t':
+	                    if (escaped && commentCheck === -1) {
+	                        commentCheck = i;
+	                    }
+	                    escapedValue = escapedValue + char;
+	                    break;
+	                case '\r':
+	                    i++;
+	                case '\n':
+	                    if (escaped && commentCheck !== -1) {
+	                        // rollback and remove the whitespace that was previously appended
+	                        escapedValue = escapedValue.substring(0, escapedValue.length - (i - commentCheck - 1));
+	                        commentCheck = -1;
+	                    }
+	                    break;
+	                case '#':
+	                    // a newline was escaped and now there's a comment
+	                    if (escaped) {
+	                        if (commentCheck !== -1) {
+	                            // rollback and remove the whitespace that was previously appended
+	                            escapedValue = escapedValue.substring(0, escapedValue.length - (i - commentCheck));
+	                            commentCheck = -1;
+	                        }
+	                        newlineCheck: for (let j = i + 1; j < value.length; j++) {
+	                            switch (value.charAt(j)) {
+	                                case '\r':
+	                                    j++;
+	                                case '\n':
+	                                    i = j;
+	                                    break newlineCheck;
+	                            }
+	                        }
+	                        continue parseValue;
+	                    }
+	                default:
+	                    if (escaped) {
+	                        escaped = false;
+	                        commentCheck = -1;
+	                    }
+	                    escapedValue = escapedValue + char;
+	                    break;
+	            }
+	        }
+	        return escapedValue;
+	    }
+	}
+	property.Property = Property;
+	return property;
+}
+
+var propertyInstruction = {};
+
+var hasRequiredPropertyInstruction;
+
+function requirePropertyInstruction () {
+	if (hasRequiredPropertyInstruction) return propertyInstruction;
+	hasRequiredPropertyInstruction = 1;
+	Object.defineProperty(propertyInstruction, "__esModule", { value: true });
+	propertyInstruction.PropertyInstruction = void 0;
+	const vscode_languageserver_types_1 = requireMain$1();
+	const instruction_1 = requireInstruction();
+	const property_1 = requireProperty();
+	const argument_1 = requireArgument();
+	const util_1 = requireUtil();
+	class PropertyInstruction extends instruction_1.Instruction {
+	    constructor(document, range, dockerfile, escapeChar, instruction, instructionRange) {
+	        super(document, range, dockerfile, escapeChar, instruction, instructionRange);
+	        this.properties = undefined;
+	    }
+	    getProperties() {
+	        if (this.properties === undefined) {
+	            let args = this.getPropertyArguments();
+	            if (args.length === 0) {
+	                this.properties = [];
+	            }
+	            else if (args.length === 1) {
+	                this.properties = [new property_1.Property(this.document, this.escapeChar, args[0])];
+	            }
+	            else if (args.length === 2) {
+	                if (args[0].getValue().indexOf('=') === -1) {
+	                    this.properties = [new property_1.Property(this.document, this.escapeChar, args[0], args[1])];
+	                }
+	                else {
+	                    this.properties = [
+	                        new property_1.Property(this.document, this.escapeChar, args[0]),
+	                        new property_1.Property(this.document, this.escapeChar, args[1])
+	                    ];
+	                }
+	            }
+	            else if (args[0].getValue().indexOf('=') === -1) {
+	                let text = this.document.getText();
+	                let start = args[1].getRange().start;
+	                let end = args[args.length - 1].getRange().end;
+	                text = text.substring(this.document.offsetAt(start), this.document.offsetAt(end));
+	                this.properties = [new property_1.Property(this.document, this.escapeChar, args[0], new argument_1.Argument(text, vscode_languageserver_types_1.Range.create(args[1].getRange().start, args[args.length - 1].getRange().end)))];
+	            }
+	            else {
+	                this.properties = [];
+	                for (let i = 0; i < args.length; i++) {
+	                    this.properties.push(new property_1.Property(this.document, this.escapeChar, args[i]));
+	                }
+	            }
+	        }
+	        return this.properties;
+	    }
+	    /**
+	     * Goes from the back of the string and returns the first
+	     * non-whitespace character that is found. If an escape character
+	     * is found with newline characters, the escape character will
+	     * not be considered a non-whitespace character and its index in
+	     * the string will not be returned.
+	     *
+	     * @param content the string to search through
+	     * @return the index in the string for the first non-whitespace
+	     *         character when searching from the end of the string
+	     */
+	    findTrailingNonWhitespace(content) {
+	        // loop back to find the first non-whitespace character
+	        let index = content.length;
+	        whitespaceCheck: for (let i = content.length - 1; i >= 0; i--) {
+	            switch (content.charAt(i)) {
+	                case ' ':
+	                case '\t':
+	                    continue;
+	                case '\n':
+	                    if (content.charAt(i - 1) === '\r') {
+	                        i = i - 1;
+	                    }
+	                case '\r':
+	                    newlineCheck: for (let j = i - 1; j >= 0; j--) {
+	                        switch (content.charAt(j)) {
+	                            case ' ':
+	                            case '\t':
+	                            case '\r':
+	                            case '\n':
+	                            case this.escapeChar:
+	                                continue;
+	                            default:
+	                                index = j;
+	                                break newlineCheck;
+	                        }
+	                    }
+	                    break whitespaceCheck;
+	                default:
+	                    index = i;
+	                    break whitespaceCheck;
+	            }
+	        }
+	        return index;
+	    }
+	    getPropertyArguments() {
+	        const args = [];
+	        let range = this.getInstructionRange();
+	        let instructionNameEndOffset = this.document.offsetAt(range.end);
+	        let extra = instructionNameEndOffset - this.document.offsetAt(range.start);
+	        let content = this.getTextContent();
+	        let fullArgs = content.substring(extra);
+	        let start = util_1.Util.findLeadingNonWhitespace(fullArgs, this.escapeChar);
+	        if (start === -1) {
+	            // only whitespace found, no arguments
+	            return [];
+	        }
+	        const startPosition = this.document.positionAt(instructionNameEndOffset + start);
+	        // records whether the parser has just processed an escaped newline or not,
+	        // if our starting position is not on the same line as the instruction then
+	        // the start of the content is already on an escaped line
+	        let escaped = range.start.line !== startPosition.line;
+	        // flag to track if the last character was an escape character
+	        let endingEscape = false;
+	        // position before the first escape character was hit
+	        let mark = -1;
+	        let end = this.findTrailingNonWhitespace(fullArgs);
+	        content = fullArgs.substring(start, end + 1);
+	        let argStart = escaped ? -1 : 0;
+	        let spaced = false;
+	        argumentLoop: for (let i = 0; i < content.length; i++) {
+	            let char = content.charAt(i);
+	            switch (char) {
+	                case this.escapeChar:
+	                    if (i + 1 === content.length) {
+	                        endingEscape = true;
+	                        break argumentLoop;
+	                    }
+	                    if (!escaped) {
+	                        mark = i;
+	                    }
+	                    switch (content.charAt(i + 1)) {
+	                        case ' ':
+	                        case '\t':
+	                            if (!util_1.Util.isWhitespace(content.charAt(i + 2))) {
+	                                // space was escaped, continue as normal
+	                                i = i + 1;
+	                                continue argumentLoop;
+	                            }
+	                            // whitespace encountered, need to figure out if it extends to EOL
+	                            whitespaceCheck: for (let j = i + 2; j < content.length; j++) {
+	                                switch (content.charAt(j)) {
+	                                    case '\r':
+	                                        // offset one more for \r\n
+	                                        j++;
+	                                    case '\n':
+	                                        // whitespace only, safe to skip
+	                                        escaped = true;
+	                                        i = j;
+	                                        continue argumentLoop;
+	                                    case ' ':
+	                                    case '\t':
+	                                        // ignore whitespace
+	                                        break;
+	                                    default:
+	                                        // whitespace doesn't extend to EOL, create an argument
+	                                        args.push(new argument_1.Argument(content.substring(argStart, i), vscode_languageserver_types_1.Range.create(this.document.positionAt(instructionNameEndOffset + start + argStart), this.document.positionAt(instructionNameEndOffset + start + i + 2))));
+	                                        argStart = j;
+	                                        break whitespaceCheck;
+	                                }
+	                            }
+	                            // go back and start processing the encountered non-whitespace character
+	                            i = argStart - 1;
+	                            continue argumentLoop;
+	                        case '\r':
+	                            // offset one more for \r\n
+	                            i++;
+	                        case '\n':
+	                            // immediately followed by a newline, skip the newline
+	                            escaped = true;
+	                            i = i + 1;
+	                            continue argumentLoop;
+	                        case this.escapeChar:
+	                            // double escape found, skip it and move on
+	                            if (argStart === -1) {
+	                                argStart = i;
+	                            }
+	                            i = i + 1;
+	                            continue argumentLoop;
+	                        default:
+	                            if (argStart === -1) {
+	                                argStart = i;
+	                            }
+	                            // non-whitespace encountered, skip the escape and process the
+	                            // character normally
+	                            continue argumentLoop;
+	                    }
+	                case '\'':
+	                case '"':
+	                    if (spaced) {
+	                        this.createSpacedArgument(argStart, args, content, mark, instructionNameEndOffset, start);
+	                        // reset to start a new argument
+	                        argStart = i;
+	                        spaced = false;
+	                    }
+	                    if (argStart === -1) {
+	                        argStart = i;
+	                    }
+	                    for (let j = i + 1; j < content.length; j++) {
+	                        switch (content.charAt(j)) {
+	                            case char:
+	                                if (content.charAt(j + 1) !== ' ' && content.charAt(j + 1) !== '') {
+	                                    // there is more content after this quote,
+	                                    // continue so that it is all processed as
+	                                    // one single argument
+	                                    i = j;
+	                                    continue argumentLoop;
+	                                }
+	                                args.push(new argument_1.Argument(content.substring(argStart, j + 1), vscode_languageserver_types_1.Range.create(this.document.positionAt(instructionNameEndOffset + start + argStart), this.document.positionAt(instructionNameEndOffset + start + j + 1))));
+	                                i = j;
+	                                argStart = -1;
+	                                continue argumentLoop;
+	                            case this.escapeChar:
+	                                j++;
+	                                break;
+	                        }
+	                    }
+	                    break argumentLoop;
+	                case ' ':
+	                case '\t':
+	                    if (escaped) {
+	                        // consider there to be a space only if an argument
+	                        // is not spanning multiple lines
+	                        if (argStart !== -1) {
+	                            spaced = true;
+	                        }
+	                    }
+	                    else if (argStart !== -1) {
+	                        args.push(new argument_1.Argument(content.substring(argStart, i), vscode_languageserver_types_1.Range.create(this.document.positionAt(instructionNameEndOffset + start + argStart), this.document.positionAt(instructionNameEndOffset + start + i))));
+	                        argStart = -1;
+	                    }
+	                    break;
+	                case '\r':
+	                    // offset one more for \r\n
+	                    i++;
+	                case '\n':
+	                    spaced = false;
+	                    break;
+	                case '#':
+	                    if (escaped) {
+	                        // a newline was escaped and now there's a comment
+	                        for (let j = i + 1; j < content.length; j++) {
+	                            switch (content.charAt(j)) {
+	                                case '\r':
+	                                    j++;
+	                                case '\n':
+	                                    i = j;
+	                                    spaced = false;
+	                                    continue argumentLoop;
+	                            }
+	                        }
+	                        // went to the end without finding a newline,
+	                        // the comment was the last line in the instruction,
+	                        // just stop parsing, create an argument if needed
+	                        if (argStart !== -1) {
+	                            let value = content.substring(argStart, mark);
+	                            args.push(new argument_1.Argument(value, vscode_languageserver_types_1.Range.create(this.document.positionAt(instructionNameEndOffset + start + argStart), this.document.positionAt(instructionNameEndOffset + start + mark))));
+	                            argStart = -1;
+	                        }
+	                        break argumentLoop;
+	                    }
+	                    else if (argStart === -1) {
+	                        argStart = i;
+	                    }
+	                    break;
+	                default:
+	                    if (spaced) {
+	                        this.createSpacedArgument(argStart, args, content, mark, instructionNameEndOffset, start);
+	                        // reset to start a new argument
+	                        argStart = i;
+	                        spaced = false;
+	                    }
+	                    escaped = false;
+	                    if (argStart === -1) {
+	                        argStart = i;
+	                    }
+	                    // variable detected
+	                    if (char === '$' && content.charAt(i + 1) === '{') {
+	                        let singleQuotes = false;
+	                        let doubleQuotes = false;
+	                        let escaped = false;
+	                        for (let j = i + 1; j < content.length; j++) {
+	                            switch (content.charAt(j)) {
+	                                case this.escapeChar:
+	                                    escaped = true;
+	                                    break;
+	                                case '\r':
+	                                case '\n':
+	                                    break;
+	                                case '\'':
+	                                    singleQuotes = !singleQuotes;
+	                                    escaped = false;
+	                                    break;
+	                                case '"':
+	                                    doubleQuotes = !doubleQuotes;
+	                                    escaped = false;
+	                                    break;
+	                                case ' ':
+	                                case '\t':
+	                                    if (escaped || singleQuotes || doubleQuotes) {
+	                                        break;
+	                                    }
+	                                    i = j - 1;
+	                                    continue argumentLoop;
+	                                case '}':
+	                                    i = j;
+	                                    continue argumentLoop;
+	                                default:
+	                                    escaped = false;
+	                                    break;
+	                            }
+	                        }
+	                        break argumentLoop;
+	                    }
+	                    break;
+	            }
+	        }
+	        if (argStart !== -1 && argStart !== content.length) {
+	            let end = endingEscape ? content.length - 1 : content.length;
+	            let value = content.substring(argStart, end);
+	            args.push(new argument_1.Argument(value, vscode_languageserver_types_1.Range.create(this.document.positionAt(instructionNameEndOffset + start + argStart), this.document.positionAt(instructionNameEndOffset + start + end))));
+	        }
+	        return args;
+	    }
+	    createSpacedArgument(argStart, args, content, mark, instructionNameEndOffset, start) {
+	        if (argStart !== -1) {
+	            args.push(new argument_1.Argument(content.substring(argStart, mark), vscode_languageserver_types_1.Range.create(this.document.positionAt(instructionNameEndOffset + start + argStart), this.document.positionAt(instructionNameEndOffset + start + mark))));
+	        }
+	    }
+	}
+	propertyInstruction.PropertyInstruction = PropertyInstruction;
+	return propertyInstruction;
+}
+
+var hasRequiredArg;
+
+function requireArg () {
+	if (hasRequiredArg) return arg;
+	hasRequiredArg = 1;
+	Object.defineProperty(arg, "__esModule", { value: true });
+	arg.Arg = void 0;
+	const property_1 = requireProperty();
+	const propertyInstruction_1 = requirePropertyInstruction();
+	class Arg extends propertyInstruction_1.PropertyInstruction {
+	    constructor(document, range, dockerfile, escapeChar, instruction, instructionRange) {
+	        super(document, range, dockerfile, escapeChar, instruction, instructionRange);
+	        this.property = null;
+	        const args = this.getPropertyArguments();
+	        if (args.length === 1) {
+	            this.property = new property_1.Property(this.document, this.escapeChar, args[0]);
+	        }
+	        else {
+	            this.property = null;
+	        }
+	    }
+	    /**
+	     * Returns the variable defined by this ARG. This may be null if
+	     * this ARG instruction is malformed and has no variable
+	     * declaration.
+	     */
+	    getProperty() {
+	        return this.property;
+	    }
+	}
+	arg.Arg = Arg;
+	return arg;
+}
+
+var cmd = {};
+
+var hasRequiredCmd;
+
+function requireCmd () {
+	if (hasRequiredCmd) return cmd;
+	hasRequiredCmd = 1;
+	Object.defineProperty(cmd, "__esModule", { value: true });
+	cmd.Cmd = void 0;
+	const jsonInstruction_1 = requireJsonInstruction();
+	class Cmd extends jsonInstruction_1.JSONInstruction {
+	    constructor(document, range, dockerfile, escapeChar, instruction, instructionRange) {
+	        super(document, range, dockerfile, escapeChar, instruction, instructionRange);
+	    }
+	}
+	cmd.Cmd = Cmd;
+	return cmd;
+}
+
+var copy = {};
+
+var hasRequiredCopy;
+
+function requireCopy () {
+	if (hasRequiredCopy) return copy;
+	hasRequiredCopy = 1;
+	Object.defineProperty(copy, "__esModule", { value: true });
+	copy.Copy = void 0;
+	const jsonInstruction_1 = requireJsonInstruction();
+	class Copy extends jsonInstruction_1.JSONInstruction {
+	    constructor(document, range, dockerfile, escapeChar, instruction, instructionRange) {
+	        super(document, range, dockerfile, escapeChar, instruction, instructionRange);
+	    }
+	    stopSearchingForFlags(argument) {
+	        return argument.indexOf("--") === -1;
+	    }
+	    getFromFlag() {
+	        let flags = super.getFlags();
+	        return flags.length === 1 && flags[0].getName() === "from" ? flags[0] : null;
+	    }
+	    /**
+	     * Returns there here-documents that are defined in this RUN
+	     * instruction.
+	     *
+	     * This API is experimental and subject to change.
+	     */
+	    getHeredocs() {
+	        return super.getHeredocs();
+	    }
+	}
+	copy.Copy = Copy;
+	return copy;
+}
+
+var env = {};
+
+var hasRequiredEnv;
+
+function requireEnv () {
+	if (hasRequiredEnv) return env;
+	hasRequiredEnv = 1;
+	Object.defineProperty(env, "__esModule", { value: true });
+	env.Env = void 0;
+	const propertyInstruction_1 = requirePropertyInstruction();
+	class Env extends propertyInstruction_1.PropertyInstruction {
+	    constructor(document, range, dockerfile, escapeChar, instruction, instructionRange) {
+	        super(document, range, dockerfile, escapeChar, instruction, instructionRange);
+	    }
+	    getProperties() {
+	        return super.getProperties();
+	    }
+	}
+	env.Env = Env;
+	return env;
+}
+
+var entrypoint = {};
+
+var hasRequiredEntrypoint;
+
+function requireEntrypoint () {
+	if (hasRequiredEntrypoint) return entrypoint;
+	hasRequiredEntrypoint = 1;
+	Object.defineProperty(entrypoint, "__esModule", { value: true });
+	entrypoint.Entrypoint = void 0;
+	const jsonInstruction_1 = requireJsonInstruction();
+	class Entrypoint extends jsonInstruction_1.JSONInstruction {
+	    constructor(document, range, dockerfile, escapeChar, instruction, instructionRange) {
+	        super(document, range, dockerfile, escapeChar, instruction, instructionRange);
+	    }
+	}
+	entrypoint.Entrypoint = Entrypoint;
+	return entrypoint;
+}
+
+var from = {};
+
+var hasRequiredFrom;
+
+function requireFrom () {
+	if (hasRequiredFrom) return from;
+	hasRequiredFrom = 1;
+	Object.defineProperty(from, "__esModule", { value: true });
+	from.From = void 0;
+	const vscode_languageserver_types_1 = requireMain$1();
+	const modifiableInstruction_1 = requireModifiableInstruction();
+	class From extends modifiableInstruction_1.ModifiableInstruction {
+	    constructor(document, range, dockerfile, escapeChar, instruction, instructionRange) {
+	        super(document, range, dockerfile, escapeChar, instruction, instructionRange);
+	    }
+	    stopSearchingForFlags(argument) {
+	        return argument.indexOf("--") === -1;
+	    }
+	    getImage() {
+	        const args = this.getArguments();
+	        return args.length > 0 ? args[0].getValue() : null;
+	    }
+	    /**
+	     * Returns the name of the image that will be used as the base image.
+	     *
+	     * @return the base image's name, or null if unspecified
+	     */
+	    getImageName() {
+	        const imageName = this.getRangeContent(this.getImageNameRange());
+	        if (imageName === null) {
+	            return null;
+	        }
+	        let commented = false;
+	        let escaped = false;
+	        let name = "";
+	        for (let i = 0; i < imageName.length; i++) {
+	            const ch = imageName.charAt(i);
+	            switch (ch) {
+	                case this.escapeChar:
+	                    escaped = true;
+	                    break;
+	                case '\r':
+	                    continue;
+	                case '\n':
+	                    commented = false;
+	                    break;
+	                case ' ':
+	                case '\t':
+	                    break;
+	                case '#':
+	                    if (escaped) {
+	                        commented = true;
+	                    }
+	                    else {
+	                        name = name + ch;
+	                        escaped = false;
+	                    }
+	                    break;
+	                default:
+	                    if (!commented) {
+	                        name = name + ch;
+	                        escaped = false;
+	                    }
+	                    break;
+	            }
+	        }
+	        return name;
+	    }
+	    /**
+	     * Returns the range that covers the name of the image used by
+	     * this instruction.
+	     *
+	     * @return the range of the name of this instruction's argument,
+	     *         or null if no image has been specified
+	     */
+	    getImageNameRange() {
+	        let range = this.getImageRange();
+	        if (range) {
+	            let registryRange = this.getRegistryRange();
+	            if (registryRange) {
+	                range.start = this.document.positionAt(this.document.offsetAt(registryRange.end) + 1);
+	            }
+	            let tagRange = this.getImageTagRange();
+	            let digestRange = this.getImageDigestRange();
+	            if (tagRange === null) {
+	                if (digestRange !== null) {
+	                    range.end = this.document.positionAt(this.document.offsetAt(digestRange.start) - 1);
+	                }
+	            }
+	            else {
+	                range.end = this.document.positionAt(this.document.offsetAt(tagRange.start) - 1);
+	            }
+	            return range;
+	        }
+	        return null;
+	    }
+	    /**
+	     * Returns the range that covers the image argument of this
+	     * instruction. This includes the tag or digest of the image if
+	     * it has been specified by the instruction.
+	     *
+	     * @return the range of the image argument, or null if no image
+	     *         has been specified
+	     */
+	    getImageRange() {
+	        let args = this.getArguments();
+	        return args.length !== 0 ? args[0].getRange() : null;
+	    }
+	    getImageTag() {
+	        return this.getRangeContent(this.getImageTagRange());
+	    }
+	    /**
+	     * Returns the range in the document that the tag of the base
+	     * image encompasses.
+	     *
+	     * @return the base image's tag's range in the document, or null
+	     *         if no tag has been specified
+	     */
+	    getImageTagRange() {
+	        const range = this.getImageRange();
+	        if (range) {
+	            const rangeStartOffset = this.document.offsetAt(range.start);
+	            const content = this.getRangeContent(range);
+	            const atIndex = this.indexOf(rangeStartOffset, content, '@');
+	            const slashIndex = content.indexOf('/');
+	            if (atIndex === -1) {
+	                const colonIndex = this.lastIndexOf(rangeStartOffset, content, ':');
+	                if (colonIndex > slashIndex) {
+	                    return vscode_languageserver_types_1.Range.create(this.document.positionAt(rangeStartOffset + colonIndex + 1), range.end);
+	                }
+	            }
+	            const subcontent = content.substring(0, atIndex);
+	            const subcolonIndex = subcontent.indexOf(':');
+	            if (subcolonIndex === -1) {
+	                return null;
+	            }
+	            if (slashIndex === -1) {
+	                // slash not found suggests no registry and no namespace defined
+	                return vscode_languageserver_types_1.Range.create(this.document.positionAt(rangeStartOffset + subcolonIndex + 1), this.document.positionAt(rangeStartOffset + atIndex));
+	            }
+	            // both colon and slash found, check if it is a port
+	            if (subcolonIndex < slashIndex) {
+	                return null;
+	            }
+	            return vscode_languageserver_types_1.Range.create(this.document.positionAt(rangeStartOffset + subcolonIndex + 1), this.document.positionAt(rangeStartOffset + subcontent.length));
+	        }
+	        return null;
+	    }
+	    getImageDigest() {
+	        return this.getRangeContent(this.getImageDigestRange());
+	    }
+	    /**
+	     * Returns the range in the document that the digest of the base
+	     * image encompasses.
+	     *
+	     * @return the base image's digest's range in the document, or null
+	     *         if no digest has been specified
+	     */
+	    getImageDigestRange() {
+	        let range = this.getImageRange();
+	        if (range) {
+	            let content = this.getRangeContent(range);
+	            let index = this.lastIndexOf(this.document.offsetAt(range.start), content, '@');
+	            if (index !== -1) {
+	                return vscode_languageserver_types_1.Range.create(range.start.line, range.start.character + index + 1, range.end.line, range.end.character);
+	            }
+	        }
+	        return null;
+	    }
+	    indexOf(documentOffset, content, searchString) {
+	        let index = content.indexOf(searchString);
+	        const variables = this.getVariables();
+	        for (let i = 0; i < variables.length; i++) {
+	            const position = documentOffset + index;
+	            const variableRange = variables[i].getRange();
+	            if (this.document.offsetAt(variableRange.start) < position && position < this.document.offsetAt(variableRange.end)) {
+	                const offset = this.document.offsetAt(variableRange.end) - documentOffset;
+	                const substring = content.substring(offset);
+	                const subIndex = substring.indexOf(searchString);
+	                if (subIndex === -1) {
+	                    return -1;
+	                }
+	                index = subIndex + offset;
+	                i = -1;
+	                continue;
+	            }
+	        }
+	        return index;
+	    }
+	    lastIndexOf(documentOffset, content, searchString) {
+	        let index = content.lastIndexOf(searchString);
+	        const variables = this.getVariables();
+	        for (let i = 0; i < variables.length; i++) {
+	            const position = documentOffset + index;
+	            const variableRange = variables[i].getRange();
+	            if (this.document.offsetAt(variableRange.start) < position && position < this.document.offsetAt(variableRange.end)) {
+	                index = content.substring(0, index).lastIndexOf(searchString);
+	                if (index === -1) {
+	                    return -1;
+	                }
+	                i = -1;
+	                continue;
+	            }
+	        }
+	        return index;
+	    }
+	    getRegistry() {
+	        return this.getRangeContent(this.getRegistryRange());
+	    }
+	    getRegistryRange() {
+	        const range = this.getImageRange();
+	        if (range) {
+	            const tagRange = this.getImageTagRange();
+	            const digestRange = this.getImageDigestRange();
+	            if (tagRange === null) {
+	                if (digestRange !== null) {
+	                    range.end = this.document.positionAt(this.document.offsetAt(digestRange.start) - 1);
+	                }
+	            }
+	            else {
+	                range.end = this.document.positionAt(this.document.offsetAt(tagRange.start) - 1);
+	            }
+	            const content = this.getRangeContent(range);
+	            const rangeStart = this.document.offsetAt(range.start);
+	            const startingSlashIndex = this.indexOf(rangeStart, content, '/');
+	            if (startingSlashIndex === -1) {
+	                return null;
+	            }
+	            const portIndex = this.indexOf(rangeStart, content, ':');
+	            const dotIndex = this.indexOf(rangeStart, content, '.');
+	            // hostname detected
+	            if (portIndex !== -1 || dotIndex !== -1) {
+	                return vscode_languageserver_types_1.Range.create(range.start, this.document.positionAt(rangeStart + startingSlashIndex));
+	            }
+	            const registry = content.substring(0, startingSlashIndex);
+	            // localhost registry detected
+	            if (registry === 'localhost') {
+	                return vscode_languageserver_types_1.Range.create(range.start, this.document.positionAt(rangeStart + startingSlashIndex));
+	            }
+	        }
+	        return null;
+	    }
+	    getBuildStage() {
+	        let range = this.getBuildStageRange();
+	        return range === null ? null : this.getRangeContent(range);
+	    }
+	    getBuildStageRange() {
+	        let args = this.getArguments();
+	        if (args.length > 2 && args[1].getValue().toUpperCase() === "AS") {
+	            return args[2].getRange();
+	        }
+	        return null;
+	    }
+	    getPlatformFlag() {
+	        let flags = super.getFlags();
+	        return flags.length === 1 && flags[0].getName() === "platform" ? flags[0] : null;
+	    }
+	}
+	from.From = From;
+	return from;
+}
+
+var healthcheck = {};
+
+var hasRequiredHealthcheck;
+
+function requireHealthcheck () {
+	if (hasRequiredHealthcheck) return healthcheck;
+	hasRequiredHealthcheck = 1;
+	Object.defineProperty(healthcheck, "__esModule", { value: true });
+	healthcheck.Healthcheck = void 0;
+	const modifiableInstruction_1 = requireModifiableInstruction();
+	class Healthcheck extends modifiableInstruction_1.ModifiableInstruction {
+	    constructor(document, range, dockerfile, escapeChar, instruction, instructionRange) {
+	        super(document, range, dockerfile, escapeChar, instruction, instructionRange);
+	    }
+	    stopSearchingForFlags(argument) {
+	        argument = argument.toUpperCase();
+	        return argument === "CMD" || argument === "NONE";
+	    }
+	    getSubcommand() {
+	        let args = this.getArguments();
+	        return args.length !== 0 ? args[0] : null;
+	    }
+	}
+	healthcheck.Healthcheck = Healthcheck;
+	return healthcheck;
+}
+
+var label = {};
+
+var hasRequiredLabel;
+
+function requireLabel () {
+	if (hasRequiredLabel) return label;
+	hasRequiredLabel = 1;
+	Object.defineProperty(label, "__esModule", { value: true });
+	label.Label = void 0;
+	const propertyInstruction_1 = requirePropertyInstruction();
+	const util_1 = requireUtil();
+	class Label extends propertyInstruction_1.PropertyInstruction {
+	    constructor(document, range, dockerfile, escapeChar, instruction, instructionRange) {
+	        super(document, range, dockerfile, escapeChar, instruction, instructionRange);
+	    }
+	    getVariables() {
+	        const variables = super.getVariables();
+	        const properties = this.getProperties();
+	        // iterate over all of this LABEL's properties
+	        for (const property of properties) {
+	            const value = property.getUnescapedValue();
+	            // check if the value is contained in single quotes,
+	            // single quotes would indicate a literal value
+	            if (value !== null && value.length > 2 && value.charAt(0) === '\'' && value.charAt(value.length - 1) === '\'') {
+	                const range = property.getValueRange();
+	                for (let i = 0; i < variables.length; i++) {
+	                    // if a variable is in a single quote, remove it from the list
+	                    if (util_1.Util.isInsideRange(variables[i].getRange().start, range)) {
+	                        variables.splice(i, 1);
+	                        i--;
+	                    }
+	                }
+	            }
+	        }
+	        return variables;
+	    }
+	    getProperties() {
+	        return super.getProperties();
+	    }
+	}
+	label.Label = Label;
+	return label;
+}
+
+var onbuild = {};
+
+var hasRequiredOnbuild;
+
+function requireOnbuild () {
+	if (hasRequiredOnbuild) return onbuild;
+	hasRequiredOnbuild = 1;
+	Object.defineProperty(onbuild, "__esModule", { value: true });
+	onbuild.Onbuild = void 0;
+	const vscode_languageserver_types_1 = requireMain$1();
+	const parser_1 = requireParser();
+	const instruction_1 = requireInstruction();
+	class Onbuild extends instruction_1.Instruction {
+	    constructor(document, range, dockerfile, escapeChar, instruction, instructionRange) {
+	        super(document, range, dockerfile, escapeChar, instruction, instructionRange);
+	    }
+	    getTrigger() {
+	        let trigger = this.getTriggerWord();
+	        return trigger === null ? null : trigger.toUpperCase();
+	    }
+	    getTriggerWord() {
+	        return this.getRangeContent(this.getTriggerRange());
+	    }
+	    getTriggerRange() {
+	        let args = this.getArguments();
+	        return args.length > 0 ? args[0].getRange() : null;
+	    }
+	    getTriggerInstruction() {
+	        let triggerRange = this.getTriggerRange();
+	        if (triggerRange === null) {
+	            return null;
+	        }
+	        let args = this.getArguments();
+	        return parser_1.Parser.createInstruction(this.document, this.dockerfile, this.escapeChar, vscode_languageserver_types_1.Range.create(args[0].getRange().start, this.getRange().end), this.getTriggerWord(), triggerRange);
+	    }
+	}
+	onbuild.Onbuild = Onbuild;
+	return onbuild;
+}
+
+var run$1 = {};
+
+var hasRequiredRun;
+
+function requireRun () {
+	if (hasRequiredRun) return run$1;
+	hasRequiredRun = 1;
+	Object.defineProperty(run$1, "__esModule", { value: true });
+	run$1.Run = void 0;
+	const jsonInstruction_1 = requireJsonInstruction();
+	class Run extends jsonInstruction_1.JSONInstruction {
+	    constructor(document, range, dockerfile, escapeChar, instruction, instructionRange) {
+	        super(document, range, dockerfile, escapeChar, instruction, instructionRange);
+	    }
+	    stopSearchingForFlags(argument) {
+	        return argument.indexOf("--") === -1;
+	    }
+	    /**
+	     * Returns there here-documents that are defined in this RUN
+	     * instruction.
+	     *
+	     * This API is experimental and subject to change.
+	     */
+	    getHeredocs() {
+	        return super.getHeredocs();
+	    }
+	}
+	run$1.Run = Run;
+	return run$1;
+}
+
+var shell = {};
+
+var hasRequiredShell;
+
+function requireShell () {
+	if (hasRequiredShell) return shell;
+	hasRequiredShell = 1;
+	Object.defineProperty(shell, "__esModule", { value: true });
+	shell.Shell = void 0;
+	const jsonInstruction_1 = requireJsonInstruction();
+	class Shell extends jsonInstruction_1.JSONInstruction {
+	    constructor(document, range, dockerfile, escapeChar, instruction, instructionRange) {
+	        super(document, range, dockerfile, escapeChar, instruction, instructionRange);
+	    }
+	}
+	shell.Shell = Shell;
+	return shell;
+}
+
+var stopsignal = {};
+
+var hasRequiredStopsignal;
+
+function requireStopsignal () {
+	if (hasRequiredStopsignal) return stopsignal;
+	hasRequiredStopsignal = 1;
+	Object.defineProperty(stopsignal, "__esModule", { value: true });
+	stopsignal.Stopsignal = void 0;
+	const instruction_1 = requireInstruction();
+	class Stopsignal extends instruction_1.Instruction {
+	    constructor(document, range, dockerfile, escapeChar, instruction, instructionRange) {
+	        super(document, range, dockerfile, escapeChar, instruction, instructionRange);
+	    }
+	}
+	stopsignal.Stopsignal = Stopsignal;
+	return stopsignal;
+}
+
+var workdir = {};
+
+var hasRequiredWorkdir;
+
+function requireWorkdir () {
+	if (hasRequiredWorkdir) return workdir;
+	hasRequiredWorkdir = 1;
+	Object.defineProperty(workdir, "__esModule", { value: true });
+	workdir.Workdir = void 0;
+	const instruction_1 = requireInstruction();
+	class Workdir extends instruction_1.Instruction {
+	    constructor(document, range, dockerfile, escapeChar, instruction, instructionRange) {
+	        super(document, range, dockerfile, escapeChar, instruction, instructionRange);
+	    }
+	    /**
+	     * Returns the path that has been defined. Note that this path may
+	     * be absolute or relative depending on what was written in the
+	     * instruction.
+	     *
+	     * @return the working directory's path, or null if this
+	     *         instruction has no arguments
+	     */
+	    getPath() {
+	        return this.getArgumentsContent();
+	    }
+	    /**
+	     * Returns the absolute path that this instruction resolves to. The
+	     * function will inspect prior WORKDIR instructions in the current
+	     * image or another build stage in the Dockerfile to try to
+	     * determine this.
+	     *
+	     * @return the absolute path of the working directory, or null if
+	     *         this instruction has no arguments, or undefined if it
+	     *         cannot be determined because only relative paths could be
+	     *         found
+	     */
+	    getAbsolutePath() {
+	        const path = this.getPath();
+	        if (path === null || path.startsWith("/")) {
+	            return path;
+	        }
+	        const startLine = this.getRange().start.line;
+	        const hierarchy = this.dockerfile.getStageHierarchy(startLine);
+	        for (let i = hierarchy.length - 1; i >= 0; i--) {
+	            const workdirs = hierarchy[i].getWORKDIRs();
+	            for (let j = workdirs.length - 1; j >= 0; j--) {
+	                if (workdirs[j].getRange().start.line < startLine) {
+	                    const parent = workdirs[j].getAbsolutePath();
+	                    if (parent === undefined || parent === null) {
+	                        return undefined;
+	                    }
+	                    return parent.endsWith("/") ? parent + path : parent + "/" + path;
+	                }
+	            }
+	        }
+	        return undefined;
+	    }
+	}
+	workdir.Workdir = Workdir;
+	return workdir;
+}
+
+var user = {};
+
+var hasRequiredUser;
+
+function requireUser () {
+	if (hasRequiredUser) return user;
+	hasRequiredUser = 1;
+	Object.defineProperty(user, "__esModule", { value: true });
+	user.User = void 0;
+	const instruction_1 = requireInstruction();
+	class User extends instruction_1.Instruction {
+	    constructor(document, range, dockerfile, escapeChar, instruction, instructionRange) {
+	        super(document, range, dockerfile, escapeChar, instruction, instructionRange);
+	    }
+	}
+	user.User = User;
+	return user;
+}
+
+var volume = {};
+
+var hasRequiredVolume;
+
+function requireVolume () {
+	if (hasRequiredVolume) return volume;
+	hasRequiredVolume = 1;
+	Object.defineProperty(volume, "__esModule", { value: true });
+	volume.Volume = void 0;
+	const jsonInstruction_1 = requireJsonInstruction();
+	class Volume extends jsonInstruction_1.JSONInstruction {
+	    constructor(document, range, dockerfile, escapeChar, instruction, instructionRange) {
+	        super(document, range, dockerfile, escapeChar, instruction, instructionRange);
+	    }
+	}
+	volume.Volume = Volume;
+	return volume;
+}
+
+var dockerfile = {};
+
+var imageTemplate = {};
+
+/* --------------------------------------------------------------------------------------------
+ * Copyright (c) Remy Suen. All rights reserved.
+ * Licensed under the MIT License. See License.txt in the project root for license information.
+ * ------------------------------------------------------------------------------------------ */
+
+var hasRequiredImageTemplate;
+
+function requireImageTemplate () {
+	if (hasRequiredImageTemplate) return imageTemplate;
+	hasRequiredImageTemplate = 1;
+	Object.defineProperty(imageTemplate, "__esModule", { value: true });
+	imageTemplate.ImageTemplate = void 0;
+	const vscode_languageserver_types_1 = requireMain$1();
+	const arg_1 = requireArg();
+	const cmd_1 = requireCmd();
+	const copy_1 = requireCopy();
+	const env_1 = requireEnv();
+	const entrypoint_1 = requireEntrypoint();
+	const from_1 = requireFrom();
+	const healthcheck_1 = requireHealthcheck();
+	const onbuild_1 = requireOnbuild();
+	const util_1 = requireUtil();
+	const workdir_1 = requireWorkdir();
+	class ImageTemplate {
+	    constructor() {
+	        this.comments = [];
+	        this.instructions = [];
+	    }
+	    addComment(comment) {
+	        this.comments.push(comment);
+	    }
+	    getComments() {
+	        return this.comments;
+	    }
+	    addInstruction(instruction) {
+	        this.instructions.push(instruction);
+	    }
+	    getInstructions() {
+	        return this.instructions;
+	    }
+	    getInstructionAt(line) {
+	        for (let instruction of this.instructions) {
+	            if (util_1.Util.isInsideRange(vscode_languageserver_types_1.Position.create(line, 0), instruction.getRange())) {
+	                return instruction;
+	            }
+	        }
+	        return null;
+	    }
+	    /**
+	     * Gets all the ARG instructions that are defined in this image.
+	     */
+	    getARGs() {
+	        let args = [];
+	        for (let instruction of this.instructions) {
+	            if (instruction instanceof arg_1.Arg) {
+	                args.push(instruction);
+	            }
+	        }
+	        return args;
+	    }
+	    /**
+	     * Gets all the CMD instructions that are defined in this image.
+	     */
+	    getCMDs() {
+	        let cmds = [];
+	        for (let instruction of this.instructions) {
+	            if (instruction instanceof cmd_1.Cmd) {
+	                cmds.push(instruction);
+	            }
+	        }
+	        return cmds;
+	    }
+	    /**
+	     * Gets all the COPY instructions that are defined in this image.
+	     */
+	    getCOPYs() {
+	        let copies = [];
+	        for (let instruction of this.instructions) {
+	            if (instruction instanceof copy_1.Copy) {
+	                copies.push(instruction);
+	            }
+	        }
+	        return copies;
+	    }
+	    /**
+	     * Gets all the ENTRYPOINT instructions that are defined in this image.
+	     */
+	    getENTRYPOINTs() {
+	        let froms = [];
+	        for (let instruction of this.instructions) {
+	            if (instruction instanceof entrypoint_1.Entrypoint) {
+	                froms.push(instruction);
+	            }
+	        }
+	        return froms;
+	    }
+	    /**
+	     * Gets all the ENV instructions that are defined in this image.
+	     */
+	    getENVs() {
+	        let args = [];
+	        for (let instruction of this.instructions) {
+	            if (instruction instanceof env_1.Env) {
+	                args.push(instruction);
+	            }
+	        }
+	        return args;
+	    }
+	    getFROM() {
+	        for (const instruction of this.instructions) {
+	            if (instruction instanceof from_1.From) {
+	                return instruction;
+	            }
+	        }
+	        return null;
+	    }
+	    /**
+	     * Gets all the FROM instructions that are defined in this image.
+	     */
+	    getFROMs() {
+	        let froms = [];
+	        for (let instruction of this.instructions) {
+	            if (instruction instanceof from_1.From) {
+	                froms.push(instruction);
+	            }
+	        }
+	        return froms;
+	    }
+	    /**
+	     * Gets all the HEALTHCHECK instructions that are defined in this image.
+	     */
+	    getHEALTHCHECKs() {
+	        let froms = [];
+	        for (let instruction of this.instructions) {
+	            if (instruction instanceof healthcheck_1.Healthcheck) {
+	                froms.push(instruction);
+	            }
+	        }
+	        return froms;
+	    }
+	    getWORKDIRs() {
+	        const workdirs = [];
+	        for (const instruction of this.instructions) {
+	            if (instruction instanceof workdir_1.Workdir) {
+	                workdirs.push(instruction);
+	            }
+	        }
+	        return workdirs;
+	    }
+	    getOnbuildTriggers() {
+	        let triggers = [];
+	        for (let instruction of this.instructions) {
+	            if (instruction instanceof onbuild_1.Onbuild) {
+	                let trigger = instruction.getTriggerInstruction();
+	                if (trigger) {
+	                    triggers.push(trigger);
+	                }
+	            }
+	        }
+	        return triggers;
+	    }
+	    getAvailableVariables(currentLine) {
+	        const variables = [];
+	        for (const arg of this.getARGs()) {
+	            if (arg.isBefore(currentLine)) {
+	                const property = arg.getProperty();
+	                if (property) {
+	                    const variable = property.getName();
+	                    if (variables.indexOf(variable) === -1) {
+	                        variables.push(variable);
+	                    }
+	                }
+	            }
+	        }
+	        for (const env of this.getENVs()) {
+	            if (env.isBefore(currentLine)) {
+	                for (const property of env.getProperties()) {
+	                    const variable = property.getName();
+	                    if (variables.indexOf(variable) === -1) {
+	                        variables.push(variable);
+	                    }
+	                }
+	            }
+	        }
+	        return variables;
+	    }
+	    /**
+	     * Resolves a variable with the given name at the specified line
+	     * to its value. If null is returned, then the variable has been
+	     * defined but no value was given. If undefined is returned, then
+	     * a variable with the given name has not been defined yet as of
+	     * the given line.
+	     *
+	     * @param variable the name of the variable to resolve
+	     * @param line the line number that the variable is on, zero-based
+	     * @return the value of the variable as defined by an ARG or ENV
+	     *         instruction, or null if no value has been specified, or
+	     *         undefined if a variable with the given name has not
+	     *         been defined
+	     */
+	    resolveVariable(variable, line) {
+	        let envs = this.getENVs();
+	        for (let i = envs.length - 1; i >= 0; i--) {
+	            if (envs[i].isBefore(line)) {
+	                for (let property of envs[i].getProperties()) {
+	                    if (property.getName() === variable) {
+	                        return property.getValue();
+	                    }
+	                }
+	            }
+	        }
+	        let args = this.getARGs();
+	        for (let i = args.length - 1; i >= 0; i--) {
+	            if (args[i].isBefore(line)) {
+	                let property = args[i].getProperty();
+	                if (property && property.getName() === variable) {
+	                    return property.getValue();
+	                }
+	            }
+	        }
+	        return undefined;
+	    }
+	    getRange() {
+	        const instructions = this.getInstructions();
+	        if (instructions.length === 0) {
+	            // all templates should have instructions, this only happens for
+	            // the initial set of instruction
+	            return vscode_languageserver_types_1.Range.create(0, 0, 0, 0);
+	        }
+	        const instructionStart = instructions[0].getRange().start;
+	        const instructionEnd = instructions[instructions.length - 1].getRange().end;
+	        return vscode_languageserver_types_1.Range.create(instructionStart, instructionEnd);
+	    }
+	    contains(position) {
+	        const range = this.getRange();
+	        if (range === null) {
+	            return false;
+	        }
+	        return util_1.Util.isInsideRange(position, range);
+	    }
+	}
+	imageTemplate.ImageTemplate = ImageTemplate;
+	return imageTemplate;
+}
+
+/* --------------------------------------------------------------------------------------------
+ * Copyright (c) Remy Suen. All rights reserved.
+ * Licensed under the MIT License. See License.txt in the project root for license information.
+ * ------------------------------------------------------------------------------------------ */
+
+var hasRequiredDockerfile;
+
+function requireDockerfile () {
+	if (hasRequiredDockerfile) return dockerfile;
+	hasRequiredDockerfile = 1;
+	Object.defineProperty(dockerfile, "__esModule", { value: true });
+	dockerfile.Dockerfile = void 0;
+	const vscode_languageserver_types_1 = requireMain$1();
+	const ast = requireMain();
+	const imageTemplate_1 = requireImageTemplate();
+	const from_1 = requireFrom();
+	const util_1 = requireUtil();
+	const main_1 = requireMain();
+	class Dockerfile extends imageTemplate_1.ImageTemplate {
+	    constructor(document) {
+	        super();
+	        this.initialInstructions = new imageTemplate_1.ImageTemplate();
+	        this.buildStages = [];
+	        this.directives = [];
+	        /**
+	         * Whether a FROM instruction has been added to this Dockerfile or not.
+	         */
+	        this.foundFrom = false;
+	        this.document = document;
+	    }
+	    getEscapeCharacter() {
+	        for (const directive of this.directives) {
+	            if (directive.getDirective() === ast.Directive.escape) {
+	                const value = directive.getValue();
+	                if (value === '\\' || value === '`') {
+	                    return value;
+	                }
+	            }
+	        }
+	        return '\\';
+	    }
+	    getInitialARGs() {
+	        return this.initialInstructions.getARGs();
+	    }
+	    getContainingImage(position) {
+	        let range = vscode_languageserver_types_1.Range.create(vscode_languageserver_types_1.Position.create(0, 0), this.document.positionAt(this.document.getText().length));
+	        if (!util_1.Util.isInsideRange(position, range)) {
+	            // not inside the document, invalid position
+	            return null;
+	        }
+	        if (this.initialInstructions.getComments().length > 0 || this.initialInstructions.getInstructions().length > 0) {
+	            if (util_1.Util.isInsideRange(position, this.initialInstructions.getRange())) {
+	                return this.initialInstructions;
+	            }
+	        }
+	        for (const buildStage of this.buildStages) {
+	            if (util_1.Util.isInsideRange(position, buildStage.getRange())) {
+	                return buildStage;
+	            }
+	        }
+	        return this;
+	    }
+	    addInstruction(instruction) {
+	        if (instruction.getKeyword() === main_1.Keyword.FROM) {
+	            this.currentBuildStage = new imageTemplate_1.ImageTemplate();
+	            this.buildStages.push(this.currentBuildStage);
+	            this.foundFrom = true;
+	        }
+	        else if (!this.foundFrom) {
+	            this.initialInstructions.addInstruction(instruction);
+	        }
+	        if (this.foundFrom) {
+	            this.currentBuildStage.addInstruction(instruction);
+	        }
+	        super.addInstruction(instruction);
+	    }
+	    setDirectives(directives) {
+	        this.directives = directives;
+	    }
+	    getDirective() {
+	        return this.directives.length === 0 ? null : this.directives[0];
+	    }
+	    getDirectives() {
+	        return this.directives;
+	    }
+	    resolveVariable(variable, line) {
+	        for (let from of this.getFROMs()) {
+	            let range = from.getRange();
+	            if (range.start.line <= line && line <= range.end.line) {
+	                // resolve the FROM variable against the initial ARGs
+	                let initialARGs = new imageTemplate_1.ImageTemplate();
+	                for (let instruction of this.initialInstructions.getARGs()) {
+	                    initialARGs.addInstruction(instruction);
+	                }
+	                return initialARGs.resolveVariable(variable, line);
+	            }
+	        }
+	        let image = this.getContainingImage(vscode_languageserver_types_1.Position.create(line, 0));
+	        if (image === null) {
+	            return undefined;
+	        }
+	        let resolvedVariable = image.resolveVariable(variable, line);
+	        if (resolvedVariable === null) {
+	            // refers to an uninitialized ARG variable,
+	            // try resolving it against the initial ARGs then
+	            let initialARGs = new imageTemplate_1.ImageTemplate();
+	            for (let instruction of this.initialInstructions.getARGs()) {
+	                initialARGs.addInstruction(instruction);
+	            }
+	            return initialARGs.resolveVariable(variable, line);
+	        }
+	        return resolvedVariable;
+	    }
+	    getAvailableVariables(currentLine) {
+	        if (this.getInstructionAt(currentLine) instanceof from_1.From) {
+	            let variables = [];
+	            for (let arg of this.getInitialARGs()) {
+	                let property = arg.getProperty();
+	                if (property) {
+	                    variables.push(property.getName());
+	                }
+	            }
+	            return variables;
+	        }
+	        let image = this.getContainingImage(vscode_languageserver_types_1.Position.create(currentLine, 0));
+	        return image ? image.getAvailableVariables(currentLine) : [];
+	    }
+	    getParentStage(image) {
+	        const templateFrom = image.getFROM();
+	        const imageName = templateFrom === null ? null : templateFrom.getImageName();
+	        if (imageName === null) {
+	            return null;
+	        }
+	        for (const from of this.getFROMs()) {
+	            if (from.getBuildStage() === imageName) {
+	                const range = from.getRange();
+	                // on the same line then it's an image that shares the name as the build stage
+	                if (range.start.line === templateFrom.getRange().start.line) {
+	                    return null;
+	                }
+	                return this.getContainingImage(range.start);
+	            }
+	        }
+	        return null;
+	    }
+	    getStageHierarchy(line) {
+	        const image = this.getContainingImage(vscode_languageserver_types_1.Position.create(line, 0));
+	        if (image === null) {
+	            return [];
+	        }
+	        const stages = [image];
+	        let stage = this.getParentStage(image);
+	        while (stage !== null) {
+	            stages.splice(0, 0, stage);
+	            stage = this.getParentStage(stage);
+	        }
+	        return stages;
+	    }
+	    getAvailableWorkingDirectories(line) {
+	        const availableDirectories = new Set();
+	        for (const image of this.getStageHierarchy(line)) {
+	            for (const workdir of image.getWORKDIRs()) {
+	                if (workdir.getRange().end.line < line) {
+	                    let directory = workdir.getAbsolutePath();
+	                    if (directory !== undefined && directory !== null) {
+	                        if (!directory.endsWith("/")) {
+	                            directory += "/";
+	                        }
+	                        availableDirectories.add(directory);
+	                    }
+	                }
+	            }
+	        }
+	        return Array.from(availableDirectories);
+	    }
+	    /**
+	     * Internally reorganize the comments in the Dockerfile and allocate
+	     * them to the relevant build stages that they belong to.
+	     */
+	    organizeComments() {
+	        const comments = this.getComments();
+	        for (let i = 0; i < comments.length; i++) {
+	            if (util_1.Util.isInsideRange(comments[i].getRange().end, this.initialInstructions.getRange())) {
+	                this.initialInstructions.addComment(comments[i]);
+	            }
+	            else {
+	                for (const buildStage of this.buildStages) {
+	                    if (util_1.Util.isInsideRange(comments[i].getRange().start, buildStage.getRange())) {
+	                        buildStage.addComment(comments[i]);
+	                    }
+	                }
+	            }
+	        }
+	    }
+	    getRange() {
+	        const comments = this.getComments();
+	        const instructions = this.getInstructions();
+	        let range = null;
+	        if (comments.length === 0) {
+	            if (instructions.length > 0) {
+	                range = vscode_languageserver_types_1.Range.create(instructions[0].getRange().start, instructions[instructions.length - 1].getRange().end);
+	            }
+	        }
+	        else if (instructions.length === 0) {
+	            range = vscode_languageserver_types_1.Range.create(comments[0].getRange().start, comments[comments.length - 1].getRange().end);
+	        }
+	        else {
+	            const commentStart = comments[0].getRange().start;
+	            const commentEnd = comments[comments.length - 1].getRange().end;
+	            const instructionStart = instructions[0].getRange().start;
+	            const instructionEnd = instructions[instructions.length - 1].getRange().end;
+	            if (commentStart.line < instructionStart.line) {
+	                if (commentEnd.line < instructionEnd.line) {
+	                    range = vscode_languageserver_types_1.Range.create(commentStart, instructionEnd);
+	                }
+	                range = vscode_languageserver_types_1.Range.create(commentStart, commentEnd);
+	            }
+	            else if (commentEnd.line < instructionEnd.line) {
+	                range = vscode_languageserver_types_1.Range.create(instructionStart, instructionEnd);
+	            }
+	            else {
+	                range = vscode_languageserver_types_1.Range.create(instructionStart, commentEnd);
+	            }
+	        }
+	        if (range === null) {
+	            if (this.directives.length === 0) {
+	                return null;
+	            }
+	            return this.directives[0].getRange();
+	        }
+	        else if (this.directives.length === 0) {
+	            return range;
+	        }
+	        return vscode_languageserver_types_1.Range.create(this.directives[0].getRange().start, range.end);
+	    }
+	}
+	dockerfile.Dockerfile = Dockerfile;
+	return dockerfile;
+}
+
+/* --------------------------------------------------------------------------------------------
+ * Copyright (c) Remy Suen. All rights reserved.
+ * Licensed under the MIT License. See License.txt in the project root for license information.
+ * ------------------------------------------------------------------------------------------ */
+
+var hasRequiredParser;
+
+function requireParser () {
+	if (hasRequiredParser) return parser;
+	hasRequiredParser = 1;
+	Object.defineProperty(parser, "__esModule", { value: true });
+	parser.Parser = void 0;
+	const vscode_languageserver_textdocument_1 = require$$0;
+	const vscode_languageserver_types_1 = requireMain$1();
+	const comment_1 = requireComment();
+	const parserDirective_1 = requireParserDirective();
+	const instruction_1 = requireInstruction();
+	const add_1 = requireAdd();
+	const arg_1 = requireArg();
+	const cmd_1 = requireCmd();
+	const copy_1 = requireCopy();
+	const env_1 = requireEnv();
+	const entrypoint_1 = requireEntrypoint();
+	const from_1 = requireFrom();
+	const healthcheck_1 = requireHealthcheck();
+	const label_1 = requireLabel();
+	const onbuild_1 = requireOnbuild();
+	const run_1 = requireRun();
+	const shell_1 = requireShell();
+	const stopsignal_1 = requireStopsignal();
+	const workdir_1 = requireWorkdir();
+	const user_1 = requireUser();
+	const volume_1 = requireVolume();
+	const dockerfile_1 = requireDockerfile();
+	const util_1 = requireUtil();
+	const main_1 = requireMain();
+	class Parser {
+	    constructor() {
+	        this.escapeChar = null;
+	    }
+	    static createInstruction(document, dockerfile, escapeChar, lineRange, instruction, instructionRange) {
+	        switch (instruction.toUpperCase()) {
+	            case "ADD":
+	                return new add_1.Add(document, lineRange, dockerfile, escapeChar, instruction, instructionRange);
+	            case "ARG":
+	                return new arg_1.Arg(document, lineRange, dockerfile, escapeChar, instruction, instructionRange);
+	            case "CMD":
+	                return new cmd_1.Cmd(document, lineRange, dockerfile, escapeChar, instruction, instructionRange);
+	            case "COPY":
+	                return new copy_1.Copy(document, lineRange, dockerfile, escapeChar, instruction, instructionRange);
+	            case "ENTRYPOINT":
+	                return new entrypoint_1.Entrypoint(document, lineRange, dockerfile, escapeChar, instruction, instructionRange);
+	            case "ENV":
+	                return new env_1.Env(document, lineRange, dockerfile, escapeChar, instruction, instructionRange);
+	            case "FROM":
+	                return new from_1.From(document, lineRange, dockerfile, escapeChar, instruction, instructionRange);
+	            case "HEALTHCHECK":
+	                return new healthcheck_1.Healthcheck(document, lineRange, dockerfile, escapeChar, instruction, instructionRange);
+	            case "LABEL":
+	                return new label_1.Label(document, lineRange, dockerfile, escapeChar, instruction, instructionRange);
+	            case "ONBUILD":
+	                return new onbuild_1.Onbuild(document, lineRange, dockerfile, escapeChar, instruction, instructionRange);
+	            case "RUN":
+	                return new run_1.Run(document, lineRange, dockerfile, escapeChar, instruction, instructionRange);
+	            case "SHELL":
+	                return new shell_1.Shell(document, lineRange, dockerfile, escapeChar, instruction, instructionRange);
+	            case "STOPSIGNAL":
+	                return new stopsignal_1.Stopsignal(document, lineRange, dockerfile, escapeChar, instruction, instructionRange);
+	            case "WORKDIR":
+	                return new workdir_1.Workdir(document, lineRange, dockerfile, escapeChar, instruction, instructionRange);
+	            case "USER":
+	                return new user_1.User(document, lineRange, dockerfile, escapeChar, instruction, instructionRange);
+	            case "VOLUME":
+	                return new volume_1.Volume(document, lineRange, dockerfile, escapeChar, instruction, instructionRange);
+	        }
+	        return new instruction_1.Instruction(document, lineRange, dockerfile, escapeChar, instruction, instructionRange);
+	    }
+	    getParserDirectives(document, buffer) {
+	        // reset the escape directive in between runs
+	        const directives = [];
+	        this.escapeChar = '';
+	        const offset = util_1.Util.isUTF8BOM(buffer.substring(0, 1)) ? 1 : 0;
+	        directiveCheck: for (let i = offset; i < buffer.length; i++) {
+	            switch (buffer.charAt(i)) {
+	                case ' ':
+	                case '\t':
+	                    break;
+	                case '\r':
+	                case '\n':
+	                    // blank lines stop the parsing of directives immediately
+	                    break directiveCheck;
+	                case '#':
+	                    let directiveStart = -1;
+	                    let directiveEnd = -1;
+	                    for (let j = i + 1; j < buffer.length; j++) {
+	                        let char = buffer.charAt(j);
+	                        switch (char) {
+	                            case ' ':
+	                            case '\t':
+	                                if (directiveStart !== -1 && directiveEnd === -1) {
+	                                    directiveEnd = j;
+	                                }
+	                                break;
+	                            case '\r':
+	                            case '\n':
+	                                break directiveCheck;
+	                            case '=':
+	                                let valueStart = -1;
+	                                let valueEnd = -1;
+	                                if (directiveEnd === -1) {
+	                                    directiveEnd = j;
+	                                }
+	                                // assume the line ends with the file
+	                                let lineEnd = buffer.length;
+	                                directiveValue: for (let k = j + 1; k < buffer.length; k++) {
+	                                    char = buffer.charAt(k);
+	                                    switch (char) {
+	                                        case '\r':
+	                                        case '\n':
+	                                            if (valueStart !== -1 && valueEnd === -1) {
+	                                                valueEnd = k;
+	                                            }
+	                                            // line break found, reset
+	                                            lineEnd = k;
+	                                            break directiveValue;
+	                                        case '\t':
+	                                        case ' ':
+	                                            if (valueStart !== -1 && valueEnd === -1) {
+	                                                valueEnd = k;
+	                                            }
+	                                            continue;
+	                                        default:
+	                                            if (valueStart === -1) {
+	                                                valueStart = k;
+	                                            }
+	                                            break;
+	                                    }
+	                                }
+	                                if (directiveStart === -1) {
+	                                    // no directive, it's a regular comment
+	                                    break directiveCheck;
+	                                }
+	                                if (valueStart === -1) {
+	                                    // no non-whitespace characters found, highlight all the characters then
+	                                    valueStart = j + 1;
+	                                    valueEnd = lineEnd;
+	                                }
+	                                else if (valueEnd === -1) {
+	                                    // reached EOF
+	                                    valueEnd = buffer.length;
+	                                }
+	                                const lineRange = vscode_languageserver_types_1.Range.create(document.positionAt(i), document.positionAt(lineEnd));
+	                                const nameRange = vscode_languageserver_types_1.Range.create(document.positionAt(directiveStart), document.positionAt(directiveEnd));
+	                                const valueRange = vscode_languageserver_types_1.Range.create(document.positionAt(valueStart), document.positionAt(valueEnd));
+	                                directives.push(new parserDirective_1.ParserDirective(document, lineRange, nameRange, valueRange));
+	                                directiveStart = -1;
+	                                if (buffer.charAt(valueEnd) === '\r') {
+	                                    // skip over the \r
+	                                    i = valueEnd + 1;
+	                                }
+	                                else {
+	                                    i = valueEnd;
+	                                }
+	                                continue directiveCheck;
+	                            default:
+	                                if (directiveStart === -1) {
+	                                    directiveStart = j;
+	                                }
+	                                break;
+	                        }
+	                    }
+	                    break;
+	                default:
+	                    break directiveCheck;
+	            }
+	        }
+	        return directives;
+	    }
+	    parse(buffer) {
+	        this.document = vscode_languageserver_textdocument_1.TextDocument.create("", "", 0, buffer);
+	        this.buffer = buffer;
+	        let dockerfile = new dockerfile_1.Dockerfile(this.document);
+	        let directives = this.getParserDirectives(this.document, this.buffer);
+	        let offset = 0;
+	        this.escapeChar = '\\';
+	        if (directives.length > 0) {
+	            dockerfile.setDirectives(directives);
+	            this.escapeChar = dockerfile.getEscapeCharacter();
+	            // start parsing after the directives
+	            offset = this.document.offsetAt(vscode_languageserver_types_1.Position.create(directives.length, 0));
+	        }
+	        else if (util_1.Util.isUTF8BOM(buffer.substring(0, 1))) {
+	            offset = 1;
+	        }
+	        for (let i = offset; i < this.buffer.length; i++) {
+	            const char = this.buffer.charAt(i);
+	            switch (char) {
+	                case ' ':
+	                case '\t':
+	                case '\r':
+	                case '\n':
+	                    break;
+	                case '#':
+	                    i = this.processComment(dockerfile, i);
+	                    break;
+	                default:
+	                    i = this.processInstruction(dockerfile, char, i);
+	                    break;
+	            }
+	        }
+	        dockerfile.organizeComments();
+	        return dockerfile;
+	    }
+	    processInstruction(dockerfile, char, start) {
+	        let instruction = char;
+	        let instructionEnd = -1;
+	        let escapedInstruction = false;
+	        instructionCheck: for (let i = start + 1; i < this.buffer.length; i++) {
+	            char = this.buffer.charAt(i);
+	            switch (char) {
+	                case this.escapeChar:
+	                    escapedInstruction = true;
+	                    char = this.buffer.charAt(i + 1);
+	                    if (char === '\r' || char === '\n') {
+	                        if (instructionEnd === -1) {
+	                            instructionEnd = i;
+	                        }
+	                        i++;
+	                    }
+	                    else if (char === ' ' || char === '\t') {
+	                        for (let j = i + 2; j < this.buffer.length; j++) {
+	                            switch (this.buffer.charAt(j)) {
+	                                case ' ':
+	                                case '\t':
+	                                    break;
+	                                case '\r':
+	                                case '\n':
+	                                    i = j;
+	                                    continue instructionCheck;
+	                                default:
+	                                    // found an argument, mark end of instruction
+	                                    instructionEnd = i + 1;
+	                                    instruction = instruction + this.escapeChar;
+	                                    i = j - 2;
+	                                    continue instructionCheck;
+	                            }
+	                        }
+	                        // reached EOF
+	                        instructionEnd = i + 1;
+	                        instruction = instruction + this.escapeChar;
+	                        break instructionCheck;
+	                    }
+	                    else {
+	                        instructionEnd = i + 1;
+	                        instruction = instruction + this.escapeChar;
+	                        // reset and consider it as one contiguous word
+	                        escapedInstruction = false;
+	                    }
+	                    break;
+	                case ' ':
+	                case '\t':
+	                    if (escapedInstruction) {
+	                        // on an escaped newline, need to search for non-whitespace
+	                        escapeCheck: for (let j = i + 1; j < this.buffer.length; j++) {
+	                            switch (this.buffer.charAt(j)) {
+	                                case ' ':
+	                                case '\t':
+	                                    break;
+	                                case '\r':
+	                                case '\n':
+	                                    i = j;
+	                                    continue instructionCheck;
+	                                default:
+	                                    break escapeCheck;
+	                            }
+	                        }
+	                        escapedInstruction = false;
+	                    }
+	                    if (instructionEnd === -1) {
+	                        instructionEnd = i;
+	                    }
+	                    i = this.processArguments(dockerfile, instruction, instructionEnd, start, i);
+	                    dockerfile.addInstruction(this.createInstruction(dockerfile, instruction, start, instructionEnd, i));
+	                    return i;
+	                case '\r':
+	                case '\n':
+	                    if (escapedInstruction) {
+	                        continue;
+	                    }
+	                    if (instructionEnd === -1) {
+	                        instructionEnd = i;
+	                    }
+	                    dockerfile.addInstruction(this.createInstruction(dockerfile, instruction, start, i, i));
+	                    return i;
+	                case '#':
+	                    if (escapedInstruction) {
+	                        continue;
+	                    }
+	                default:
+	                    instructionEnd = i + 1;
+	                    instruction = instruction + char;
+	                    escapedInstruction = false;
+	                    break;
+	            }
+	        }
+	        // reached EOF
+	        if (instructionEnd === -1) {
+	            instructionEnd = this.buffer.length;
+	        }
+	        dockerfile.addInstruction(this.createInstruction(dockerfile, instruction, start, instructionEnd, this.buffer.length));
+	        return this.buffer.length;
+	    }
+	    processHeredocs(instruction, offset) {
+	        let keyword = instruction.getKeyword();
+	        if (keyword === main_1.Keyword.ONBUILD) {
+	            instruction = instruction.getTriggerInstruction();
+	            if (instruction === null) {
+	                return offset;
+	            }
+	            keyword = instruction.getKeyword();
+	        }
+	        if (keyword !== main_1.Keyword.ADD && keyword !== main_1.Keyword.COPY && keyword !== main_1.Keyword.RUN) {
+	            return offset;
+	        }
+	        const heredocs = [];
+	        let tabbed = false;
+	        for (const arg of instruction.getArguments()) {
+	            const value = arg.getValue();
+	            if (value.startsWith("<<") && value.length > 2) {
+	                if (value.startsWith("<<-")) {
+	                    tabbed = true;
+	                }
+	                const name = util_1.Util.parseHeredocName(value);
+	                if (name !== null) {
+	                    heredocs.push(name);
+	                }
+	            }
+	        }
+	        if (heredocs.length > 0) {
+	            for (const heredoc of heredocs) {
+	                offset = this.parseHeredoc(heredoc, offset, tabbed);
+	            }
+	        }
+	        return offset;
+	    }
+	    processArguments(dockerfile, instruction, instructionEnd, start, offset) {
+	        let escaped = false;
+	        argumentsCheck: for (let i = offset + 1; i < this.buffer.length; i++) {
+	            switch (this.buffer.charAt(i)) {
+	                case '\r':
+	                case '\n':
+	                    if (escaped) {
+	                        continue;
+	                    }
+	                    return this.processHeredocs(this.createInstruction(dockerfile, instruction, start, instructionEnd, i), i);
+	                case this.escapeChar:
+	                    const next = this.buffer.charAt(i + 1);
+	                    if (next === '\n' || next === '\r') {
+	                        escaped = true;
+	                        i++;
+	                    }
+	                    else if (next === ' ' || next === '\t') {
+	                        for (let j = i + 2; j < this.buffer.length; j++) {
+	                            switch (this.buffer.charAt(j)) {
+	                                case ' ':
+	                                case '\t':
+	                                    break;
+	                                case '\r':
+	                                case '\n':
+	                                    escaped = true;
+	                                default:
+	                                    i = j;
+	                                    continue argumentsCheck;
+	                            }
+	                        }
+	                        // reached EOF
+	                        return this.buffer.length;
+	                    }
+	                    continue;
+	                case '#':
+	                    if (escaped) {
+	                        i = this.processComment(dockerfile, i);
+	                        continue argumentsCheck;
+	                    }
+	                    break;
+	                case ' ':
+	                case '\t':
+	                    break;
+	                default:
+	                    if (escaped) {
+	                        escaped = false;
+	                    }
+	                    break;
+	            }
+	        }
+	        return this.buffer.length;
+	    }
+	    processComment(dockerfile, start) {
+	        let end = this.buffer.length;
+	        commentLoop: for (let i = start + 1; i < this.buffer.length; i++) {
+	            switch (this.buffer.charAt(i)) {
+	                case '\r':
+	                case '\n':
+	                    end = i;
+	                    break commentLoop;
+	            }
+	        }
+	        const range = vscode_languageserver_types_1.Range.create(this.document.positionAt(start), this.document.positionAt(end));
+	        dockerfile.addComment(new comment_1.Comment(this.document, range));
+	        return end;
+	    }
+	    parseHeredoc(heredocName, offset, tabbed) {
+	        let startWord = -1;
+	        let lineStart = true;
+	        for (let i = offset; i < this.buffer.length; i++) {
+	            switch (this.buffer.charAt(i)) {
+	                case ' ':
+	                    lineStart = false;
+	                    break;
+	                case '\t':
+	                    if (!tabbed) {
+	                        lineStart = false;
+	                    }
+	                    break;
+	                case '\r':
+	                case '\n':
+	                    if (startWord !== -1 && heredocName === this.buffer.substring(startWord, i)) {
+	                        return i;
+	                    }
+	                    startWord = -1;
+	                    lineStart = true;
+	                    break;
+	                default:
+	                    if (lineStart) {
+	                        startWord = i;
+	                        lineStart = false;
+	                    }
+	                    break;
+	            }
+	        }
+	        return this.buffer.length;
+	    }
+	    createInstruction(dockerfile, instruction, start, instructionEnd, end) {
+	        const startPosition = this.document.positionAt(start);
+	        const instructionRange = vscode_languageserver_types_1.Range.create(startPosition, this.document.positionAt(instructionEnd));
+	        const lineRange = vscode_languageserver_types_1.Range.create(startPosition, this.document.positionAt(end));
+	        return Parser.createInstruction(this.document, dockerfile, this.escapeChar, lineRange, instruction, instructionRange);
+	    }
+	}
+	parser.Parser = Parser;
+	return parser;
+}
+
+var hasRequiredMain;
+
+function requireMain () {
+	if (hasRequiredMain) return main$2;
+	hasRequiredMain = 1;
+	(function (exports$1) {
+		Object.defineProperty(exports$1, "__esModule", { value: true });
+		exports$1.DockerfileParser = exports$1.DefaultVariables = exports$1.Directive = exports$1.Keyword = exports$1.Workdir = exports$1.Volume = exports$1.User = exports$1.Stopsignal = exports$1.Shell = exports$1.Run = exports$1.PropertyInstruction = exports$1.Onbuild = exports$1.ModifiableInstruction = exports$1.Label = exports$1.JSONInstruction = exports$1.Heredoc = exports$1.Healthcheck = exports$1.From = exports$1.Env = exports$1.Entrypoint = exports$1.Copy = exports$1.Cmd = exports$1.Arg = exports$1.Add = exports$1.Variable = exports$1.Property = exports$1.ParserDirective = exports$1.Line = exports$1.Instruction = exports$1.Flag = exports$1.Comment = exports$1.JSONArgument = exports$1.Argument = void 0;
+		var argument_1 = requireArgument();
+		Object.defineProperty(exports$1, "Argument", { enumerable: true, get: function () { return argument_1.Argument; } });
+		var jsonArgument_1 = requireJsonArgument();
+		Object.defineProperty(exports$1, "JSONArgument", { enumerable: true, get: function () { return jsonArgument_1.JSONArgument; } });
+		const comment_1 = requireComment();
+		Object.defineProperty(exports$1, "Comment", { enumerable: true, get: function () { return comment_1.Comment; } });
+		const parser_1 = requireParser();
+		var flag_1 = requireFlag();
+		Object.defineProperty(exports$1, "Flag", { enumerable: true, get: function () { return flag_1.Flag; } });
+		const instruction_1 = requireInstruction();
+		Object.defineProperty(exports$1, "Instruction", { enumerable: true, get: function () { return instruction_1.Instruction; } });
+		var line_1 = requireLine();
+		Object.defineProperty(exports$1, "Line", { enumerable: true, get: function () { return line_1.Line; } });
+		const parserDirective_1 = requireParserDirective();
+		Object.defineProperty(exports$1, "ParserDirective", { enumerable: true, get: function () { return parserDirective_1.ParserDirective; } });
+		var property_1 = requireProperty();
+		Object.defineProperty(exports$1, "Property", { enumerable: true, get: function () { return property_1.Property; } });
+		var variable_1 = requireVariable();
+		Object.defineProperty(exports$1, "Variable", { enumerable: true, get: function () { return variable_1.Variable; } });
+		var add_1 = requireAdd();
+		Object.defineProperty(exports$1, "Add", { enumerable: true, get: function () { return add_1.Add; } });
+		const arg_1 = requireArg();
+		Object.defineProperty(exports$1, "Arg", { enumerable: true, get: function () { return arg_1.Arg; } });
+		const cmd_1 = requireCmd();
+		Object.defineProperty(exports$1, "Cmd", { enumerable: true, get: function () { return cmd_1.Cmd; } });
+		const copy_1 = requireCopy();
+		Object.defineProperty(exports$1, "Copy", { enumerable: true, get: function () { return copy_1.Copy; } });
+		const entrypoint_1 = requireEntrypoint();
+		Object.defineProperty(exports$1, "Entrypoint", { enumerable: true, get: function () { return entrypoint_1.Entrypoint; } });
+		const env_1 = requireEnv();
+		Object.defineProperty(exports$1, "Env", { enumerable: true, get: function () { return env_1.Env; } });
+		const from_1 = requireFrom();
+		Object.defineProperty(exports$1, "From", { enumerable: true, get: function () { return from_1.From; } });
+		const healthcheck_1 = requireHealthcheck();
+		Object.defineProperty(exports$1, "Healthcheck", { enumerable: true, get: function () { return healthcheck_1.Healthcheck; } });
+		var heredoc_1 = requireHeredoc();
+		Object.defineProperty(exports$1, "Heredoc", { enumerable: true, get: function () { return heredoc_1.Heredoc; } });
+		var jsonInstruction_1 = requireJsonInstruction();
+		Object.defineProperty(exports$1, "JSONInstruction", { enumerable: true, get: function () { return jsonInstruction_1.JSONInstruction; } });
+		var label_1 = requireLabel();
+		Object.defineProperty(exports$1, "Label", { enumerable: true, get: function () { return label_1.Label; } });
+		var modifiableInstruction_1 = requireModifiableInstruction();
+		Object.defineProperty(exports$1, "ModifiableInstruction", { enumerable: true, get: function () { return modifiableInstruction_1.ModifiableInstruction; } });
+		var onbuild_1 = requireOnbuild();
+		Object.defineProperty(exports$1, "Onbuild", { enumerable: true, get: function () { return onbuild_1.Onbuild; } });
+		var propertyInstruction_1 = requirePropertyInstruction();
+		Object.defineProperty(exports$1, "PropertyInstruction", { enumerable: true, get: function () { return propertyInstruction_1.PropertyInstruction; } });
+		var run_1 = requireRun();
+		Object.defineProperty(exports$1, "Run", { enumerable: true, get: function () { return run_1.Run; } });
+		var shell_1 = requireShell();
+		Object.defineProperty(exports$1, "Shell", { enumerable: true, get: function () { return shell_1.Shell; } });
+		var stopsignal_1 = requireStopsignal();
+		Object.defineProperty(exports$1, "Stopsignal", { enumerable: true, get: function () { return stopsignal_1.Stopsignal; } });
+		var user_1 = requireUser();
+		Object.defineProperty(exports$1, "User", { enumerable: true, get: function () { return user_1.User; } });
+		var volume_1 = requireVolume();
+		Object.defineProperty(exports$1, "Volume", { enumerable: true, get: function () { return volume_1.Volume; } });
+		const workdir_1 = requireWorkdir();
+		Object.defineProperty(exports$1, "Workdir", { enumerable: true, get: function () { return workdir_1.Workdir; } });
+		var Keyword;
+		(function (Keyword) {
+		    Keyword["ADD"] = "ADD";
+		    Keyword["ARG"] = "ARG";
+		    Keyword["CMD"] = "CMD";
+		    Keyword["COPY"] = "COPY";
+		    Keyword["ENTRYPOINT"] = "ENTRYPOINT";
+		    Keyword["ENV"] = "ENV";
+		    Keyword["EXPOSE"] = "EXPOSE";
+		    Keyword["FROM"] = "FROM";
+		    Keyword["HEALTHCHECK"] = "HEALTHCHECK";
+		    Keyword["LABEL"] = "LABEL";
+		    Keyword["MAINTAINER"] = "MAINTAINER";
+		    Keyword["ONBUILD"] = "ONBUILD";
+		    Keyword["RUN"] = "RUN";
+		    Keyword["SHELL"] = "SHELL";
+		    Keyword["STOPSIGNAL"] = "STOPSIGNAL";
+		    Keyword["USER"] = "USER";
+		    Keyword["VOLUME"] = "VOLUME";
+		    Keyword["WORKDIR"] = "WORKDIR";
+		})(Keyword || (exports$1.Keyword = Keyword = {}));
+		var Directive;
+		(function (Directive) {
+		    Directive["escape"] = "escape";
+		    Directive["syntax"] = "syntax";
+		})(Directive || (exports$1.Directive = Directive = {}));
+		exports$1.DefaultVariables = [
+		    "ALL_PROXY", "all_proxy",
+		    "FTP_PROXY", "ftp_proxy",
+		    "HTTP_PROXY", "http_proxy",
+		    "HTTPS_PROXY", "https_proxy",
+		    "NO_PROXY", "no_proxy"
+		];
+		var DockerfileParser;
+		(function (DockerfileParser) {
+		    function parse(content) {
+		        let parser = new parser_1.Parser();
+		        return parser.parse(content);
+		    }
+		    DockerfileParser.parse = parse;
+		})(DockerfileParser || (exports$1.DockerfileParser = DockerfileParser = {})); 
+	} (main$2));
+	return main$2;
+}
+
+var mainExports = requireMain();
+
+var __defProp = Object.defineProperty;
+var __defProps = Object.defineProperties;
+var __getOwnPropDescs = Object.getOwnPropertyDescriptors;
+var __getOwnPropSymbols = Object.getOwnPropertySymbols;
+var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __propIsEnum = Object.prototype.propertyIsEnumerable;
+var __knownSymbol = (name, symbol) => (symbol = Symbol[name]) ? symbol : Symbol.for("Symbol." + name);
+var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
+var __spreadValues = (a, b) => {
+  for (var prop in b || (b = {}))
+    if (__hasOwnProp.call(b, prop))
+      __defNormalProp(a, prop, b[prop]);
+  if (__getOwnPropSymbols)
+    for (var prop of __getOwnPropSymbols(b)) {
+      if (__propIsEnum.call(b, prop))
+        __defNormalProp(a, prop, b[prop]);
+    }
+  return a;
+};
+var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
+var __require = /* @__PURE__ */ ((x) => typeof require !== "undefined" ? require : typeof Proxy !== "undefined" ? new Proxy(x, {
+  get: (a, b) => (typeof require !== "undefined" ? require : a)[b]
+}) : x)(function(x) {
+  if (typeof require !== "undefined") return require.apply(this, arguments);
+  throw Error('Dynamic require of "' + x + '" is not supported');
+});
+var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")]) ? it.call(obj) : (obj = obj[__knownSymbol("iterator")](), it = {}, method = (key, fn) => (fn = obj[key]) && (it[key] = (arg) => new Promise((yes, no, done) => (arg = fn.call(obj, arg), done = arg.done, Promise.resolve(arg.value).then((value) => yes({ value, done }), no)))), method("next"), method("return"), it);
+
+// package.json
+var version = "2.8.4";
+function getRuntime() {
+  var _a3, _b, _c;
+  if (globalThis.Bun) {
+    return { runtime: "bun", version: globalThis.Bun.version };
+  }
+  if (globalThis.Deno) {
+    return { runtime: "deno", version: globalThis.Deno.version.deno };
+  }
+  if (((_b = (_a3 = globalThis.process) == null ? void 0 : _a3.release) == null ? void 0 : _b.name) === "node") {
+    return { runtime: "node", version: platform2.version || "unknown" };
+  }
+  if (typeof EdgeRuntime === "string") {
+    return { runtime: "vercel-edge", version: "unknown" };
+  }
+  if (((_c = globalThis.navigator) == null ? void 0 : _c.userAgent) === "Cloudflare-Workers") {
+    return { runtime: "cloudflare-worker", version: "unknown" };
+  }
+  if (typeof window !== "undefined") {
+    return { runtime: "browser", version: platform2.version || "unknown" };
+  }
+  return { runtime: "unknown", version: "unknown" };
+}
+var { runtime, version: runtimeVersion } = getRuntime();
+function dynamicRequire(module) {
+  if (runtime === "browser") {
+    throw new Error("Browser runtime is not supported for require");
+  }
+  return __require(module);
+}
+async function dynamicImport(module) {
+  if (runtime === "browser") {
+    throw new Error("Browser runtime is not supported for dynamic import");
+  }
+  return await import(module);
+}
+function ansiRegex({ onlyFirst = false } = {}) {
+  const ST = "(?:\\u0007|\\u001B\\u005C|\\u009C)";
+  const osc = `(?:\\u001B\\][\\s\\S]*?${ST})`;
+  const csi = "[\\u001B\\u009B][[\\]()#;?]*(?:\\d{1,4}(?:[;:]\\d{0,4})*)?[\\dA-PR-TZcf-nq-uy=><~]";
+  const pattern = `${osc}|${csi}`;
+  return new RegExp(pattern, onlyFirst ? void 0 : "g");
+}
+function stripAnsi(text) {
+  return text.replace(ansiRegex(), "");
+}
+
+// src/api/metadata.ts
+var _a;
+var defaultHeaders = {
+  browser: typeof window !== "undefined" && platform2.name || "unknown",
+  lang: "js",
+  lang_version: runtimeVersion,
+  package_version: version,
+  publisher: "e2b",
+  sdk_runtime: runtime,
+  system: ((_a = platform2.os) == null ? void 0 : _a.family) || "unknown"
+};
+function getEnvVar(name) {
+  if (runtime === "deno") {
+    return Deno.env.get(name);
+  }
+  if (typeof process === "undefined") {
+    return "";
+  }
+  return process.env[name];
+}
+var SandboxError = class extends Error {
+  constructor(message, stackTrace) {
+    super(message);
+    this.name = "SandboxError";
+    if (stackTrace) {
+      this.stack = stackTrace;
+    }
+  }
+};
+var AuthenticationError = class extends Error {
+  constructor(message) {
+    super(message);
+    this.name = "AuthenticationError";
+  }
+};
+var RateLimitError = class extends SandboxError {
+  constructor(message) {
+    super(message);
+    this.name = "RateLimitError";
+  }
+};
+var BuildError = class extends Error {
+  constructor(message, stackTrace) {
+    super(message);
+    this.name = "BuildError";
+    if (stackTrace) {
+      this.stack = stackTrace;
+    }
+  }
+};
+var FileUploadError = class extends BuildError {
+  constructor(message, stackTrace) {
+    super(message, stackTrace);
+    this.name = "FileUploadError";
+  }
+};
+function createApiLogger(logger) {
+  return {
+    async onRequest({ request }) {
+      var _a3;
+      (_a3 = logger.info) == null ? void 0 : _a3.call(logger, `Request ${request.method} ${request.url}`);
+      return request;
+    },
+    async onResponse({ response }) {
+      var _a3, _b;
+      if (response.status >= 400) {
+        (_a3 = logger.error) == null ? void 0 : _a3.call(logger, "Response:", response.status, response.statusText);
+      } else {
+        (_b = logger.info) == null ? void 0 : _b.call(logger, "Response:", response.status, response.statusText);
+      }
+      return response;
+    }
+  };
+}
+
+// src/api/index.ts
+function handleApiError(response, errorClass = SandboxError, stackTrace) {
+  var _a3, _b, _c, _d, _e, _f;
+  if (!response.error) {
+    return;
+  }
+  if (response.response.status === 401) {
+    const message2 = "Unauthorized, please check your credentials.";
+    const content = (_b = (_a3 = response.error) == null ? void 0 : _a3.message) != null ? _b : response.error;
+    if (content) {
+      return new AuthenticationError(`${message2} - ${content}`);
+    }
+    return new AuthenticationError(message2);
+  }
+  if (response.response.status === 429) {
+    const message2 = "Rate limit exceeded, please try again later";
+    const content = (_d = (_c = response.error) == null ? void 0 : _c.message) != null ? _d : response.error;
+    if (content) {
+      return new RateLimitError(`${message2} - ${content}`);
+    }
+    return new RateLimitError(message2);
+  }
+  const message = (_f = (_e = response.error) == null ? void 0 : _e.message) != null ? _f : response.error;
+  return new errorClass(`${response.response.status}: ${message}`, stackTrace);
+}
+var ApiClient = class {
+  constructor(config, opts = { requireAccessToken: false, requireApiKey: false }) {
+    if ((opts == null ? void 0 : opts.requireApiKey) && !config.apiKey) {
+      throw new AuthenticationError(
+        "API key is required, please visit the Team tab at https://e2b.dev/dashboard to get your API key. You can either set the environment variable `E2B_API_KEY` or you can pass it directly to the sandbox like Sandbox.create({ apiKey: 'e2b_...' })"
+      );
+    }
+    if ((opts == null ? void 0 : opts.requireAccessToken) && !config.accessToken) {
+      throw new AuthenticationError(
+        "Access token is required, please visit the Personal tab at https://e2b.dev/dashboard to get your access token. You can set the environment variable `E2B_ACCESS_TOKEN` or pass the `accessToken` in options."
+      );
+    }
+    this.api = createClient({
+      baseUrl: config.apiUrl,
+      // keepalive: true, // TODO: Return keepalive
+      headers: __spreadValues(__spreadValues(__spreadValues(__spreadValues({}, defaultHeaders), config.apiKey && { "X-API-KEY": config.apiKey }), config.accessToken && {
+        Authorization: `Bearer ${config.accessToken}`
+      }), config.headers),
+      querySerializer: {
+        array: {
+          style: "form",
+          explode: false
+        }
+      }
     });
+    if (config.logger) {
+      this.api.use(createApiLogger(config.logger));
+    }
+  }
+};
+
+// src/connectionConfig.ts
+var REQUEST_TIMEOUT_MS = 6e4;
+var _ConnectionConfig = class _ConnectionConfig {
+  constructor(opts) {
+    var _a3;
+    this.apiKey = (opts == null ? void 0 : opts.apiKey) || _ConnectionConfig.apiKey;
+    this.debug = (opts == null ? void 0 : opts.debug) || _ConnectionConfig.debug;
+    this.domain = (opts == null ? void 0 : opts.domain) || _ConnectionConfig.domain;
+    this.accessToken = (opts == null ? void 0 : opts.accessToken) || _ConnectionConfig.accessToken;
+    this.requestTimeoutMs = (_a3 = opts == null ? void 0 : opts.requestTimeoutMs) != null ? _a3 : REQUEST_TIMEOUT_MS;
+    this.logger = opts == null ? void 0 : opts.logger;
+    this.headers = (opts == null ? void 0 : opts.headers) || {};
+    this.headers["User-Agent"] = `e2b-js-sdk/${version}`;
+    this.apiUrl = (opts == null ? void 0 : opts.apiUrl) || _ConnectionConfig.apiUrl || (this.debug ? "http://localhost:3000" : `https://api.${this.domain}`);
+    this.sandboxUrl = (opts == null ? void 0 : opts.sandboxUrl) || _ConnectionConfig.sandboxUrl;
+  }
+  static get domain() {
+    return getEnvVar("E2B_DOMAIN") || "e2b.app";
+  }
+  static get apiUrl() {
+    return getEnvVar("E2B_API_URL");
+  }
+  static get sandboxUrl() {
+    return getEnvVar("E2B_SANDBOX_URL");
+  }
+  static get debug() {
+    return (getEnvVar("E2B_DEBUG") || "false").toLowerCase() === "true";
+  }
+  static get apiKey() {
+    return getEnvVar("E2B_API_KEY");
+  }
+  static get accessToken() {
+    return getEnvVar("E2B_ACCESS_TOKEN");
+  }
+  getSignal(requestTimeoutMs) {
+    const timeout = requestTimeoutMs != null ? requestTimeoutMs : this.requestTimeoutMs;
+    return timeout ? AbortSignal.timeout(timeout) : void 0;
+  }
+  getSandboxUrl(sandboxId, opts) {
+    if (this.sandboxUrl) {
+      return this.sandboxUrl;
+    }
+    return `${this.debug ? "http" : "https"}://${this.getHost(sandboxId, opts.envdPort, opts.sandboxDomain)}`;
+  }
+  getHost(sandboxId, port, sandboxDomain) {
+    if (this.debug) {
+      return `localhost:${port}`;
+    }
+    return `${port}-${sandboxId}.${sandboxDomain != null ? sandboxDomain : this.domain}`;
+  }
+};
+_ConnectionConfig.envdPort = 49983;
+var ConnectionConfig = _ConnectionConfig;
+var LogEntry = class {
+  constructor(timestamp, level, message) {
+    this.timestamp = timestamp;
+    this.level = level;
+    this.message = message;
+  }
+  toString() {
+    return `[${this.timestamp.toISOString()}] [${this.level}] ${stripAnsi(
+      this.message
+    )}`;
+  }
+};
+var LogEntryStart = class extends LogEntry {
+  constructor(timestamp, message) {
+    super(timestamp, "debug", message);
+  }
+};
+var LogEntryEnd = class extends LogEntry {
+  constructor(timestamp, message) {
+    super(timestamp, "debug", message);
+  }
+};
+var TIMER_UPDATE_INTERVAL_MS = 150;
+var DEFAULT_LEVEL = "info";
+var levels = {
+  error: chalk.red("ERROR"),
+  warn: chalk.hex("#FF4400")("WARN "),
+  info: chalk.hex("#FF8800")("INFO "),
+  debug: chalk.gray("DEBUG")
+};
+var level_order = {
+  debug: 0,
+  info: 1,
+  warn: 2,
+  error: 3
+};
+var DefaultBuildLogger = class {
+  constructor(minLevel) {
+    this.minLevel = minLevel != null ? minLevel : DEFAULT_LEVEL;
+    this.state = this.getInitialState();
+  }
+  logger(logEntry) {
+    if (logEntry instanceof LogEntryStart) {
+      this.startTimer();
+      return;
+    }
+    if (logEntry instanceof LogEntryEnd) {
+      clearInterval(this.state.timerInterval);
+      return;
+    }
+    if (level_order[logEntry.level] < level_order[this.minLevel]) {
+      return;
+    }
+    const formattedLine = this.formatLogLine(logEntry);
+    process.stdout.write(`${formattedLine}
+`);
+    this.updateTimer();
+  }
+  getInitialState(timerInterval) {
+    return {
+      startTime: Date.now(),
+      animationFrame: 0,
+      timerInterval
+    };
+  }
+  formatTimerLine() {
+    const elapsedSeconds = ((Date.now() - this.state.startTime) / 1e3).toFixed(
+      1
+    );
+    return `${elapsedSeconds}s`;
+  }
+  animateStatus() {
+    const frames = ["\u28FE", "\u28FD", "\u28FB", "\u28BF", "\u287F", "\u28DF", "\u28EF", "\u28F7"];
+    const idx = this.state.animationFrame % frames.length;
+    return `${frames[idx]}`;
+  }
+  formatLogLine(line) {
+    const timer = this.formatTimerLine().padEnd(5);
+    const timestamp = chalk.dim(
+      line.timestamp.toLocaleTimeString(void 0, {
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit"
+      })
+    );
+    const level = levels[line.level] || levels[DEFAULT_LEVEL];
+    const msg = line.message;
+    return `${timer} | ${timestamp} ${level} ${msg}`;
+  }
+  startTimer() {
+    if (!process.stdout.isTTY) {
+      return;
+    }
+    const timerInterval = setInterval(
+      this.updateTimer.bind(this),
+      TIMER_UPDATE_INTERVAL_MS
+    );
+    this.state = this.getInitialState(timerInterval);
+    this.updateTimer();
+  }
+  updateTimer() {
+    if (!process.stdout.isTTY) {
+      return;
+    }
+    this.state.animationFrame++;
+    const jumpingSquares = this.animateStatus();
+    process.stdout.write(
+      `${jumpingSquares} Building ${this.formatTimerLine()}\r`
+    );
+  }
+};
+function defaultBuildLogger(options) {
+  const buildLogger = new DefaultBuildLogger(void 0 );
+  return buildLogger.logger.bind(buildLogger);
+}
+
+// src/template/consts.ts
+var FINALIZE_STEP_NAME = "finalize";
+var BASE_STEP_NAME = "base";
+var STACK_TRACE_DEPTH = 3;
+var RESOLVE_SYMLINKS = false;
+
+// src/template/utils.ts
+function readDockerignore(contextPath) {
+  const dockerignorePath = path.join(contextPath, ".dockerignore");
+  if (!fs.existsSync(dockerignorePath)) {
+    return [];
+  }
+  const content = fs.readFileSync(dockerignorePath, "utf-8");
+  return content.split("\n").map((line) => line.trim()).filter((line) => line && !line.startsWith("#"));
+}
+function normalizePath(path2) {
+  return path2.replace(/\\/g, "/");
+}
+async function getAllFilesInPath(src, contextPath, ignorePatterns, includeDirectories = true) {
+  const { glob } = await dynamicImport("glob");
+  const files = /* @__PURE__ */ new Map();
+  const globFiles = await glob(src, {
+    ignore: ignorePatterns,
+    withFileTypes: true,
+    // this is required so that the ignore pattern is relative to the file path
+    cwd: contextPath
+  });
+  for (const file of globFiles) {
+    if (file.isDirectory()) {
+      if (includeDirectories) {
+        files.set(file.fullpath(), file);
+      }
+      const dirPattern = normalizePath(
+        // When the matched directory is '.', `file.relative()` can be an empty string.
+        // In that case, we want to match all files under the current directory instead of
+        // creating an absolute glob like '/**/*' which would traverse the entire filesystem.
+        path.join(file.relative() || ".", "**/*")
+      );
+      const dirFiles = await glob(dirPattern, {
+        ignore: ignorePatterns,
+        withFileTypes: true,
+        cwd: contextPath
+      });
+      dirFiles.forEach((f) => files.set(f.fullpath(), f));
+    } else {
+      files.set(file.fullpath(), file);
+    }
+  }
+  return Array.from(files.values()).sort();
+}
+async function calculateFilesHash(src, dest, contextPath, ignorePatterns, resolveSymlinks, stackTrace) {
+  const srcPath = path.join(contextPath, src);
+  const hash = crypto2.createHash("sha256");
+  const content = `COPY ${src} ${dest}`;
+  hash.update(content);
+  const files = await getAllFilesInPath(src, contextPath, ignorePatterns, true);
+  if (files.length === 0) {
+    const error = new Error(`No files found in ${srcPath}`);
+    if (stackTrace) {
+      error.stack = stackTrace;
+    }
+    throw error;
+  }
+  const hashStats = (stats) => {
+    hash.update(stats.mode.toString());
+    hash.update(stats.size.toString());
+  };
+  for (const file of files) {
+    const relativePath = file.relativePosix();
+    hash.update(relativePath);
+    if (file.isSymbolicLink()) {
+      const stats2 = fs.statSync(file.fullpath(), { throwIfNoEntry: false });
+      const shouldFollow = resolveSymlinks && ((stats2 == null ? void 0 : stats2.isFile()) || (stats2 == null ? void 0 : stats2.isDirectory()));
+      if (!shouldFollow) {
+        const stats3 = fs.lstatSync(file.fullpath());
+        hashStats(stats3);
+        const content2 = fs.readlinkSync(file.fullpath());
+        hash.update(content2);
+        continue;
+      }
+    }
+    const stats = fs.statSync(file.fullpath());
+    hashStats(stats);
+    if (stats.isFile()) {
+      const content2 = fs.readFileSync(file.fullpath());
+      hash.update(new Uint8Array(content2));
+    }
+  }
+  return hash.digest("hex");
+}
+function getCallerFrame(depth) {
+  const stackTrace = new Error().stack;
+  if (!stackTrace) {
+    return;
+  }
+  const lines = stackTrace.split("\n").slice(1);
+  if (lines.length < depth + 1) {
+    return;
+  }
+  return lines.slice(depth).join("\n");
+}
+function callsites(depth) {
+  const _originalPrepareStackTrace = Error.prepareStackTrace;
+  try {
+    let result = [];
+    Error.prepareStackTrace = (_, callSites) => {
+      const callSitesWithoutCurrent = callSites.slice(depth);
+      result = callSitesWithoutCurrent;
+      return callSitesWithoutCurrent;
+    };
+    new Error().stack;
+    return result;
+  } finally {
+    Error.prepareStackTrace = _originalPrepareStackTrace;
+  }
+}
+function getCallerDirectory(depth) {
+  const callSites = callsites(depth + 1);
+  if (callSites.length === 0) {
+    return void 0;
+  }
+  let fileName = callSites[0].getFileName();
+  if (!fileName) {
+    return void 0;
+  }
+  if (fileName.startsWith("file:")) {
+    const { fileURLToPath } = dynamicRequire("node:url");
+    fileName = fileURLToPath(fileName);
+  }
+  return path.dirname(fileName);
+}
+function padOctal(mode) {
+  return mode.toString(8).padStart(4, "0");
+}
+async function tarFileStream(fileName, fileContextPath, ignorePatterns, resolveSymlinks) {
+  const { create } = await dynamicImport("tar");
+  const allFiles = await getAllFilesInPath(
+    fileName,
+    fileContextPath,
+    ignorePatterns,
+    true
+  );
+  const filePaths = allFiles.map((file) => file.relativePosix());
+  return create(
+    {
+      gzip: true,
+      cwd: fileContextPath,
+      follow: resolveSymlinks,
+      noDirRecurse: true
+    },
+    filePaths
+  );
+}
+async function tarFileStreamUpload(fileName, fileContextPath, ignorePatterns, resolveSymlinks) {
+  const sizeCalculationStream = await tarFileStream(
+    fileName,
+    fileContextPath,
+    ignorePatterns,
+    resolveSymlinks
+  );
+  let contentLength = 0;
+  try {
+    for (var iter = __forAwait(sizeCalculationStream), more, temp, error; more = !(temp = await iter.next()).done; more = false) {
+      const chunk = temp.value;
+      contentLength += chunk.length;
+    }
+  } catch (temp) {
+    error = [temp];
+  } finally {
+    try {
+      more && (temp = iter.return) && await temp.call(iter);
+    } finally {
+      if (error)
+        throw error[0];
+    }
+  }
+  return {
+    contentLength,
+    uploadStream: await tarFileStream(
+      fileName,
+      fileContextPath,
+      ignorePatterns,
+      resolveSymlinks
+    )
+  };
+}
+function getBuildStepIndex(step, stackTracesLength) {
+  if (step === BASE_STEP_NAME) {
+    return 0;
+  }
+  if (step === FINALIZE_STEP_NAME) {
+    return stackTracesLength - 1;
+  }
+  return Number(step);
+}
+function readGCPServiceAccountJSON(contextPath, pathOrContent) {
+  if (typeof pathOrContent === "string") {
+    return fs.readFileSync(path.join(contextPath, pathOrContent), "utf-8");
+  }
+  return JSON.stringify(pathOrContent);
+}
+
+// src/template/buildApi.ts
+async function requestBuild(client, { alias, cpuCount, memoryMB }) {
+  const requestBuildRes = await client.api.POST("/v3/templates", {
+    body: {
+      alias,
+      cpuCount,
+      memoryMB
+    }
+  });
+  const error = handleApiError(requestBuildRes, BuildError);
+  if (error) {
+    throw error;
+  }
+  if (!requestBuildRes.data) {
+    throw new BuildError("Failed to request build");
+  }
+  return requestBuildRes.data;
+}
+async function getFileUploadLink(client, { templateID, filesHash }, stackTrace) {
+  const fileUploadLinkRes = await client.api.GET(
+    "/templates/{templateID}/files/{hash}",
+    {
+      params: {
+        path: {
+          templateID,
+          hash: filesHash
+        }
+      }
+    }
+  );
+  const error = handleApiError(fileUploadLinkRes, FileUploadError, stackTrace);
+  if (error) {
+    throw error;
+  }
+  if (!fileUploadLinkRes.data) {
+    throw new FileUploadError("Failed to get file upload link", stackTrace);
+  }
+  return fileUploadLinkRes.data;
+}
+async function uploadFile(options, stackTrace) {
+  const { fileName, url, fileContextPath, ignorePatterns, resolveSymlinks } = options;
+  try {
+    const { contentLength, uploadStream } = await tarFileStreamUpload(
+      fileName,
+      fileContextPath,
+      ignorePatterns,
+      resolveSymlinks
+    );
+    const res = await fetch(url, {
+      method: "PUT",
+      // @ts-expect-error
+      body: uploadStream,
+      headers: {
+        "Content-Length": contentLength.toString()
+      },
+      duplex: "half"
+    });
+    if (!res.ok) {
+      throw new FileUploadError(
+        `Failed to upload file: ${res.statusText}`,
+        stackTrace
+      );
+    }
+  } catch (error) {
+    if (error instanceof FileUploadError) {
+      throw error;
+    }
+    throw new FileUploadError(`Failed to upload file: ${error}`, stackTrace);
+  }
+}
+async function triggerBuild(client, { templateID, buildID, template }) {
+  const triggerBuildRes = await client.api.POST(
+    "/v2/templates/{templateID}/builds/{buildID}",
+    {
+      params: {
+        path: {
+          templateID,
+          buildID
+        }
+      },
+      body: template
+    }
+  );
+  const error = handleApiError(triggerBuildRes, BuildError);
+  if (error) {
+    throw error;
+  }
+}
+async function getBuildStatus(client, { templateID, buildID, logsOffset }) {
+  const buildStatusRes = await client.api.GET(
+    "/templates/{templateID}/builds/{buildID}/status",
+    {
+      params: {
+        path: {
+          templateID,
+          buildID
+        },
+        query: {
+          logsOffset
+        }
+      }
+    }
+  );
+  const error = handleApiError(buildStatusRes, BuildError);
+  if (error) {
+    throw error;
+  }
+  if (!buildStatusRes.data) {
+    throw new BuildError("Failed to get build status");
+  }
+  return buildStatusRes.data;
+}
+async function waitForBuildFinish(client, {
+  templateID,
+  buildID,
+  onBuildLogs,
+  logsRefreshFrequency,
+  stackTraces
+}) {
+  var _a3, _b, _c;
+  let logsOffset = 0;
+  let status = "building";
+  while (status === "building" || status === "waiting") {
+    const buildStatus = await getBuildStatus(client, {
+      templateID,
+      buildID,
+      logsOffset
+    });
+    logsOffset += buildStatus.logEntries.length;
+    buildStatus.logEntries.forEach(
+      (logEntry) => onBuildLogs == null ? void 0 : onBuildLogs(
+        new LogEntry(
+          new Date(logEntry.timestamp),
+          logEntry.level,
+          stripAnsi(logEntry.message)
+        )
+      )
+    );
+    status = buildStatus.status;
+    switch (status) {
+      case "ready": {
+        return;
+      }
+      case "waiting": {
+        break;
+      }
+      case "error": {
+        let stackError;
+        if (((_a3 = buildStatus.reason) == null ? void 0 : _a3.step) !== void 0) {
+          const step = getBuildStepIndex(
+            buildStatus.reason.step,
+            stackTraces.length
+          );
+          stackError = stackTraces[step];
+        }
+        throw new BuildError(
+          (_c = (_b = buildStatus == null ? void 0 : buildStatus.reason) == null ? void 0 : _b.message) != null ? _c : "Unknown error",
+          stackError
+        );
+      }
+    }
+    await new Promise((resolve) => setTimeout(resolve, logsRefreshFrequency));
+  }
+  throw new BuildError("Unknown build error occurred.");
+}
+
+// src/template/readycmd.ts
+var ReadyCmd = class {
+  constructor(cmd) {
+    this.cmd = cmd;
+  }
+  getCmd() {
+    return this.cmd;
+  }
+};
+function waitForFile(filename) {
+  const cmd = `[ -f ${filename} ]`;
+  return new ReadyCmd(cmd);
+}
+function waitForTimeout(timeout) {
+  const seconds = Math.max(1, Math.floor(timeout / 1e3));
+  const cmd = `sleep ${seconds}`;
+  return new ReadyCmd(cmd);
+}
+
+// src/template/dockerfileParser.ts
+function parseDockerfile(dockerfileContentOrPath, templateBuilder) {
+  let dockerfileContent;
+  try {
+    if (fs.existsSync(dockerfileContentOrPath) && fs.statSync(dockerfileContentOrPath).isFile()) {
+      dockerfileContent = fs.readFileSync(dockerfileContentOrPath, "utf-8");
+    } else {
+      dockerfileContent = dockerfileContentOrPath;
+    }
+  } catch (e) {
+    dockerfileContent = dockerfileContentOrPath;
+  }
+  const dockerfile = mainExports.DockerfileParser.parse(dockerfileContent);
+  const instructions = dockerfile.getInstructions();
+  const fromInstructions = instructions.filter(
+    (instruction) => instruction.getKeyword() === "FROM"
+  );
+  if (fromInstructions.length > 1) {
+    throw new Error("Multi-stage Dockerfiles are not supported");
+  }
+  if (fromInstructions.length === 0) {
+    throw new Error("Dockerfile must contain a FROM instruction");
+  }
+  const fromInstruction = fromInstructions[0];
+  const argumentsData = fromInstruction.getArguments();
+  let baseImage = "e2bdev/base";
+  let userChanged = false;
+  let workdirChanged = false;
+  if (argumentsData && argumentsData.length > 0) {
+    baseImage = argumentsData[0].getValue();
+  }
+  templateBuilder.setUser("root");
+  templateBuilder.setWorkdir("/");
+  for (const instruction of instructions) {
+    const keyword = instruction.getKeyword();
+    switch (keyword) {
+      case "FROM":
+        break;
+      case "RUN":
+        handleRunInstruction(instruction, templateBuilder);
+        break;
+      case "COPY":
+      case "ADD":
+        handleCopyInstruction(instruction, templateBuilder);
+        break;
+      case "WORKDIR":
+        handleWorkdirInstruction(instruction, templateBuilder);
+        workdirChanged = true;
+        break;
+      case "USER":
+        handleUserInstruction(instruction, templateBuilder);
+        userChanged = true;
+        break;
+      case "ENV":
+      case "ARG":
+        handleEnvInstruction(instruction, templateBuilder);
+        break;
+      case "EXPOSE":
+        break;
+      case "VOLUME":
+        break;
+      case "CMD":
+      case "ENTRYPOINT":
+        handleCmdEntrypointInstruction(instruction, templateBuilder);
+        break;
+      default:
+        console.warn(`Unsupported instruction: ${keyword}`);
+        break;
+    }
+  }
+  if (!userChanged) {
+    templateBuilder.setUser("user");
+  }
+  if (!workdirChanged) {
+    templateBuilder.setWorkdir("/home/user");
+  }
+  return {
+    baseImage
+  };
+}
+function handleRunInstruction(instruction, templateBuilder) {
+  const argumentsData = instruction.getArguments();
+  if (argumentsData && argumentsData.length > 0) {
+    const command = argumentsData.map((arg) => arg.getValue()).join(" ");
+    templateBuilder.runCmd(command);
+  }
+}
+function handleCopyInstruction(instruction, templateBuilder) {
+  const argumentsData = instruction.getArguments();
+  if (argumentsData && argumentsData.length >= 2) {
+    const src = argumentsData[0].getValue();
+    const dest = argumentsData[argumentsData.length - 1].getValue();
+    templateBuilder.copy(src, dest);
+  }
+}
+function handleWorkdirInstruction(instruction, templateBuilder) {
+  const argumentsData = instruction.getArguments();
+  if (argumentsData && argumentsData.length > 0) {
+    const workdir = argumentsData[0].getValue();
+    templateBuilder.setWorkdir(workdir);
+  }
+}
+function handleUserInstruction(instruction, templateBuilder) {
+  const argumentsData = instruction.getArguments();
+  if (argumentsData && argumentsData.length > 0) {
+    const user = argumentsData[0].getValue();
+    templateBuilder.setUser(user);
+  }
+}
+function handleEnvInstruction(instruction, templateBuilder) {
+  const argumentsData = instruction.getArguments();
+  const keyword = instruction.getKeyword();
+  if (argumentsData && argumentsData.length >= 1) {
+    const envVars = {};
+    if (argumentsData.length === 2) {
+      const firstArg = argumentsData[0].getValue();
+      const secondArg = argumentsData[1].getValue();
+      if (firstArg.includes("=") && secondArg.includes("=")) {
+        for (const arg of argumentsData) {
+          const envString = arg.getValue();
+          const equalIndex = envString.indexOf("=");
+          if (equalIndex > 0) {
+            const key = envString.substring(0, equalIndex);
+            const value = envString.substring(equalIndex + 1);
+            envVars[key] = value;
+          }
+        }
+      } else {
+        envVars[firstArg] = secondArg;
+      }
+    } else if (argumentsData.length === 1) {
+      const envString = argumentsData[0].getValue();
+      const equalIndex = envString.indexOf("=");
+      if (equalIndex > 0) {
+        const key = envString.substring(0, equalIndex);
+        const value = envString.substring(equalIndex + 1);
+        envVars[key] = value;
+      } else if (keyword === "ARG" && envString.trim()) {
+        const key = envString.trim();
+        envVars[key] = "";
+      }
+    } else {
+      for (const arg of argumentsData) {
+        const envString = arg.getValue();
+        const equalIndex = envString.indexOf("=");
+        if (equalIndex > 0) {
+          const key = envString.substring(0, equalIndex);
+          const value = envString.substring(equalIndex + 1);
+          envVars[key] = value;
+        } else if (keyword === "ARG") {
+          const key = envString;
+          envVars[key] = "";
+        }
+      }
+    }
+    if (Object.keys(envVars).length > 0) {
+      templateBuilder.setEnvs(envVars);
+    }
+  }
+}
+function handleCmdEntrypointInstruction(instruction, templateBuilder) {
+  const argumentsData = instruction.getArguments();
+  if (argumentsData && argumentsData.length > 0) {
+    let command = argumentsData.map((arg) => arg.getValue()).join(" ");
+    try {
+      const parsedCommand = JSON.parse(command);
+      if (Array.isArray(parsedCommand)) {
+        command = parsedCommand.join(" ");
+      }
+    } catch (e) {
+    }
+    templateBuilder.setStartCmd(command, waitForTimeout(2e4));
+  }
+}
+
+// src/template/index.ts
+var _a2;
+var TemplateBase = class {
+  constructor(options) {
+    this.defaultBaseImage = "e2bdev/base";
+    this.baseImage = this.defaultBaseImage;
+    this.baseTemplate = void 0;
+    this.registryConfig = void 0;
+    this.startCmd = void 0;
+    this.readyCmd = void 0;
+    // Force the whole template to be rebuilt
+    this.force = false;
+    // Force the next layer to be rebuilt
+    this.forceNextLayer = false;
+    this.instructions = [];
+    this.fileContextPath = runtime === "browser" ? "." : (_a2 = getCallerDirectory(STACK_TRACE_DEPTH)) != null ? _a2 : ".";
+    this.fileIgnorePatterns = [];
+    this.logsRefreshFrequency = 200;
+    this.stackTraces = [];
+    this.stackTracesEnabled = true;
+    this.stackTracesOverride = void 0;
+    var _a3, _b;
+    this.fileContextPath = (_a3 = options == null ? void 0 : options.fileContextPath) != null ? _a3 : this.fileContextPath;
+    this.fileIgnorePatterns = (_b = options == null ? void 0 : options.fileIgnorePatterns) != null ? _b : this.fileIgnorePatterns;
+  }
+  /**
+   * Convert a template to JSON representation.
+   *
+   * @param template The template to convert
+   * @param computeHashes Whether to compute file hashes for cache invalidation
+   * @returns JSON string representation of the template
+   */
+  static toJSON(template, computeHashes = true) {
+    return template.toJSON(computeHashes);
+  }
+  /**
+   * Convert a template to Dockerfile format.
+   * Note: Templates based on other E2B templates cannot be converted to Dockerfile.
+   *
+   * @param template The template to convert
+   * @returns Dockerfile string representation
+   * @throws Error if the template is based on another E2B template
+   */
+  static toDockerfile(template) {
+    return template.toDockerfile();
+  }
+  /**
+   * Build and deploy a template to E2B infrastructure.
+   *
+   * @param template The template to build
+   * @param options Build configuration options
+   *
+   * @example
+   * ```ts
+   * const template = Template().fromPythonImage('3')
+   * await Template.build(template, {
+   *   alias: 'my-python-env',
+   *   cpuCount: 2,
+   *   memoryMB: 1024
+   * })
+   * ```
+   */
+  static async build(template, options) {
+    var _a3, _b, _c;
+    try {
+      (_a3 = options.onBuildLogs) == null ? void 0 : _a3.call(options, new LogEntryStart(/* @__PURE__ */ new Date(), "Build started"));
+      const baseTemplate = template;
+      const config = new ConnectionConfig({
+        domain: options.domain,
+        apiKey: options.apiKey
+      });
+      const client = new ApiClient(config);
+      const data = await baseTemplate.build(client, options);
+      (_b = options.onBuildLogs) == null ? void 0 : _b.call(
+        options,
+        new LogEntry(/* @__PURE__ */ new Date(), "info", "Waiting for logs...")
+      );
+      await waitForBuildFinish(client, {
+        templateID: data.templateId,
+        buildID: data.buildId,
+        onBuildLogs: options.onBuildLogs,
+        logsRefreshFrequency: baseTemplate.logsRefreshFrequency,
+        stackTraces: baseTemplate.stackTraces
+      });
+      return data;
+    } finally {
+      (_c = options.onBuildLogs) == null ? void 0 : _c.call(options, new LogEntryEnd(/* @__PURE__ */ new Date(), "Build finished"));
+    }
+  }
+  /**
+   * Build and deploy a template to E2B infrastructure.
+   *
+   * @param template The template to build
+   * @param options Build configuration options
+   *
+   * @example
+   * ```ts
+   * const template = Template().fromPythonImage('3')
+   * const data = await Template.buildInBackground(template, {
+   *   alias: 'my-python-env',
+   *   cpuCount: 2,
+   *   memoryMB: 1024
+   * })
+   * ```
+   */
+  static async buildInBackground(template, options) {
+    const config = new ConnectionConfig({
+      domain: options.domain,
+      apiKey: options.apiKey
+    });
+    const client = new ApiClient(config);
+    return await template.build(client, options);
+  }
+  /**
+   * Get the status of a build.
+   *
+   * @param data Build identifiers
+   * @param options Authentication options
+   *
+   * @example
+   * ```ts
+   * const status = await Template.getBuildStatus(data, { logsOffset: 0 })
+   * ```
+   */
+  static async getBuildStatus(data, options) {
+    const config = new ConnectionConfig({
+      domain: options == null ? void 0 : options.domain,
+      apiKey: options == null ? void 0 : options.apiKey
+    });
+    const client = new ApiClient(config);
+    return await getBuildStatus(client, {
+      templateID: data.templateId,
+      buildID: data.buildId,
+      logsOffset: options == null ? void 0 : options.logsOffset
+    });
+  }
+  fromDebianImage(variant = "stable") {
+    return this.fromImage(`debian:${variant}`);
+  }
+  fromUbuntuImage(variant = "latest") {
+    return this.fromImage(`ubuntu:${variant}`);
+  }
+  fromPythonImage(version2 = "3") {
+    return this.fromImage(`python:${version2}`);
+  }
+  fromNodeImage(variant = "lts") {
+    return this.fromImage(`node:${variant}`);
+  }
+  fromBunImage(variant = "latest") {
+    return this.fromImage(`oven/bun:${variant}`);
+  }
+  fromBaseImage() {
+    return this.fromImage(this.defaultBaseImage);
+  }
+  fromImage(baseImage, credentials) {
+    this.baseImage = baseImage;
+    this.baseTemplate = void 0;
+    if (credentials) {
+      this.registryConfig = {
+        type: "registry",
+        username: credentials.username,
+        password: credentials.password
+      };
+    }
+    if (this.forceNextLayer) {
+      this.force = true;
+    }
+    this.collectStackTrace();
+    return this;
+  }
+  fromTemplate(template) {
+    this.baseTemplate = template;
+    this.baseImage = void 0;
+    if (this.forceNextLayer) {
+      this.force = true;
+    }
+    this.collectStackTrace();
+    return this;
+  }
+  fromDockerfile(dockerfileContentOrPath) {
+    const { baseImage } = this.runInStackTraceOverrideContext(
+      () => parseDockerfile(dockerfileContentOrPath, this),
+      // -1 as we're going up the call stack from the parseDockerfile function
+      getCallerFrame(STACK_TRACE_DEPTH - 1)
+    );
+    this.baseImage = baseImage;
+    this.baseTemplate = void 0;
+    if (this.forceNextLayer) {
+      this.force = true;
+    }
+    this.collectStackTrace();
+    return this;
+  }
+  fromAWSRegistry(image, credentials) {
+    this.baseImage = image;
+    this.baseTemplate = void 0;
+    this.registryConfig = {
+      type: "aws",
+      awsAccessKeyId: credentials.accessKeyId,
+      awsSecretAccessKey: credentials.secretAccessKey,
+      awsRegion: credentials.region
+    };
+    if (this.forceNextLayer) {
+      this.force = true;
+    }
+    this.collectStackTrace();
+    return this;
+  }
+  fromGCPRegistry(image, credentials) {
+    this.baseImage = image;
+    this.baseTemplate = void 0;
+    this.registryConfig = {
+      type: "gcp",
+      serviceAccountJson: readGCPServiceAccountJSON(
+        this.fileContextPath.toString(),
+        credentials.serviceAccountJSON
+      )
+    };
+    if (this.forceNextLayer) {
+      this.force = true;
+    }
+    this.collectStackTrace();
+    return this;
+  }
+  copy(src, dest, options) {
+    var _a3;
+    if (runtime === "browser") {
+      throw new Error("Browser runtime is not supported for copy");
+    }
+    const srcs = Array.isArray(src) ? src : [src];
+    for (const src2 of srcs) {
+      const args = [
+        src2.toString(),
+        dest.toString(),
+        (_a3 = options == null ? void 0 : options.user) != null ? _a3 : "",
+        (options == null ? void 0 : options.mode) ? padOctal(options.mode) : ""
+      ];
+      this.instructions.push({
+        type: "COPY" /* COPY */,
+        args,
+        force: (options == null ? void 0 : options.forceUpload) || this.forceNextLayer,
+        forceUpload: options == null ? void 0 : options.forceUpload,
+        resolveSymlinks: options == null ? void 0 : options.resolveSymlinks
+      });
+    }
+    this.collectStackTrace();
+    return this;
+  }
+  copyItems(items) {
+    if (runtime === "browser") {
+      throw new Error("Browser runtime is not supported for copyItems");
+    }
+    this.runInNewStackTraceContext(() => {
+      for (const item of items) {
+        this.copy(item.src, item.dest, {
+          forceUpload: item.forceUpload,
+          user: item.user,
+          mode: item.mode,
+          resolveSymlinks: item.resolveSymlinks
+        });
+      }
+    });
+    return this;
+  }
+  remove(path2, options) {
+    const paths2 = Array.isArray(path2) ? path2 : [path2];
+    const args = ["rm"];
+    if (options == null ? void 0 : options.recursive) {
+      args.push("-r");
+    }
+    if (options == null ? void 0 : options.force) {
+      args.push("-f");
+    }
+    args.push(...paths2.map((p) => p.toString()));
+    return this.runInNewStackTraceContext(
+      () => this.runCmd(args.join(" "), { user: options == null ? void 0 : options.user })
+    );
+  }
+  rename(src, dest, options) {
+    const args = ["mv", src.toString(), dest.toString()];
+    if (options == null ? void 0 : options.force) {
+      args.push("-f");
+    }
+    return this.runInNewStackTraceContext(
+      () => this.runCmd(args.join(" "), { user: options == null ? void 0 : options.user })
+    );
+  }
+  makeDir(path2, options) {
+    const paths2 = Array.isArray(path2) ? path2 : [path2];
+    const args = ["mkdir", "-p"];
+    if (options == null ? void 0 : options.mode) {
+      args.push(`-m ${padOctal(options.mode)}`);
+    }
+    args.push(...paths2.map((p) => p.toString()));
+    return this.runInNewStackTraceContext(
+      () => this.runCmd(args.join(" "), { user: options == null ? void 0 : options.user })
+    );
+  }
+  makeSymlink(src, dest, options) {
+    const args = ["ln", "-s"];
+    if (options == null ? void 0 : options.force) {
+      args.push("-f");
+    }
+    args.push(src.toString(), dest.toString());
+    return this.runInNewStackTraceContext(
+      () => this.runCmd(args.join(" "), { user: options == null ? void 0 : options.user })
+    );
+  }
+  runCmd(commandOrCommands, options) {
+    const cmds = Array.isArray(commandOrCommands) ? commandOrCommands : [commandOrCommands];
+    const args = [cmds.join(" && ")];
+    if (options == null ? void 0 : options.user) {
+      args.push(options.user);
+    }
+    this.instructions.push({
+      type: "RUN" /* RUN */,
+      args,
+      force: this.forceNextLayer
+    });
+    this.collectStackTrace();
+    return this;
+  }
+  setWorkdir(workdir) {
+    this.instructions.push({
+      type: "WORKDIR" /* WORKDIR */,
+      args: [workdir.toString()],
+      force: this.forceNextLayer
+    });
+    this.collectStackTrace();
+    return this;
+  }
+  setUser(user) {
+    this.instructions.push({
+      type: "USER" /* USER */,
+      args: [user],
+      force: this.forceNextLayer
+    });
+    this.collectStackTrace();
+    return this;
+  }
+  pipInstall(packages, options) {
+    var _a3;
+    const g = (_a3 = options == null ? void 0 : options.g) != null ? _a3 : true;
+    const args = ["pip", "install"];
+    const packageList = packages ? Array.isArray(packages) ? packages : [packages] : void 0;
+    if (g === false) {
+      args.push("--user");
+    }
+    if (packageList) {
+      args.push(...packageList);
+    } else {
+      args.push(".");
+    }
+    return this.runInNewStackTraceContext(
+      () => this.runCmd(args.join(" "), {
+        user: g ? "root" : void 0
+      })
+    );
+  }
+  npmInstall(packages, options) {
+    const args = ["npm", "install"];
+    const packageList = packages ? Array.isArray(packages) ? packages : [packages] : void 0;
+    if (options == null ? void 0 : options.g) {
+      args.push("-g");
+    }
+    if (options == null ? void 0 : options.dev) {
+      args.push("--save-dev");
+    }
+    if (packageList) {
+      args.push(...packageList);
+    }
+    return this.runInNewStackTraceContext(
+      () => this.runCmd(args.join(" "), {
+        user: (options == null ? void 0 : options.g) ? "root" : void 0
+      })
+    );
+  }
+  bunInstall(packages, options) {
+    const args = ["bun", "install"];
+    const packageList = packages ? Array.isArray(packages) ? packages : [packages] : void 0;
+    if (options == null ? void 0 : options.g) {
+      args.push("-g");
+    }
+    if (options == null ? void 0 : options.dev) {
+      args.push("--dev");
+    }
+    if (packageList) {
+      args.push(...packageList);
+    }
+    return this.runInNewStackTraceContext(
+      () => this.runCmd(args.join(" "), {
+        user: (options == null ? void 0 : options.g) ? "root" : void 0
+      })
+    );
+  }
+  aptInstall(packages, options) {
+    const packageList = Array.isArray(packages) ? packages : [packages];
+    return this.runInNewStackTraceContext(
+      () => this.runCmd(
+        [
+          "apt-get update",
+          `DEBIAN_FRONTEND=noninteractive DEBCONF_NOWARNINGS=yes apt-get install -y ${(options == null ? void 0 : options.noInstallRecommends) ? "--no-install-recommends " : ""}${packageList.join(
+            " "
+          )}`
+        ],
+        { user: "root" }
+      )
+    );
+  }
+  addMcpServer(servers) {
+    if (this.baseTemplate !== "mcp-gateway") {
+      throw new BuildError(
+        "MCP servers can only be added to mcp-gateway template",
+        getCallerFrame(STACK_TRACE_DEPTH - 1)
+      );
+    }
+    const serverList = Array.isArray(servers) ? servers : [servers];
+    return this.runInNewStackTraceContext(
+      () => this.runCmd(`mcp-gateway pull ${serverList.join(" ")}`, {
+        user: "root"
+      })
+    );
+  }
+  gitClone(url, path2, options) {
+    const args = ["git", "clone", url];
+    if (options == null ? void 0 : options.branch) {
+      args.push(`--branch ${options.branch}`);
+      args.push("--single-branch");
+    }
+    if (options == null ? void 0 : options.depth) {
+      args.push(`--depth ${options.depth}`);
+    }
+    if (path2) {
+      args.push(path2.toString());
+    }
+    return this.runInNewStackTraceContext(
+      () => this.runCmd(args.join(" "), { user: options == null ? void 0 : options.user })
+    );
+  }
+  setStartCmd(startCommand, readyCommand) {
+    this.startCmd = startCommand;
+    if (readyCommand instanceof ReadyCmd) {
+      this.readyCmd = readyCommand.getCmd();
+    } else {
+      this.readyCmd = readyCommand;
+    }
+    this.collectStackTrace();
+    return this;
+  }
+  setReadyCmd(readyCommand) {
+    if (readyCommand instanceof ReadyCmd) {
+      this.readyCmd = readyCommand.getCmd();
+    } else {
+      this.readyCmd = readyCommand;
+    }
+    this.collectStackTrace();
+    return this;
+  }
+  setEnvs(envs) {
+    if (Object.keys(envs).length === 0) {
+      return this;
+    }
+    this.instructions.push({
+      type: "ENV" /* ENV */,
+      args: Object.entries(envs).flatMap(([key, value]) => [key, value]),
+      force: this.forceNextLayer
+    });
+    this.collectStackTrace();
+    return this;
+  }
+  skipCache() {
+    this.forceNextLayer = true;
+    return this;
+  }
+  betaDevContainerPrebuild(devcontainerDirectory) {
+    if (this.baseTemplate !== "devcontainer") {
+      throw new BuildError(
+        "Devcontainers can only used in the devcontainer template",
+        getCallerFrame(STACK_TRACE_DEPTH - 1)
+      );
+    }
+    return this.runInNewStackTraceContext(() => {
+      return this.runCmd(
+        `devcontainer build --workspace-folder ${devcontainerDirectory}`,
+        { user: "root" }
+      );
+    });
+  }
+  betaSetDevContainerStart(devcontainerDirectory) {
+    if (this.baseTemplate !== "devcontainer") {
+      throw new BuildError(
+        "Devcontainers can only used in the devcontainer template",
+        getCallerFrame(STACK_TRACE_DEPTH - 1)
+      );
+    }
+    return this.runInNewStackTraceContext(() => {
+      return this.setStartCmd(
+        `sudo devcontainer up --workspace-folder ${devcontainerDirectory} && sudo /prepare-exec.sh ${devcontainerDirectory} | sudo tee /devcontainer.sh > /dev/null && sudo chmod +x /devcontainer.sh && sudo touch /devcontainer.up`,
+        waitForFile("/devcontainer.up")
+      );
+    });
+  }
+  /**
+   * Collect the current stack trace for debugging purposes.
+   *
+   * @param stackTracesDepth Depth to traverse in the call stack
+   * @returns this for method chaining
+   */
+  collectStackTrace(stackTracesDepth = STACK_TRACE_DEPTH) {
+    if (!this.stackTracesEnabled) {
+      return this;
+    }
+    if (this.stackTracesOverride) {
+      this.stackTraces.push(this.stackTracesOverride);
+      return this;
+    }
+    this.stackTraces.push(getCallerFrame(stackTracesDepth));
+    return this;
+  }
+  /**
+   * Temporarily disable stack trace collection.
+   *
+   * @returns this for method chaining
+   */
+  disableStackTrace() {
+    this.stackTracesEnabled = false;
+    return this;
+  }
+  /**
+   * Re-enable stack trace collection.
+   *
+   * @returns this for method chaining
+   */
+  enableStackTrace() {
+    this.stackTracesEnabled = true;
+    return this;
+  }
+  /**
+   * Execute a function in a clean stack trace context.
+   *
+   * @param fn Function to execute
+   * @returns The result of the function
+   */
+  runInNewStackTraceContext(fn) {
+    this.disableStackTrace();
+    const result = fn();
+    this.enableStackTrace();
+    this.collectStackTrace(STACK_TRACE_DEPTH + 1);
+    return result;
+  }
+  runInStackTraceOverrideContext(fn, stackTraceOverride) {
+    this.stackTracesOverride = stackTraceOverride;
+    const result = fn();
+    this.stackTracesOverride = void 0;
+    return result;
+  }
+  /**
+   * Convert the template to JSON representation.
+   *
+   * @param computeHashes Whether to compute file hashes for COPY instructions
+   * @returns JSON string representation of the template
+   */
+  async toJSON(computeHashes) {
+    let instructions = this.instructions;
+    if (computeHashes) {
+      instructions = await this.instructionsWithHashes();
+    }
+    return JSON.stringify(this.serialize(instructions), void 0, 2);
+  }
+  /**
+   * Convert the template to Dockerfile format.
+   *
+   * Note: Only templates based on Docker images can be converted to Dockerfile.
+   * Templates based on other E2B templates cannot be converted because they
+   * may use features not available in standard Dockerfiles.
+   *
+   * @returns Dockerfile string representation
+   * @throws Error if template is based on another E2B template or has no base image
+   */
+  toDockerfile() {
+    if (this.baseTemplate !== void 0) {
+      throw new Error(
+        "Cannot convert template built from another template to Dockerfile. Templates based on other templates can only be built using the E2B API."
+      );
+    }
+    if (this.baseImage === void 0) {
+      throw new Error("No base image specified for template");
+    }
+    let dockerfile = `FROM ${this.baseImage}
+`;
+    for (const instruction of this.instructions) {
+      if (instruction.type === "RUN" /* RUN */) {
+        dockerfile += `RUN ${instruction.args[0]}
+`;
+        continue;
+      }
+      if (instruction.type === "COPY" /* COPY */) {
+        dockerfile += `COPY ${instruction.args[0]} ${instruction.args[1]}
+`;
+        continue;
+      }
+      if (instruction.type === "ENV" /* ENV */) {
+        const values = [];
+        for (let i = 0; i < instruction.args.length; i += 2) {
+          values.push(`${instruction.args[i]}=${instruction.args[i + 1]}`);
+        }
+        dockerfile += `ENV ${values.join(" ")}
+`;
+        continue;
+      }
+      dockerfile += `${instruction.type} ${instruction.args.join(" ")}
+`;
+    }
+    if (this.startCmd) {
+      dockerfile += `ENTRYPOINT ${this.startCmd}
+`;
+    }
+    return dockerfile;
+  }
+  /**
+   * Internal implementation of the template build process.
+   *
+   * @param client API client for communicating with E2B backend
+   * @param options Build configuration options
+   * @throws BuildError if the build fails
+   */
+  async build(client, options) {
+    var _a3, _b, _c, _d, _e, _f;
+    if (options.skipCache) {
+      this.force = true;
+    }
+    (_a3 = options.onBuildLogs) == null ? void 0 : _a3.call(
+      options,
+      new LogEntry(
+        /* @__PURE__ */ new Date(),
+        "info",
+        `Requesting build for template: ${options.alias}`
+      )
+    );
+    const { templateID, buildID } = await requestBuild(client, {
+      alias: options.alias,
+      cpuCount: (_b = options.cpuCount) != null ? _b : 2,
+      memoryMB: (_c = options.memoryMB) != null ? _c : 1024
+    });
+    (_d = options.onBuildLogs) == null ? void 0 : _d.call(
+      options,
+      new LogEntry(
+        /* @__PURE__ */ new Date(),
+        "info",
+        `Template created with ID: ${templateID}, Build ID: ${buildID}`
+      )
+    );
+    const instructionsWithHashes = await this.instructionsWithHashes();
+    const uploadPromises = instructionsWithHashes.map(
+      async (instruction, index) => {
+        var _a4, _b2, _c2, _d2;
+        if (instruction.type !== "COPY" /* COPY */) {
+          return;
+        }
+        const src = instruction.args.length > 0 ? instruction.args[0] : null;
+        const filesHash = (_a4 = instruction.filesHash) != null ? _a4 : null;
+        if (src === null || filesHash === null) {
+          throw new Error("Source path and files hash are required");
+        }
+        const forceUpload = instruction.forceUpload;
+        let stackTrace = void 0;
+        if (index + 1 >= 0 && index + 1 < this.stackTraces.length) {
+          stackTrace = this.stackTraces[index + 1];
+        }
+        const { present, url } = await getFileUploadLink(
+          client,
+          {
+            templateID,
+            filesHash
+          },
+          stackTrace
+        );
+        if (forceUpload && url != null || present === false && url != null) {
+          await uploadFile(
+            {
+              fileName: src,
+              fileContextPath: this.fileContextPath.toString(),
+              url,
+              ignorePatterns: [
+                ...this.fileIgnorePatterns,
+                ...readDockerignore(this.fileContextPath.toString())
+              ],
+              resolveSymlinks: (_b2 = instruction.resolveSymlinks) != null ? _b2 : RESOLVE_SYMLINKS
+            },
+            stackTrace
+          );
+          (_c2 = options.onBuildLogs) == null ? void 0 : _c2.call(
+            options,
+            new LogEntry(/* @__PURE__ */ new Date(), "info", `Uploaded '${src}'`)
+          );
+        } else {
+          (_d2 = options.onBuildLogs) == null ? void 0 : _d2.call(
+            options,
+            new LogEntry(
+              /* @__PURE__ */ new Date(),
+              "info",
+              `Skipping upload of '${src}', already cached`
+            )
+          );
+        }
+      }
+    );
+    await Promise.all(uploadPromises);
+    (_e = options.onBuildLogs) == null ? void 0 : _e.call(
+      options,
+      new LogEntry(/* @__PURE__ */ new Date(), "info", "All file uploads completed")
+    );
+    (_f = options.onBuildLogs) == null ? void 0 : _f.call(
+      options,
+      new LogEntry(/* @__PURE__ */ new Date(), "info", "Starting building...")
+    );
+    await triggerBuild(client, {
+      templateID,
+      buildID,
+      template: this.serialize(instructionsWithHashes)
+    });
+    return {
+      alias: options.alias,
+      templateId: templateID,
+      buildId: buildID
+    };
+  }
+  /**
+   * Add file hashes to COPY instructions for cache invalidation.
+   *
+   * @returns Copy of instructions array with filesHash added to COPY instructions
+   */
+  async instructionsWithHashes() {
+    return Promise.all(
+      this.instructions.map(async (instruction, index) => {
+        var _a3;
+        if (instruction.type !== "COPY" /* COPY */) {
+          return instruction;
+        }
+        const src = instruction.args.length > 0 ? instruction.args[0] : null;
+        const dest = instruction.args.length > 1 ? instruction.args[1] : null;
+        if (src === null || dest === null) {
+          throw new Error("Source path and destination path are required");
+        }
+        let stackTrace = void 0;
+        if (index + 1 >= 0 && index + 1 < this.stackTraces.length) {
+          stackTrace = this.stackTraces[index + 1];
+        }
+        return __spreadProps(__spreadValues({}, instruction), {
+          filesHash: await calculateFilesHash(
+            src,
+            dest,
+            this.fileContextPath.toString(),
+            [
+              ...this.fileIgnorePatterns,
+              ...runtime === "browser" ? [] : readDockerignore(this.fileContextPath.toString())
+            ],
+            (_a3 = instruction.resolveSymlinks) != null ? _a3 : RESOLVE_SYMLINKS,
+            stackTrace
+          )
+        });
+      })
+    );
+  }
+  /**
+   * Serialize the template to the API request format.
+   *
+   * @param steps Array of build instructions with file hashes
+   * @returns Template data formatted for the API
+   */
+  serialize(steps) {
+    const templateData = {
+      startCmd: this.startCmd,
+      readyCmd: this.readyCmd,
+      steps,
+      force: this.force
+    };
+    if (this.baseImage !== void 0) {
+      templateData.fromImage = this.baseImage;
+    }
+    if (this.baseTemplate !== void 0) {
+      templateData.fromTemplate = this.baseTemplate;
+    }
+    if (this.registryConfig !== void 0) {
+      templateData.fromImageRegistry = this.registryConfig;
+    }
+    return templateData;
+  }
+};
+function Template(options) {
+  return new TemplateBase(options);
+}
+Template.build = TemplateBase.build;
+Template.buildInBackground = TemplateBase.buildInBackground;
+Template.getBuildStatus = TemplateBase.getBuildStatus;
+Template.toJSON = TemplateBase.toJSON;
+Template.toDockerfile = TemplateBase.toDockerfile;
+
+async function buildTemplates({ name, dockerTags, cpuCount, memoryMB }) {
+    // Map dockerTag -> alias (deduped by alias)
+    const tagToAlias = new Map();
+    for (const dockerTag of dockerTags) {
+        const alias = getAliasFromDockerTag(dockerTag);
+        // Only keep first occurrence of each alias
+        if (!Array.from(tagToAlias.values()).includes(alias)) {
+            tagToAlias.set(dockerTag, alias);
+        }
+    }
+    const entries = Array.from(tagToAlias.entries());
+    let buildInfos = [];
+    // We first build the first one, so that the follow up ones are cached
+    const [firstDockerTag, firstAlias] = entries[0];
+    const firstBuildInfo = await buildAlias({
+        dockerTag: firstDockerTag,
+        alias: firstAlias,
+        cpuCount,
+        memoryMB
+    });
+    buildInfos.push(firstBuildInfo);
+    // We then build the rest of the templates in parallel
+    const buildPromises = entries.slice(1).map(([dockerTag, alias]) => buildAlias({
+        dockerTag,
+        alias,
+        cpuCount,
+        memoryMB
+    }));
+    const otherBuildInfos = await Promise.all(buildPromises);
+    buildInfos.push(...otherBuildInfos);
+    const builtAliases = buildInfos.map((buildInfo) => buildInfo.alias);
+    // Log built aliases
+    coreExports.startGroup('Built sandbox aliases');
+    for (const alias of builtAliases) {
+        coreExports.info(alias);
+    }
+    coreExports.endGroup();
+    return builtAliases;
+}
+async function buildAlias({ dockerTag, alias, cpuCount, memoryMB }) {
+    coreExports.info(`Building alias: ${alias}`);
+    const template = Template()
+        .fromImage(dockerTag)
+        .skipCache()
+        .setEnvs({
+        FS_ROOT_PATH: '/home/user/app'
+    })
+        .setWorkdir('/home/user/app');
+    const buildInfo = await Template.build(template, {
+        alias,
+        cpuCount,
+        memoryMB,
+        onBuildLogs: defaultBuildLogger()
+    });
+    coreExports.info(`Built alias: ${buildInfo.alias}`);
+    return buildInfo;
+}
+function getAliasFromDockerTag(dockerTag) {
+    // The docker tag is: ghcr.io/imagine-projects/template-tanstack-start:pr-16
+    // The alias should be: template-tanstack-start-pr-16
+    // We get rid of everything before the last / and replace : with -
+    const lastSlashIndex = dockerTag.lastIndexOf('/');
+    if (lastSlashIndex === -1) {
+        throw new Error(`Invalid docker tag: ${dockerTag}`);
+    }
+    const alias = dockerTag.slice(lastSlashIndex + 1).replace(/:/g, '-');
+    return alias;
 }
 
 /**
@@ -27266,16 +38108,41 @@ async function wait(milliseconds) {
  * @returns Resolves when the action is complete.
  */
 async function run() {
+    const sandboxProviderApiKey = coreExports.getInput('sandboxProviderApiKey');
+    const name = coreExports.getInput('name');
+    const dockerTags = coreExports.getInput('dockerTags')
+        .split('\n')
+        .map((tag) => tag.trim())
+        .filter((tag) => tag.length > 0);
+    if (!sandboxProviderApiKey) {
+        coreExports.setFailed('sandboxProviderApiKey is required');
+        return;
+    }
+    // Set API key for sandbox provider
+    process.env.E2B_API_KEY = sandboxProviderApiKey;
+    if (!name) {
+        coreExports.setFailed('Name is required');
+        return;
+    }
+    if (!dockerTags.length) {
+        coreExports.setFailed('Docker tags are required');
+        return;
+    }
+    coreExports.debug(`Parsed ${dockerTags.length} docker tags: ${JSON.stringify(dockerTags)}`);
+    // Get CPU count and memory from inputs
+    const cpuCount = parseInt(coreExports.getInput('cpuCount'));
+    const memoryMB = parseInt(coreExports.getInput('memoryMB'));
     try {
-        const ms = coreExports.getInput('milliseconds');
         // Debug logs are only output if the `ACTIONS_STEP_DEBUG` secret is true
-        coreExports.debug(`Waiting ${ms} milliseconds ...`);
-        // Log the current timestamp, wait, then log the new timestamp
-        coreExports.debug(new Date().toTimeString());
-        await wait(parseInt(ms, 10));
-        coreExports.debug(new Date().toTimeString());
+        const result = await buildTemplates({
+            name,
+            dockerTags,
+            cpuCount,
+            memoryMB
+        });
+        coreExports.setOutput('aliases', result.join(','));
         // Set outputs for other workflow steps to use
-        coreExports.setOutput('time', new Date().toTimeString());
+        // core.setOutput('time', new Date().toTimeString())
     }
     catch (error) {
         // Fail the workflow run if an error occurs

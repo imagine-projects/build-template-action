@@ -1,6 +1,6 @@
-name: The name of your action here
-description: Provide a description here
-author: Your name or organization here
+name: Build Imagine Sandbox Template
+description: Builds the Imagine Sandbox template
+author: Ariel Weinberger
 
 # Add your action's branding here. This will appear on the GitHub Marketplace.
 branding:
@@ -9,15 +9,30 @@ branding:
 
 # Define your inputs here.
 inputs:
-  milliseconds:
-    description: Your input description here
+  sandboxProviderApiKey:
+    description: API key for the sandbox provider
     required: true
-    default: '1000'
+  name:
+    description: The name of the template to build
+    required: true
+  dockerTags:
+    description:
+      Docker metadata tags (newline-separated, from docker/metadata-action
+      output)
+    required: true
+  cpuCount:
+    description: The number of CPUs to use
+    required: false
+    default: '4'
+  memoryMB:
+    description: The amount of memory to use
+    required: false
+    default: '2048'
 
 # Define your outputs here.
 outputs:
-  time:
-    description: Your output description here
+  aliases:
+    description: The aliases of the built templates
 
 runs:
   using: node24
