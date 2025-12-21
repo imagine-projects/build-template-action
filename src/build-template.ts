@@ -2,12 +2,10 @@ import { BuildInfo, defaultBuildLogger, Template } from '@e2b/code-interpreter'
 import * as core from '@actions/core'
 
 export async function buildTemplates({
-  name,
   dockerTags,
   cpuCount,
   memoryMB
 }: {
-  name: string
   dockerTags: string[]
   cpuCount: number
   memoryMB: number
@@ -25,7 +23,7 @@ export async function buildTemplates({
 
   const entries = Array.from(tagToAlias.entries())
 
-  let buildInfos: BuildInfo[] = []
+  const buildInfos: BuildInfo[] = []
 
   // We first build the first one, so that the follow up ones are cached
   const [firstDockerTag, firstAlias] = entries[0]
