@@ -12,9 +12,6 @@ inputs:
   sandboxProviderApiKey:
     description: API key for the sandbox provider
     required: true
-  name:
-    description: The name of the template to build
-    required: true
   dockerTags:
     description:
       Docker metadata tags (newline-separated, from docker/metadata-action

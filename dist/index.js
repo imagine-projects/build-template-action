@@ -38033,7 +38033,7 @@ Template.getBuildStatus = TemplateBase.getBuildStatus;
 Template.toJSON = TemplateBase.toJSON;
 Template.toDockerfile = TemplateBase.toDockerfile;
 
-async function buildTemplates({ name, dockerTags, cpuCount, memoryMB }) {
+async function buildTemplates({ dockerTags, cpuCount, memoryMB }) {
     // Map dockerTag -> alias (deduped by alias)
     const tagToAlias = new Map();
     for (const dockerTag of dockerTags) {
@@ -38044,7 +38044,7 @@ async function buildTemplates({ name, dockerTags, cpuCount, memoryMB }) {
         }
     }
     const entries = Array.from(tagToAlias.entries());
-    let buildInfos = [];
+    const buildInfos = [];
     // We first build the first one, so that the follow up ones are cached
     const [firstDockerTag, firstAlias] = entries[0];
     const firstBuildInfo = await buildAlias({
@@ -38109,7 +38109,6 @@ function getAliasFromDockerTag(dockerTag) {
  */
 async function run() {
     const sandboxProviderApiKey = coreExports.getInput('sandboxProviderApiKey');
-    const name = coreExports.getInput('name');
     const dockerTags = coreExports.getInput('dockerTags')
         .split('\n')
         .map((tag) => tag.trim())
@@ -38120,10 +38119,6 @@ async function run() {
     }
     // Set API key for sandbox provider
     process.env.E2B_API_KEY = sandboxProviderApiKey;
-    if (!name) {
-        coreExports.setFailed('Name is required');
-        return;
-    }
     if (!dockerTags.length) {
         coreExports.setFailed('Docker tags are required');
         return;
@@ -38140,7 +38135,6 @@ async function run() {
     try {
         // Debug logs are only output if the `ACTIONS_STEP_DEBUG` secret is true
         const result = await buildTemplates({
-            name,
             dockerTags,
             cpuCount,
             memoryMB

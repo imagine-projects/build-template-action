@@ -29,7 +29,6 @@ describe('main.ts', () => {
   it('fails if sandboxProviderApiKey is not provided', async () => {
     core.getInput.mockImplementation((name: string) => {
       if (name === 'sandboxProviderApiKey') return ''
-      if (name === 'name') return 'test-template'
       if (name === 'dockerTags') return 'ghcr.io/org/image:tag'
       return ''
     })
@@ -41,23 +40,9 @@ describe('main.ts', () => {
     )
   })
 
-  it('fails if name is not provided', async () => {
-    core.getInput.mockImplementation((name: string) => {
-      if (name === 'sandboxProviderApiKey') return 'test-api-key'
-      if (name === 'name') return ''
-      if (name === 'dockerTags') return 'ghcr.io/org/image:tag'
-      return ''
-    })
-
-    await run()
-
-    expect(core.setFailed).toHaveBeenCalledWith('Name is required')
-  })
-
   it('fails if dockerTags is empty', async () => {
     core.getInput.mockImplementation((name: string) => {
       if (name === 'sandboxProviderApiKey') return 'test-api-key'
-      if (name === 'name') return 'test-template'
       if (name === 'dockerTags') return ''
       return ''
     })
@@ -72,7 +57,6 @@ describe('main.ts', () => {
 
     core.getInput.mockImplementation((name: string) => {
       if (name === 'sandboxProviderApiKey') return 'test-api-key'
-      if (name === 'name') return 'test-template'
       if (name === 'dockerTags') return dockerTag
       if (name === 'cpuCount') return '4'
       if (name === 'memoryMB') return '2048'
@@ -85,7 +69,6 @@ describe('main.ts', () => {
     await run()
 
     expect(mockBuildTemplates).toHaveBeenCalledWith({
-      name: 'test-template',
       dockerTags: [dockerTag],
       cpuCount: 4,
       memoryMB: 2048
@@ -101,7 +84,6 @@ describe('main.ts', () => {
   it('handles buildTemplates error', async () => {
     core.getInput.mockImplementation((name: string) => {
       if (name === 'sandboxProviderApiKey') return 'test-api-key'
-      if (name === 'name') return 'test-template'
       if (name === 'dockerTags') return 'ghcr.io/org/image:tag'
       if (name === 'cpuCount') return '4'
       if (name === 'memoryMB') return '2048'

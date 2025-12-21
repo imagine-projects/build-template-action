@@ -8,7 +8,6 @@ import { buildTemplates } from './build-template.js'
  */
 export async function run(): Promise<void> {
   const sandboxProviderApiKey = core.getInput('sandboxProviderApiKey')
-  const name = core.getInput('name')
   const dockerTags = core
     .getInput('dockerTags')
     .split('\n')
@@ -22,11 +21,6 @@ export async function run(): Promise<void> {
 
   // Set API key for sandbox provider
   process.env.E2B_API_KEY = sandboxProviderApiKey
-
-  if (!name) {
-    core.setFailed('Name is required')
-    return
-  }
 
   if (!dockerTags.length) {
     core.setFailed('Docker tags are required')
@@ -50,7 +44,6 @@ export async function run(): Promise<void> {
   try {
     // Debug logs are only output if the `ACTIONS_STEP_DEBUG` secret is true
     const result = await buildTemplates({
-      name,
       dockerTags,
       cpuCount,
       memoryMB
