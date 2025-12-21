@@ -38128,7 +38128,12 @@ async function run() {
         coreExports.setFailed('Docker tags are required');
         return;
     }
-    coreExports.debug(`Parsed ${dockerTags.length} docker tags: ${JSON.stringify(dockerTags)}`);
+    coreExports.info(`Parsed ${dockerTags.length} docker tags: ${JSON.stringify(dockerTags)}`);
+    coreExports.startGroup('Docker tags');
+    for (const dockerTag of dockerTags) {
+        coreExports.info(dockerTag);
+    }
+    coreExports.endGroup();
     // Get CPU count and memory from inputs
     const cpuCount = parseInt(coreExports.getInput('cpuCount'));
     const memoryMB = parseInt(coreExports.getInput('memoryMB'));

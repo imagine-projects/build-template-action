@@ -74,7 +74,7 @@ async function buildAlias({
 }) {
   core.info(`Building alias: ${alias}`)
   const template = Template()
-  .fromImage(dockerTag)
+    .fromImage(dockerTag)
     .skipCache()
     .setEnvs({
       FS_ROOT_PATH: '/home/user/app'
