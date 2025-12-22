@@ -38238,10 +38238,8 @@ async function buildAlias({ dockerTag, alias, cpuCount, memoryMB }) {
     const template = Template()
         .fromImage(dockerTag)
         .skipCache()
-        .setEnvs({
-        FS_ROOT_PATH: '/home/user/app'
-    })
-        .setWorkdir('/home/user/app');
+        .setWorkdir('/home/user/app')
+        .setStartCmd('/bin/sh', waitForFile('/home/user/app/package.json'));
     const buildInfo = await Template.build(template, {
         alias,
         cpuCount,

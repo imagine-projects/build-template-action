@@ -1,4 +1,9 @@
-import { BuildInfo, defaultBuildLogger, Template, waitForFile } from '@e2b/code-interpreter'
+import {
+  BuildInfo,
+  defaultBuildLogger,
+  Template,
+  waitForFile
+} from '@e2b/code-interpreter'
 import * as core from '@actions/core'
 
 export async function buildTemplates({
@@ -75,7 +80,7 @@ async function buildAlias({
     .fromImage(dockerTag)
     .skipCache()
     .setWorkdir('/home/user/app')
-    .setStartCmd("/bin/sh", waitForFile("/home/user/app/package.json"))
+    .setStartCmd('/bin/sh', waitForFile('/home/user/app/package.json'))
 
   const buildInfo = await Template.build(template, {
     alias,
