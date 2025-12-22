@@ -93,6 +93,7 @@ async function buildAlias({
   })
     .skipCache()
     .fromImage(dockerTag)
+    .setWorkdir('/home/user/app')
     .setStartCmd('sleep infinity', waitForFile('/home/user/app/package.json'))
 
   const buildInfo = await Template.build(template, {
