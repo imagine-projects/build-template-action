@@ -6,7 +6,6 @@ import {
 } from '@e2b/code-interpreter'
 import * as core from '@actions/core'
 import * as fs from 'fs'
-import * as path from 'path'
 
 export async function buildTemplates({
   dockerTags,
@@ -17,6 +16,11 @@ export async function buildTemplates({
   cpuCount: number
   memoryMB: number
 }): Promise<string[]> {
+  // Change to workspace directory so E2B can find files (Dockerfile, package.json, etc.)
+  const workspace = process.env.GITHUB_WORKSPACE || process.cwd()
+  process.chdir(workspace)
+  core.info(`Working directory: ${workspace}`)
+
   // Map dockerTag -> alias (deduped by alias)
   const tagToAlias = new Map<string, string>()
 
@@ -75,11 +79,7 @@ async function buildAlias({
 }) {
   core.info(`Building alias: ${alias}`)
 
-  const workspace = process.env.GITHUB_WORKSPACE || process.cwd()
-  const dockerfile = fs.readFileSync(
-    path.join(workspace, 'Dockerfile'),
-    'utf-8'
-  )
+  const dockerfile = fs.readFileSync('Dockerfile', 'utf-8')
 
   core.info(`Dockerfile contents: ${dockerfile}`)
 
