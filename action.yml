@@ -2,20 +2,16 @@ name: Build Imagine Sandbox Template
 description: Builds the Imagine Sandbox template
 author: Ariel Weinberger
 
-# Add your action's branding here. This will appear on the GitHub Marketplace.
 branding:
   icon: heart
   color: red
 
-# Define your inputs here.
 inputs:
   sandboxProviderApiKey:
     description: API key for the sandbox provider
     required: true
   dockerTags:
-    description:
-      Docker metadata tags (newline-separated, from docker/metadata-action
-      output)
+    description: Docker metadata tags (newline-separated, from docker/metadata-action output)
     required: true
   cpuCount:
     description: The number of CPUs to use
@@ -26,11 +22,31 @@ inputs:
     required: false
     default: '2048'
 
-# Define your outputs here.
 outputs:
   aliases:
     description: The aliases of the built templates
+    value: ${{ steps.build.outputs.aliases }}
 
 runs:
-  using: node24
-  main: dist/index.js
+  using: composite
+  steps:
+    - name: Setup Bun
+      uses: oven-sh/setup-bun@v2
+      with:
+        bun-version: '1.3.1'
+
+    - name: Install dependencies
+      shell: bash
+      working-directory: ${{ github.action_path }}
+      run: bun install --frozen-lockfile
+
+    - name: Build templates
+      id: build
+      shell: bash
+      working-directory: ${{ github.action_path }}
+      env:
+        INPUT_SANDBOXPROVIDERAPIKEY: ${{ inputs.sandboxProviderApiKey }}
+        INPUT_DOCKERTAGS: ${{ inputs.dockerTags }}
+        INPUT_CPUCOUNT: ${{ inputs.cpuCount }}
+        INPUT_MEMORYMB: ${{ inputs.memoryMB }}
+      run: bun run src/index.ts
