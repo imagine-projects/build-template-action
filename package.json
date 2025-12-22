@@ -3,7 +3,6 @@
   "description": "GitHub Actions TypeScript template",
   "version": "0.0.0",
   "author": "",
-  "type": "module",
   "private": true,
   "homepage": "https://github.com/actions/typescript-action",
   "repository": {
@@ -17,23 +16,22 @@
     "actions"
   ],
   "exports": {
-    ".": "./dist/index.cjs"
+    ".": "./dist/index.js"
   },
   "engines": {
     "node": ">=24.0.0"
   },
   "scripts": {
     "bundle": "npm run format:write && npm run package",
-    "test:build": "node --env-file=.env dist/index.cjs",
-    "ci-test": "NODE_OPTIONS=--experimental-vm-modules NODE_NO_WARNINGS=1 npx jest",
+    "test:build": "node --env-file=.env dist/index.js",
+    "ci-test": "npx jest",
     "coverage": "npx make-coverage-badge --output-path ./badges/coverage.svg",
     "format:write": "npx prettier --write .",
     "format:check": "npx prettier --check .",
     "lint": "npx eslint .",
     "local-action": "npx @github/local-action . src/main.ts .env",
-    "package": "npx rimraf ./dist && npx rollup --config rollup.config.ts --configPlugin @rollup/plugin-typescript",
-    "package:watch": "npm run package -- --watch",
-    "test": "NODE_OPTIONS=--experimental-vm-modules NODE_NO_WARNINGS=1 npx jest",
+    "package": "npx ncc build src/index.ts -o dist --source-map --license licenses.txt",
+    "test": "npx jest",
     "all": "npm run format:write && npm run lint && npm run test && npm run coverage && npm run package"
   },
   "license": "MIT",
