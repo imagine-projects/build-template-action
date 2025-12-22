@@ -37,22 +37,24 @@ export async function buildTemplates({
   const buildInfos: BuildInfo[] = []
 
   // We first build the first one, so that the follow up ones are cached
-  const [, firstAlias] = entries[0]
+  const [firstDockerTag, firstAlias] = entries[0]
   const firstBuildInfo = await buildAlias({
     alias: firstAlias,
     cpuCount,
     memoryMB,
-    workspacePath: workspace
+    workspacePath: workspace,
+    dockerTag: firstDockerTag
   })
   buildInfos.push(firstBuildInfo)
 
   // We then build the rest of the templates in parallel
-  const buildPromises = entries.slice(1).map(([, alias]) =>
+  const buildPromises = entries.slice(1).map(([dockerTag, alias]) =>
     buildAlias({
       alias,
       cpuCount,
       memoryMB,
-      workspacePath: workspace
+      workspacePath: workspace,
+      dockerTag
     })
   )
   const otherBuildInfos = await Promise.all(buildPromises)
@@ -74,12 +76,14 @@ async function buildAlias({
   alias,
   cpuCount,
   memoryMB,
-  workspacePath
+  workspacePath,
+  dockerTag
 }: {
   alias: string
   cpuCount: number
   memoryMB: number
   workspacePath: string
+  dockerTag: string
 }) {
   core.info(`Building alias: ${alias}`)
 
@@ -92,7 +96,7 @@ async function buildAlias({
   const template = Template({
     fileContextPath: workspacePath
   })
-    .fromDockerfile(dockerfilePath)
+    .fromImage(dockerTag)
     .setStartCmd('sleep infinity', waitForTimeout(5000))
 
   const buildInfo = await Template.build(template, {
