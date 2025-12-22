@@ -36,6 +36,26 @@ var crypto2 = require('node:crypto');
 var fs = require('node:fs');
 var path = require('node:path');
 
+function _interopNamespaceDefault(e) {
+	var n = Object.create(null);
+	if (e) {
+		Object.keys(e).forEach(function (k) {
+			if (k !== 'default') {
+				var d = Object.getOwnPropertyDescriptor(e, k);
+				Object.defineProperty(n, k, d.get ? d : {
+					enumerable: true,
+					get: function () { return e[k]; }
+				});
+			}
+		});
+	}
+	n.default = e;
+	return Object.freeze(n);
+}
+
+var require$$1__namespace = /*#__PURE__*/_interopNamespaceDefault(require$$1);
+var require$$1__namespace$1 = /*#__PURE__*/_interopNamespaceDefault(require$$1$5);
+
 var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
 
 function getDefaultExportFromCjs (x) {
@@ -38207,9 +38227,8 @@ async function buildTemplates({ dockerTags, cpuCount, memoryMB }) {
     const entries = Array.from(tagToAlias.entries());
     const buildInfos = [];
     // We first build the first one, so that the follow up ones are cached
-    const [firstDockerTag, firstAlias] = entries[0];
+    const [, firstAlias] = entries[0];
     const firstBuildInfo = await buildAlias({
-        dockerTag: firstDockerTag,
         alias: firstAlias,
         cpuCount,
         memoryMB
@@ -38217,7 +38236,6 @@ async function buildTemplates({ dockerTags, cpuCount, memoryMB }) {
     buildInfos.push(firstBuildInfo);
     // We then build the rest of the templates in parallel
     const buildPromises = entries.slice(1).map(([dockerTag, alias]) => buildAlias({
-        dockerTag,
         alias,
         cpuCount,
         memoryMB
@@ -38233,12 +38251,12 @@ async function buildTemplates({ dockerTags, cpuCount, memoryMB }) {
     coreExports.endGroup();
     return builtAliases;
 }
-async function buildAlias({ dockerTag, alias, cpuCount, memoryMB }) {
+async function buildAlias({ alias, cpuCount, memoryMB }) {
     coreExports.info(`Building alias: ${alias}`);
+    const workspace = process.env.GITHUB_WORKSPACE || process.cwd();
+    const dockerfile = require$$1__namespace.readFileSync(require$$1__namespace$1.join(workspace, 'Dockerfile'), 'utf-8');
     const template = Template()
-        .fromImage(dockerTag)
-        .skipCache()
-        .setWorkdir('/home/user/app')
+        .fromDockerfile(dockerfile)
         .setStartCmd('/bin/sh', waitForFile('/home/user/app/package.json'));
     const buildInfo = await Template.build(template, {
         alias,

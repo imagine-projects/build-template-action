@@ -5,6 +5,8 @@ import {
   waitForFile
 } from '@e2b/code-interpreter'
 import * as core from '@actions/core'
+import * as fs from 'fs'
+import * as path from 'path'
 
 export async function buildTemplates({
   dockerTags,
@@ -31,9 +33,8 @@ export async function buildTemplates({
   const buildInfos: BuildInfo[] = []
 
   // We first build the first one, so that the follow up ones are cached
-  const [firstDockerTag, firstAlias] = entries[0]
+  const [, firstAlias] = entries[0]
   const firstBuildInfo = await buildAlias({
-    dockerTag: firstDockerTag,
     alias: firstAlias,
     cpuCount,
     memoryMB
@@ -43,7 +44,6 @@ export async function buildTemplates({
   // We then build the rest of the templates in parallel
   const buildPromises = entries.slice(1).map(([dockerTag, alias]) =>
     buildAlias({
-      dockerTag,
       alias,
       cpuCount,
       memoryMB
@@ -65,21 +65,24 @@ export async function buildTemplates({
 }
 
 async function buildAlias({
-  dockerTag,
   alias,
   cpuCount,
   memoryMB
 }: {
-  dockerTag: string
   alias: string
   cpuCount: number
   memoryMB: number
 }) {
   core.info(`Building alias: ${alias}`)
+
+  const workspace = process.env.GITHUB_WORKSPACE || process.cwd()
+  const dockerfile = fs.readFileSync(
+    path.join(workspace, 'Dockerfile'),
+    'utf-8'
+  )
+
   const template = Template()
-    .fromImage(dockerTag)
-    .skipCache()
-    .setWorkdir('/home/user/app')
+    .fromDockerfile(dockerfile)
     .setStartCmd('/bin/sh', waitForFile('/home/user/app/package.json'))
 
   const buildInfo = await Template.build(template, {
