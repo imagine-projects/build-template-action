@@ -37,7 +37,8 @@
   "license": "MIT",
   "dependencies": {
     "@actions/core": "^1.11.1",
-    "@e2b/code-interpreter": "^2.3.3"
+    "@e2b/code-interpreter": "^2.3.3",
+    "glob": "^13.0.0"
   },
   "devDependencies": {
     "@eslint/compat": "^1.4.0",
