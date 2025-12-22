@@ -83,7 +83,7 @@ async function buildAlias({
 
   const template = Template()
     .fromDockerfile(dockerfile)
-    .setStartCmd('/bin/sh', waitForFile('/home/user/app/package.json'))
+    .setStartCmd('sleep infinity', waitForFile('/home/user/app/package.json'))
 
   const buildInfo = await Template.build(template, {
     alias,

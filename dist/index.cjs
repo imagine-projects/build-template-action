@@ -38257,7 +38257,7 @@ async function buildAlias({ alias, cpuCount, memoryMB }) {
     const dockerfile = require$$1__namespace.readFileSync(require$$1__namespace$1.join(workspace, 'Dockerfile'), 'utf-8');
     const template = Template()
         .fromDockerfile(dockerfile)
-        .setStartCmd('/bin/sh', waitForFile('/home/user/app/package.json'));
+        .setStartCmd('sleep infinity', waitForFile('/home/user/app/package.json'));
     const buildInfo = await Template.build(template, {
         alias,
         cpuCount,
