@@ -30,7 +30,7 @@
     "format:check": "npx prettier --check .",
     "lint": "npx eslint .",
     "local-action": "npx @github/local-action . src/main.ts .env",
-    "package": "npx ncc build src/index.ts -o dist --source-map --license licenses.txt",
+    "package": "npx esbuild src/index.ts --bundle --platform=node --target=node24 --outfile=dist/index.js --sourcemap",
     "test": "npx jest",
     "all": "npm run format:write && npm run lint && npm run test && npm run coverage && npm run package"
   },
@@ -52,6 +52,7 @@
     "@types/node": "^24.10.1",
     "@typescript-eslint/eslint-plugin": "^8.48.1",
     "@typescript-eslint/parser": "^8.32.1",
+    "esbuild": "^0.27.2",
     "eslint": "^9.39.1",
     "eslint-config-prettier": "^10.1.8",
     "eslint-import-resolver-typescript": "^4.4.4",
