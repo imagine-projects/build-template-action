@@ -43,7 +43,7 @@ it is generated from.
 Install dependencies by running:
 
 ```bash
-npm install
+bun install
 ```
 
 ## Testing

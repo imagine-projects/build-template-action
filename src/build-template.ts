@@ -2,11 +2,10 @@ import {
   BuildInfo,
   defaultBuildLogger,
   Template,
-  waitForFile
+  waitForTimeout
 } from '@e2b/code-interpreter'
 import * as core from '@actions/core'
 import * as fs from 'fs'
-import * as path from 'path'
 
 export async function buildTemplates({
   dockerTags,
@@ -17,6 +16,11 @@ export async function buildTemplates({
   cpuCount: number
   memoryMB: number
 }): Promise<string[]> {
+  // Change to workspace directory so E2B can find files (Dockerfile, package.json, etc.)
+  const workspace = process.env.GITHUB_WORKSPACE || process.cwd()
+  process.chdir(workspace)
+  core.info(`Working directory: ${workspace}`)
+
   // Map dockerTag -> alias (deduped by alias)
   const tagToAlias = new Map<string, string>()
 
@@ -33,11 +37,13 @@ export async function buildTemplates({
   const buildInfos: BuildInfo[] = []
 
   // We first build the first one, so that the follow up ones are cached
-  const [, firstAlias] = entries[0]
+  const [firstDockerTag, firstAlias] = entries[0]
   const firstBuildInfo = await buildAlias({
     alias: firstAlias,
     cpuCount,
-    memoryMB
+    memoryMB,
+    workspacePath: workspace,
+    dockerTag: firstDockerTag
   })
   buildInfos.push(firstBuildInfo)
 
@@ -46,7 +52,9 @@ export async function buildTemplates({
     buildAlias({
       alias,
       cpuCount,
-      memoryMB
+      memoryMB,
+      workspacePath: workspace,
+      dockerTag
     })
   )
   const otherBuildInfos = await Promise.all(buildPromises)
@@ -67,23 +75,23 @@ export async function buildTemplates({
 async function buildAlias({
   alias,
   cpuCount,
-  memoryMB
+  memoryMB,
+  workspacePath,
+  dockerTag
 }: {
   alias: string
   cpuCount: number
   memoryMB: number
+  workspacePath: string
+  dockerTag: string
 }) {
   core.info(`Building alias: ${alias}`)
 
-  const workspace = process.env.GITHUB_WORKSPACE || process.cwd()
-  const dockerfile = fs.readFileSync(
-    path.join(workspace, 'Dockerfile'),
-    'utf-8'
-  )
-
-  const template = Template()
-    .fromDockerfile(dockerfile)
-    .setStartCmd('sleep infinity', waitForFile('/home/user/app/package.json'))
+  const template = Template({
+    fileContextPath: workspacePath
+  })
+    .fromImage(dockerTag)
+    .setStartCmd('sleep infinity', waitForTimeout(5000))
 
   const buildInfo = await Template.build(template, {
     alias,

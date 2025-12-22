@@ -50,19 +50,13 @@ need to perform some initial setup steps before you can develop your action.
 1. :hammer_and_wrench: Install the dependencies
 
    ```bash
-   npm install
-   ```
-
-1. :building_construction: Package the TypeScript for distribution
-
-   ```bash
-   npm run bundle
+   bun install
    ```
 
 1. :white_check_mark: Run the tests
 
    ```bash
-   $ npm test
+   $ bun test
 
    PASS  ./index.test.js
      ✓ throws invalid number (3ms)
@@ -121,7 +115,7 @@ So, what are you waiting for? Go ahead and start customizing your action!
 1. Format, test, and build the action
 
    ```bash
-   npm run all
+   bun run all
    ```
 
    > This step is important! It will run [`rollup`](https://rollupjs.org/) to
