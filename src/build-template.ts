@@ -2,6 +2,7 @@ import {
   BuildInfo,
   defaultBuildLogger,
   Template,
+  waitForFile,
   waitForTimeout
 } from '@e2b/code-interpreter'
 import * as core from '@actions/core'
@@ -90,8 +91,9 @@ async function buildAlias({
   const template = Template({
     fileContextPath: workspacePath
   })
+    .skipCache()
     .fromImage(dockerTag)
-    .setStartCmd('sleep infinity', waitForTimeout(5000))
+    .setStartCmd('sleep infinity', waitForFile('/home/user/app/package.json'))
 
   const buildInfo = await Template.build(template, {
     alias,
