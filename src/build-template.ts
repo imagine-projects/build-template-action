@@ -2,7 +2,7 @@ import {
   BuildInfo,
   defaultBuildLogger,
   Template,
-  waitForFile
+  waitForTimeout
 } from '@e2b/code-interpreter'
 import * as core from '@actions/core'
 import * as fs from 'fs'
@@ -85,7 +85,7 @@ async function buildAlias({
 
   const template = Template()
     .fromDockerfile(dockerfile)
-    .setStartCmd('sleep infinity', waitForFile('/home/user/app/package.json'))
+    .setStartCmd('sleep infinity', waitForTimeout(5000))
 
   const buildInfo = await Template.build(template, {
     alias,
