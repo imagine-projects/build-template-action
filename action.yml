@@ -43,10 +43,9 @@ runs:
     - name: Build templates
       id: build
       shell: bash
-      working-directory: ${{ github.action_path }}
       env:
         INPUT_SANDBOXPROVIDERAPIKEY: ${{ inputs.sandboxProviderApiKey }}
         INPUT_DOCKERTAGS: ${{ inputs.dockerTags }}
         INPUT_CPUCOUNT: ${{ inputs.cpuCount }}
         INPUT_MEMORYMB: ${{ inputs.memoryMB }}
-      run: bun run src/index.ts
+      run: bun run ${{ github.action_path }}/src/index.ts
