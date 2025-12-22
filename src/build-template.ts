@@ -81,6 +81,8 @@ async function buildAlias({
     'utf-8'
   )
 
+  core.info(`Dockerfile contents: ${dockerfile}`)
+
   const template = Template()
     .fromDockerfile(dockerfile)
     .setStartCmd('sleep infinity', waitForFile('/home/user/app/package.json'))
