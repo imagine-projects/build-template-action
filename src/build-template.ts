@@ -87,12 +87,6 @@ async function buildAlias({
 }) {
   core.info(`Building alias: ${alias}`)
 
-  const dockerfilePath = `${workspacePath}/Dockerfile`
-  const dockerfile = fs.readFileSync(dockerfilePath, 'utf-8')
-
-  core.info(`Dockerfile path: ${dockerfilePath}`)
-  core.info(`Dockerfile contents: ${dockerfile}`)
-
   const template = Template({
     fileContextPath: workspacePath
   })
