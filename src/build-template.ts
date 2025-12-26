@@ -91,14 +91,11 @@ async function buildAlias({
   })
     .skipCache()
     .fromImage(dockerTag)
-    .setWorkdir('/home/user/app')
     .setEnvs({
       PROJECT_ROOT: '/home/user/app'
     })
-    .setStartCmd(
-      'pm2 start /home/user/utils/ecosystem.config.json',
-      waitForPort(9123)
-    )
+    .setWorkdir('/home/user/utils')
+    .setStartCmd('pm2 start ecosystem.config.json', waitForPort(9123))
 
   const buildInfo = await Template.build(template, {
     alias,
