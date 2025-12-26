@@ -2,7 +2,7 @@ import {
   BuildInfo,
   defaultBuildLogger,
   Template,
-  waitForFile
+  waitForPort
 } from '@e2b/code-interpreter'
 import * as core from '@actions/core'
 
@@ -97,7 +97,7 @@ async function buildAlias({
     })
     .setStartCmd(
       'pm2 start /home/user/utils/ecosystem.config.json',
-      waitForFile('/home/user/app/package.json')
+      waitForPort(9123)
     )
 
   const buildInfo = await Template.build(template, {
