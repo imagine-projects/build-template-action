@@ -2,11 +2,9 @@ import {
   BuildInfo,
   defaultBuildLogger,
   Template,
-  waitForFile,
-  waitForTimeout
+  waitForFile
 } from '@e2b/code-interpreter'
 import * as core from '@actions/core'
-import * as fs from 'fs'
 
 export async function buildTemplates({
   dockerTags,
@@ -94,7 +92,13 @@ async function buildAlias({
     .skipCache()
     .fromImage(dockerTag)
     .setWorkdir('/home/user/app')
-    .setStartCmd('sleep infinity', waitForFile('/home/user/app/package.json'))
+    .setEnvs({
+      PROJECT_ROOT: '/home/user/app'
+    })
+    .setStartCmd(
+      'pm2 start /home/user/utils/ecosystem.config.json',
+      waitForFile('/home/user/app/package.json')
+    )
 
   const buildInfo = await Template.build(template, {
     alias,
